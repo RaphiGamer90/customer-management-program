@@ -1,0 +1,37 @@
+.combo-box .list-cell 
+{
+    -fx-background-color: #292b2a;
+    -fx-text-fill: lightgrey;
+}
+
+.combo-box-popup .list-view 
+{
+    -fx-background-color: grey;
+}    
+
+.combo-box-popup .list-view .list-cell 
+{
+    -fx-background-color: #292b2a;
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover 
+{
+    -fx-background-color: #e6e6df;
+    -fx-text-fill: lightgrey;
+}
+
+.combo-box-base  
+{
+    -fx-background-color: #292b2a;
+}
+
+.combo-box-base:hover
+{
+    -fx-background-color: grey;
+}
+
+.combo-box-base:showing 
+{
+    -fx-background-color: grey;
+}
+

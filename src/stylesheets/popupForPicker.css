@@ -1,0 +1,7 @@
+.date-picker-popup .calendar-grid {
+    -fx-pref-width: 350.0;
+    -fx-pref-height: 200.0;
+}
+.date-picker-popup .spinner-label {
+    -fx-font-size: 12.0;
+}
