@@ -19,16 +19,15 @@ public class ValuesFromDatabase {
 	
 	String query = "select * from customers";
 	
-	
 	public void initialiseAllLists() {
 		firstNamesFromDatabase();
 		lastNamesFromDatabase();
 		birthdayFromDatabase();
 		emailFromDatabase();
-		genderFromDatabase();
 		telNrFromDatabase();
 		degreesFromDatabase();
 		meetingDaysFromDatabase();
+		genderFromDatabase();
 	}
 	
 	/*

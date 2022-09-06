@@ -12,7 +12,7 @@ public class LoadEmails {
 		emails.emailFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadetEmails() {
+	public ArrayList<String> getLoadedEmails() {
 		return emails.getEmailsFromDatabase();
 	}
 	

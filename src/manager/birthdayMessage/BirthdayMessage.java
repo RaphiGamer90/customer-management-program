@@ -51,66 +51,66 @@ public class BirthdayMessage {
 				if(birthday.equals("000")) {
 					return;	
 				}
-				else {
-					//Checking if the Data of the Customer contains the todays Date AND the e-mail is a real e-mail
-					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
-						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
-							if(checker.isValidEmail(email) && gender.equals("Herr")) {
-								
-								String message = "Lieber " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!" 
-										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
-								
-								birthdayEmailList.add(email);
-								birthdayMessage.add(message);
-								isBirthday = true;	
-							}
-						}
-					}
-
-
-					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
-						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
-							if(checker.isValidEmail(email) && gender.equals("Frau")) {
-								
-								String message = "Liebe " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
-										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
-									
-
-								birthdayEmailList.add(email);
-								birthdayMessage.add(message);
-								isBirthday = true;			
-							}
-						}
-					}
-					
-					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
-						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
-							if(checker.isValidEmail(email) && gender.equals("Divers")) {
-								
-								String message = "Liebe/r " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
-										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
-									
-								birthdayEmailList.add(email);
-								birthdayMessage.add(message);
-								isBirthday = true;
-							}
-						}
-					}
-					
-					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
-						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
-							if(checker.isValidEmail(email) && gender.equals("Unknown")) {
-								
-								String message = "Liebe/r " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
-										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
-									
-								birthdayEmailList.add(email);
-								birthdayMessage.add(message);
-								isBirthday = true;
-							}
-						}
-					}
-				}
+//				else {
+//					//Checking if the Data of the Customer contains the todays Date AND the e-mail is a real e-mail
+//					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
+//						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
+//							if(checker.isValidEmail(email) && gender.equals("Herr")) {
+//								
+//								String message = "Lieber " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!" 
+//										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
+//								
+//								birthdayEmailList.add(email);
+//								birthdayMessage.add(message);
+//								isBirthday = true;	
+//							}
+//						}
+//					}
+//
+//
+//					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
+//						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
+//							if(checker.isValidEmail(email) && gender.equals("Frau")) {
+//								
+//								String message = "Liebe " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
+//										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
+//									
+//
+//								birthdayEmailList.add(email);
+//								birthdayMessage.add(message);
+//								isBirthday = true;			
+//							}
+//						}
+//					}
+//					
+//					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
+//						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
+//							if(checker.isValidEmail(email) && gender.equals("Divers")) {
+//								
+//								String message = "Liebe/r " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
+//										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
+//									
+//								birthdayEmailList.add(email);
+//								birthdayMessage.add(message);
+//								isBirthday = true;
+//							}
+//						}
+//					}
+//					
+//					if(checker.isDateWithoutYear(birthday) || checker.isDateWithYear(birthday)) {
+//						if(birthday.equals(formatter1.format(date)) || birthday.equals(formatter2.format(date))) {
+//							if(checker.isValidEmail(email) && gender.equals("Unknown")) {
+//								
+//								String message = "Liebe/r " + firstName + " " + lastName + "," + " \n\n" + "Ich wünsche dir alles Gute zu deinem Geburtstag!"
+//										+ " \n\n" + "Liebe Grüße," + " \n" + "Frau Mag. Gabriela Zangl-Gottwald!";
+//									
+//								birthdayEmailList.add(email);
+//								birthdayMessage.add(message);
+//								isBirthday = true;
+//							}
+//						}
+//					}
+//				}
 			}
 			if (isBirthday == false) {
 				String message = "Es hat heute niemand GEBURTSTAG!\nSchau ein anderes Mal wieder vorbei!\nLG ihr EntwicklerTeam!";

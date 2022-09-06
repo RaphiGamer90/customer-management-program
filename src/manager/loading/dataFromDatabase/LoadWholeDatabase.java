@@ -5,8 +5,8 @@ import database.ValuesFromDatabase;
 public class LoadWholeDatabase {
 
 	ValuesFromDatabase wholeDatabase = new ValuesFromDatabase();
-
-	public LoadWholeDatabase() {
+	
+	public void loadWholeDatabase() {
 		wholeDatabase.initialiseAllLists();
 	}
 	

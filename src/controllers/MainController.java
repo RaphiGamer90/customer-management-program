@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 import manager.birthdayMessage.BirthdayMessage;
 import manager.checking.Checker;
 import controllers.actions.AddCustomer;
+import controllers.actions.EditColumn;
 import controllers.actions.AddCustomer;
 import database.ConnectionToDatabase;
 import database.DeleteFromDatabase;
@@ -65,6 +66,8 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import controllers.listener.DatePickerListener;
 import manager.loading.dataFromDatabase.LoadEmails;
+import manager.loading.dataFromDatabase.LoadWholeDatabase;
+import manager.loading.tableView.LoadWholeTableView;
 import controllers.listener.DatePickerListener;
 import manager.models.TableModel;
 import manager.sendEmail.SendingEmail;
@@ -212,7 +215,6 @@ public class MainController implements Initializable {
 	
 	//Variablen 
 	ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
-	FilteredList<TableModel> filteredData = new FilteredList<>(searchModelObservableList, b -> true);
 	
 	String birthdayFieldValue, meetingDayValue;
 	
@@ -376,171 +378,118 @@ public class MainController implements Initializable {
 	
 	//Ladet Daten, die in die Tabelle eingetragen werden
 	public void loadData() {
-		searchModelObservableList.clear();
-		valuesFromDatabase = new ValuesFromDatabase();
-		String query = "SELECT * From customers";
-		try {
-			
-			ResultSet queryOutput = ConnectionToDatabase.preparedStatement(query).executeQuery();
-			while (queryOutput.next()) {
-
-				String firstName = queryOutput.getString("Vorname");
-				String lastName = queryOutput.getString("Nachname");
-				String birthday = queryOutput.getString("Geburtstag");
-				String email = queryOutput.getString("Email");
-				String telephonenumber = queryOutput.getString("Telefonnummer");
-				String titel = queryOutput.getString("Titel");
-				String orderDate = queryOutput.getString("AuftragDatum");
-				String gender = queryOutput.getString("Geschlecht");
-
-				searchModelObservableList.add(new TableModel(firstName, lastName, birthday, email, telephonenumber, titel, orderDate, gender));
-			}
-			
-			firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-			lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-			birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-			emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-			telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-			titleColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-			orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-			genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-			
-			firstNameColumn.setCellFactory(cellFactoryForMap);
-			lastNameColumn.setCellFactory(cellFactoryForMap);
-			birthdayColumn.setCellFactory(cellFactoryForMap);
-			emailColumn.setCellFactory(cellFactoryForMap);
-			telephoneColumn.setCellFactory(cellFactoryForMap);
-			titleColumn.setCellFactory(cellFactoryForMap);
-			orderDateColumn.setCellFactory(cellFactoryForMap);
-			genderColumn.setCellFactory(cellFactoryForMap);
-
-			tableView.setItems(searchModelObservableList);
-			searchFilter();
-			setBirthdayAreaContent();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		searchModelObservableList.clear();
+//		valuesFromDatabase = new ValuesFromDatabase();
+		LoadWholeDatabase loadDatabase = new LoadWholeDatabase();
+		loadDatabase.loadWholeDatabase();
+		LoadWholeTableView loadTableView = new LoadWholeTableView();
+		loadTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn, searchModelObservableList);
+		
+//			searchFilter();
+//			setBirthdayAreaContent();
 	}
 	
 	
 	//Suchfilter für Daten aus der Tabelle
 	public void searchFilter() {
-		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-			filteredData.setPredicate(searchModel -> {
-				if(newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-					return true;
-				}
-				String searchKeyword = newValue.toLowerCase();
-				
-				if(searchFor.getValue() == null || searchFor.getValue() == "Alle") {
-					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}	
-					else if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					else if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					
-				}
-				else if(searchFor.getValue().equals("Vorname")) {
-					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Nachname")) {
-					if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Geburtstag")) {
-					if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("E-Mail")) {
-					if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Telefonnummer")) {
-					if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Titel")) {
-					if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Auftrag Datum")) {
-					if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				else if(searchFor.getValue().equals("Geschlecht")) {
-					if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				}
-				
-				return false;
-				
-			});
-			
-			searchFieldOutput.setText(tableView.getItems().size() + "");
-		});
+//		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+//			filteredData.setPredicate(searchModel -> {
+//				if(newValue.isEmpty() || newValue.isBlank() || newValue == null) {
+//					return true;
+//				}
+//				String searchKeyword = newValue.toLowerCase();
+//				
+//				if(searchFor.getValue() == null || searchFor.getValue() == "Alle") {
+//					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}	
+//					else if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					else if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					
+//				}
+//				else if(searchFor.getValue().equals("Vorname")) {
+//					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Nachname")) {
+//					if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Geburtstag")) {
+//					if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("E-Mail")) {
+//					if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Telefonnummer")) {
+//					if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Titel")) {
+//					if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Auftrag Datum")) {
+//					if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				else if(searchFor.getValue().equals("Geschlecht")) {
+//					if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
+//						return true;
+//					}
+//					return false;
+//				}
+//				
+//				return false;
+//				
+//			});
+//			
+//			searchFieldOutput.setText(tableView.getItems().size() + "");
+//		});
 		
-		SortedList<TableModel> sortedData = new SortedList<>(filteredData);
-		
-		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-		
-		tableView.setItems(sortedData);
+//		SortedList<TableModel> sortedData = new SortedList<>(filteredData);
+//		
+//		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+//		
+//		tableView.setItems(sortedData);
 		
 	}
 	
-	//Cellstruktur 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public Callback<TableColumn<TableModel, String>, TableCell<TableModel, String>> cellFactoryForMap = (TableColumn<TableModel, String> p) -> new TextFieldTableCell(new StringConverter<String>() {
-		@Override
-		public String toString(String t) {
-			try {
-				return t.toString();
-			} catch (NullPointerException e) {
-				System.out.println("Kein Wert gegeben!");
-			}
-			return null;
-		}
-		
-		@Override
-		public String fromString(String string) {
-			return string;
-		}
-	});
 	
 	
 	//Neue Person anlegen
@@ -572,18 +521,14 @@ public class MainController implements Initializable {
 	/*
 	 * Hiermit können die Zellen unabhängig voneinader bearbeitet werden
 	 * */
+	EditColumn editColumns = new EditColumn();
 	public void firstNameColumnEdit(CellEditEvent<TableModel, String> event) {
-		TableModel value = event.getRowValue();
-		putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
-		
-		System.out.println(event.getRowValue().toString());
-		System.out.println(event.getTableView());
-		System.out.println(event.getTarget());
-		System.out.println(event.getTablePosition().getRow());
+		editColumns.editFirstNameColumn(event);
+		loadData();
 	}
 
 	public void lastNameColumnEdit(CellEditEvent<TableModel, String> event) {
-
+		
 	}
 
 	public void birthdayColumnEdit(CellEditEvent<TableModel, String> event) {

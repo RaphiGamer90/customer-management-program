@@ -10,20 +10,19 @@ import manager.loading.dataFromDatabase.LoadEmails;
 public class PutInDatabase {
 
 	String queryLookThrough = "select * from customers";
-	LoadEmails loadetEmails = new LoadEmails();
+	LoadEmails loadedEmails = new LoadEmails();
 	
 	//Es werden die Werte, die in die Felder auf der GUI eingtragen werden, in die Datenbank hinzugefügt
-	public void putInDatabase(String firstName, String lastName, String birthday, String email, String telNr, String title, String orderDate, String gender) {
+	public void putInDatabase(String firstName, String lastName, String birthday, String email, String telNr, String degree, String meetingDay, String gender) {
 				
 		try {
 			ConnectionToDatabase.preparedStatement(queryLookThrough).executeQuery();
 		
-			if(!loadetEmails.getLoadetEmails().contains(email)) {
-				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + title + "','" + orderDate + "','" + gender + "');";
+			if(!loadedEmails.getLoadedEmails().contains(email) || email.trim() == "") {
+				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
 				
 				PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    
 				statementToPutIn.executeUpdate(); 
-				
 			}					
 				
 		} catch (SQLException e) {

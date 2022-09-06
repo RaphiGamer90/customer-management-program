@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import manager.checking.Checker;
+import manager.checking.CustomerDataChecker;
 import database.PutInDatabase;
 import database.ValuesFromDatabase;
 import javafx.scene.control.ComboBox;
@@ -16,11 +17,13 @@ import manager.loading.dataFromDatabase.LoadTelNrs;
 
 public class AddCustomer {
 	
-	Checker checker = new Checker();
-	HashMap<String, String> errorMap = new HashMap<>();
+	private CustomerDataChecker customerDataChecker = new CustomerDataChecker();
+	private HashMap<String, String> errorMap = new HashMap<>();
 	
+	/*SET ALL THE CUSTOMER DATA*/
 	public void setCustomerInDatabase(TextField firstNameField, TextField lastNameField, TextField emailField, String birthdayField, TextField telNrField, 
 			TextField degreeField, String meetingDayField, ComboBox<String> genderBox, TextArea errorArea) {
+		
 		String firstName = setFirstName(firstNameField);
 		String lastName = setLastName(lastNameField);
 		String birthday = setBirthday(birthdayField);
@@ -43,15 +46,12 @@ public class AddCustomer {
 			addCustomer.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
 		}
 	}
+			
 	
 	
-	
-	
-	
+	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
 	private String setFirstName(TextField firstNameField) {
-		if(firstNameField.getText().isEmpty() 
-				|| !checker.isString(firstNameField.getText()) 
-				|| !checker.isFirstLetterUpperCase(firstNameField.getText())) {
+		if(!customerDataChecker.isFirstName(firstNameField.getText())) {
 			return errorMap.put("firstNameErrorMessage", "Das ist kein Vorname!\n");
 		}
 //		System.out.println(firstNameField.getText());
@@ -59,9 +59,7 @@ public class AddCustomer {
 	}
 	
 	private String setLastName(TextField lastNameField) {
-		if(lastNameField.getText().isEmpty() 
-				|| !checker.isString(lastNameField.getText()) 
-				|| !checker.isFirstLetterUpperCase(lastNameField.getText())) {
+		if(!customerDataChecker.isLastName(lastNameField.getText())) {
 			return errorMap.put("lastNameErrorMessage", "Das ist kein Nachname!\n");
 		}
 //		System.out.println(lastNameField.getText());
@@ -69,7 +67,7 @@ public class AddCustomer {
 	}
 	
 	private String setBirthday(String birthdayField) {
-		if(birthdayField.isEmpty() || !checker.isDateWithoutYear(birthdayField) || !checker.isDateWithYear(birthdayField)) {
+		if(!customerDataChecker.isBirthday(birthdayField.trim())) {
 			return errorMap.put("birthdayErrorMessage", "Das ist kein Geburtstag!\n");
 		}
 //		System.out.println(birthdayField);
@@ -78,10 +76,10 @@ public class AddCustomer {
 	
 	private String setEmail(TextField emailField) {
 		LoadEmails loadEmails = new LoadEmails();
-		if(emailField.getText().isEmpty() || !checker.isValidEmail(emailField.getText())) {
+		if(!customerDataChecker.isEmail(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Das ist keine E-Mail!\n");
 		}
-		else if(loadEmails.getLoadetEmails().contains(emailField.getText())) {
+		else if(loadEmails.getLoadedEmails().contains(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Diese E-Mail existiert bereits!\n");
 		}
 //		System.out.println(emailField.getText());
@@ -90,7 +88,7 @@ public class AddCustomer {
 	
 	private String setTelNr(TextField telNrField) {
 		LoadTelNrs loadTelNrs = new LoadTelNrs();
-		if(telNrField.getText().isEmpty() || !checker.isValidTelephonenumberWithoutPlus(telNrField.getText()) || !checker.isValidTelephonenumberWithPlus(telNrField.getText())) {
+		if(!customerDataChecker.isTelNr(telNrField.getText())) {
 			return errorMap.put("telNrErrorMessage", "Das ist keine Telefonnummer!\n");
 		}
 		else if(loadTelNrs.getLoadetTelNrs().contains(telNrField.getText())) {
@@ -101,7 +99,7 @@ public class AddCustomer {
 	}
 	
 	private String setDegree(TextField degreeField) {
-		if(degreeField.getText().isEmpty()) {
+		if(!customerDataChecker.isDegree(degreeField.getText())) {
 			return errorMap.put("degreeErrorMessage", "Das ist kein Titel!\n");
 		}
 //		System.out.println(degreeField.getText());
@@ -109,7 +107,7 @@ public class AddCustomer {
 	}
 	
 	private String setMeetDay(String meetingDayField) {
-		if(meetingDayField.isEmpty() || !checker.isDateWithoutYear(meetingDayField) || !checker.isDateWithYear(meetingDayField)) {
+		if(!customerDataChecker.isBirthday(meetingDayField.trim())) {
 			return errorMap.put("meetingDayErrorMessage", "Das ist kein Datum!\n");
 		}
 //		System.out.println(meetingDayField);
@@ -117,7 +115,7 @@ public class AddCustomer {
 	}
 	
 	private String setGender(ComboBox<String> genderBox) {
-		if(genderBox.getSelectionModel().isEmpty() || !checker.isValidGender(genderBox.getValue())) {
+		if(!customerDataChecker.isGender(genderBox.getValue())) {
 			return errorMap.put("genderErrorMessage", "Das ist kein passendes Geschlecht!\n");
 		}
 //		System.out.println(genderBox.getValue().toString() + " " + genderBox.getSelectionModel().getSelectedItem());
