@@ -5,15 +5,9 @@ import java.util.ArrayList;
 import database.ValuesFromDatabase;
 
 public class LoadEmails {
- 
-	ValuesFromDatabase emails = new ValuesFromDatabase();
 	
-	public LoadEmails() {
+	public LoadEmails(ValuesFromDatabase emails) {
 		emails.emailFromDatabase();
-	}
-	
-	public ArrayList<String> getLoadedEmails() {
-		return emails.getEmailsFromDatabase();
 	}
 	
 }

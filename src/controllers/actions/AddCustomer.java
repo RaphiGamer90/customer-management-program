@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import manager.checking.Checker;
 import manager.checking.CustomerDataChecker;
+import manager.data.DataManager;
 import database.PutInDatabase;
 import database.ValuesFromDatabase;
 import javafx.scene.control.ComboBox;
@@ -19,6 +20,7 @@ public class AddCustomer {
 	
 	private CustomerDataChecker customerDataChecker = new CustomerDataChecker();
 	private HashMap<String, String> errorMap = new HashMap<>();
+	DataManager dataManager = new DataManager();
 	
 	/*SET ALL THE CUSTOMER DATA*/
 	public void setCustomerInDatabase(TextField firstNameField, TextField lastNameField, TextField emailField, String birthdayField, TextField telNrField, 
@@ -54,7 +56,6 @@ public class AddCustomer {
 		if(!customerDataChecker.isFirstName(firstNameField.getText())) {
 			return errorMap.put("firstNameErrorMessage", "Das ist kein Vorname!\n");
 		}
-//		System.out.println(firstNameField.getText());
 		return firstNameField.getText();
 	}
 	
@@ -62,7 +63,6 @@ public class AddCustomer {
 		if(!customerDataChecker.isLastName(lastNameField.getText())) {
 			return errorMap.put("lastNameErrorMessage", "Das ist kein Nachname!\n");
 		}
-//		System.out.println(lastNameField.getText());
 		return lastNameField.getText();
 	}
 	
@@ -70,31 +70,26 @@ public class AddCustomer {
 		if(!customerDataChecker.isBirthday(birthdayField.trim())) {
 			return errorMap.put("birthdayErrorMessage", "Das ist kein Geburtstag!\n");
 		}
-//		System.out.println(birthdayField);
 		return birthdayField;
 	}
 	
 	private String setEmail(TextField emailField) {
-		LoadEmails loadEmails = new LoadEmails();
 		if(!customerDataChecker.isEmail(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Das ist keine E-Mail!\n");
 		}
-		else if(loadEmails.getLoadedEmails().contains(emailField.getText())) {
+		else if(dataManager.getEmails().contains(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Diese E-Mail existiert bereits!\n");
 		}
-//		System.out.println(emailField.getText());
 		return emailField.getText();
 	}
 	
 	private String setTelNr(TextField telNrField) {
-		LoadTelNrs loadTelNrs = new LoadTelNrs();
 		if(!customerDataChecker.isTelNr(telNrField.getText())) {
 			return errorMap.put("telNrErrorMessage", "Das ist keine Telefonnummer!\n");
 		}
-		else if(loadTelNrs.getLoadetTelNrs().contains(telNrField.getText())) {
+		else if(dataManager.getTelNrs().contains(telNrField.getText())) {
 			return errorMap.put("telNrErrorMessage", "Diese Telefonnummer existiert bereits!\n");
 		}
-//		System.out.println(telNrField.getText());
 		return telNrField.getText();
 	}
 	
@@ -102,7 +97,6 @@ public class AddCustomer {
 		if(!customerDataChecker.isDegree(degreeField.getText())) {
 			return errorMap.put("degreeErrorMessage", "Das ist kein Titel!\n");
 		}
-//		System.out.println(degreeField.getText());
 		return degreeField.getText();
 	}
 	
@@ -110,7 +104,6 @@ public class AddCustomer {
 		if(!customerDataChecker.isBirthday(meetingDayField.trim())) {
 			return errorMap.put("meetingDayErrorMessage", "Das ist kein Datum!\n");
 		}
-//		System.out.println(meetingDayField);
 		return meetingDayField;
 	}
 	
@@ -118,7 +111,6 @@ public class AddCustomer {
 		if(!customerDataChecker.isGender(genderBox.getValue())) {
 			return errorMap.put("genderErrorMessage", "Das ist kein passendes Geschlecht!\n");
 		}
-//		System.out.println(genderBox.getValue().toString() + " " + genderBox.getSelectionModel().getSelectedItem());
 		return genderBox.getValue();
 	}
 		

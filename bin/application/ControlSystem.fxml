@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="root" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.MainController">
+<TabPane fx:id="root" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllers.MainController">
   <tabs>
     <Tab fx:id="verwaltungstab" text="Verwaltung">
          <content>
@@ -120,8 +120,8 @@
                         <TableColumn fx:id="birthdayColumn" onEditCommit="#birthdayColumnEdit" prefWidth="178.0" text="Geburtstag" />
                         <TableColumn fx:id="emailColumn" onEditCommit="#emailColumnEdit" prefWidth="217.0" text="Email" />
                         <TableColumn fx:id="telephoneColumn" onEditCommit="#telephoneColumnEdit" prefWidth="225.0" text="Telefonnummer" />
-                        <TableColumn fx:id="titleColumn" onEditCommit="#titleColumnEdit" prefWidth="166.0" text="Titel" />
-                        <TableColumn fx:id="orderDateColumn" onEditCommit="#orderDateColumnEdit" prefWidth="181.0" text="AuftragDatum" />
+                        <TableColumn fx:id="titleColumn" onEditCommit="#degreeColumnEdit" prefWidth="166.0" text="Titel" />
+                        <TableColumn fx:id="orderDateColumn" onEditCommit="#meetingDayColumnEdit" prefWidth="181.0" text="AuftragDatum" />
                         <TableColumn fx:id="genderColumn" onEditCommit="#genderColumnEdit" prefWidth="137.0" text="Geschlecht" />
                     </columns>
                   </TableView>

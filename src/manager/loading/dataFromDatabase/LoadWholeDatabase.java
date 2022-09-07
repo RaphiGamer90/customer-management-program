@@ -3,10 +3,8 @@ package manager.loading.dataFromDatabase;
 import database.ValuesFromDatabase;
 
 public class LoadWholeDatabase {
-
-	ValuesFromDatabase wholeDatabase = new ValuesFromDatabase();
 	
-	public void loadWholeDatabase() {
+	public void loadWholeDatabase(ValuesFromDatabase wholeDatabase) {
 		wholeDatabase.initialiseAllLists();
 	}
 	

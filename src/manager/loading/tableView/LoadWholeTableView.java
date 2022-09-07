@@ -18,8 +18,10 @@ public class LoadWholeTableView {
 
 	public void loadWholeTableView(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
 			TableColumn<TableModel, String> birthdayColumn, TableColumn<TableModel, String> emailColumn, TableColumn<TableModel, String> telephoneColumn,
-			TableColumn<TableModel, String> titleColumn, TableColumn<TableModel, String> orderDateColumn, TableColumn<TableModel, String> genderColumn, 
+			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, 
 			ObservableList<TableModel> searchModelObservableList) {
+		
+		searchModelObservableList.clear();
 		
 		String query = "SELECT * From customers";
 		try {
@@ -48,8 +50,8 @@ public class LoadWholeTableView {
 		birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
 		emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
 		telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		titleColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		orderDateColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
+		degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
+		meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
 		genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 		
 		firstNameColumn.setCellFactory(cellFactory.cellFactoryForMap);
@@ -57,8 +59,8 @@ public class LoadWholeTableView {
 		birthdayColumn.setCellFactory(cellFactory.cellFactoryForMap);
 		emailColumn.setCellFactory(cellFactory.cellFactoryForMap);
 		telephoneColumn.setCellFactory(cellFactory.cellFactoryForMap);
-		titleColumn.setCellFactory(cellFactory.cellFactoryForMap);
-		orderDateColumn.setCellFactory(cellFactory.cellFactoryForMap);
+		degreeColumn.setCellFactory(cellFactory.cellFactoryForMap);
+		meetingDayColumn.setCellFactory(cellFactory.cellFactoryForMap);
 		genderColumn.setCellFactory(cellFactory.cellFactoryForMap);
 
 		tableView.setItems(searchModelObservableList);

@@ -35,7 +35,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> firstNamesFromDatabase() {
-		
+		firstNamesFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -55,7 +55,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> lastNamesFromDatabase() {
-
+		lastNamesFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -76,7 +76,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> birthdayFromDatabase() {
-
+		birthdaysFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -97,7 +97,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> emailFromDatabase() {
-		
+		emailsFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -117,7 +117,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> telNrFromDatabase() {
-		
+		telNrFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -136,7 +136,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> degreesFromDatabase() {
-		
+		degreeFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -155,7 +155,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> meetingDaysFromDatabase() {
-		
+		meetDaysFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -175,7 +175,7 @@ public class ValuesFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> genderFromDatabase() {
-		
+		gendersFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
@@ -191,7 +191,8 @@ public class ValuesFromDatabase {
 	}
 
 
-
+	
+	/*DAS SIND GETTER*/
 	public ArrayList<String> getFirstNamesFromDatabase() {
 		return firstNamesFromDatabase;
 	}
@@ -216,6 +217,5 @@ public class ValuesFromDatabase {
 	public ArrayList<String> getGendersFromDatabase() {
 		return gendersFromDatabase;
 	}
-	
 }
 

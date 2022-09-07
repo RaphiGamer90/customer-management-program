@@ -380,10 +380,11 @@ public class MainController implements Initializable {
 	public void loadData() {
 //		searchModelObservableList.clear();
 //		valuesFromDatabase = new ValuesFromDatabase();
-		LoadWholeDatabase loadDatabase = new LoadWholeDatabase();
-		loadDatabase.loadWholeDatabase();
-		LoadWholeTableView loadTableView = new LoadWholeTableView();
-		loadTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn, searchModelObservableList);
+//		LoadWholeDatabase loadDatabase = new LoadWholeDatabase();
+//		loadDatabase.loadWholeDatabase();
+
+		LoadWholeTableView loadWholeTableView = new LoadWholeTableView();
+		loadWholeTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, birthdayColumn, genderColumn, searchModelObservableList);
 		
 //			searchFilter();
 //			setBirthdayAreaContent();
@@ -528,27 +529,32 @@ public class MainController implements Initializable {
 	}
 
 	public void lastNameColumnEdit(CellEditEvent<TableModel, String> event) {
-		
+		editColumns.editLastNameColumn(event);
+		loadData();
 	}
 
 	public void birthdayColumnEdit(CellEditEvent<TableModel, String> event) {
-		
+		editColumns.editBirthdayColumn(event);
+		loadData();
 	}
 
 	public void emailColumnEdit(CellEditEvent<TableModel, String> event) {
-	
+		editColumns.editEmailColumn(event);
+		loadData();
 	}
 
 	public void telephoneColumnEdit(CellEditEvent<TableModel, String> event) {
-		
+		editColumns.editTelNr(event);
+		loadData();
 	}
 
-	public void titleColumnEdit(CellEditEvent<TableModel, String> event) {
-		
+	public void degreeColumnEdit(CellEditEvent<TableModel, String> event) {
+		editColumns.editDegree(event);
+		loadData();
 	}
 
-	public void orderDateColumnEdit(CellEditEvent<TableModel, String> event) {
-	
+	public void meetingDayColumnEdit(CellEditEvent<TableModel, String> event) {
+		
 	}
 
 	public void genderColumnEdit(CellEditEvent<TableModel, String> event) {
@@ -569,8 +575,8 @@ public class MainController implements Initializable {
 		lastNameField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Geburtstag
 		birthdayLabel.setStyle("-fx-text-fill: #e8e8df;");
-		birthdayPicker.getStylesheets().add(getClass().getResource("/cssfiles/picker.css").toExternalForm());
-		birthdayPicker.getStylesheets().add(getClass().getResource("/cssfiles/popupForPicker.css").toExternalForm());
+		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/picker.css").toExternalForm());
+		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/popupForPicker.css").toExternalForm());
 		//E-Mail
 		emailLabel.setStyle("-fx-text-fill: #e8e8df;");
 		emailField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");

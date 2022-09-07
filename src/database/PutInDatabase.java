@@ -4,13 +4,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import manager.data.DataManager;
 import manager.loading.dataFromDatabase.LoadEmails;
 
 
 public class PutInDatabase {
 
 	String queryLookThrough = "select * from customers";
-	LoadEmails loadedEmails = new LoadEmails();
+	DataManager dataManager = new DataManager();
 	
 	//Es werden die Werte, die in die Felder auf der GUI eingtragen werden, in die Datenbank hinzugefügt
 	public void putInDatabase(String firstName, String lastName, String birthday, String email, String telNr, String degree, String meetingDay, String gender) {
@@ -18,7 +19,7 @@ public class PutInDatabase {
 		try {
 			ConnectionToDatabase.preparedStatement(queryLookThrough).executeQuery();
 		
-			if(!loadedEmails.getLoadedEmails().contains(email) || email.trim() == "") {
+			if(!dataManager.getEmails().contains(email) || email.trim() == "") {
 				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
 				
 				PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    
