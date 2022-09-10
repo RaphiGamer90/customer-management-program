@@ -43,7 +43,8 @@ public class Main extends Application {
 			    }
 			});
 			Parent root = FXMLLoader.load(getClass().getResource("ControlSystem.fxml"));
-			//primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/ZanglIcon.png")));
+			primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/ZanglIcon.png")));
+			
 			System.out.println("Program wurde gestartet!");
 			
 			Scene scene = new Scene(root);

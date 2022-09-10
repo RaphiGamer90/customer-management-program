@@ -2,9 +2,9 @@ package manager.loading.dataFromDatabase;
 
 import database.ValuesFromDatabase;
 
-public class LoadLastNames {
+public interface LoadLastNames {
 	
-	public LoadLastNames(ValuesFromDatabase lastNames) {		
+	default public void loadlastnames(ValuesFromDatabase lastNames) {		
 		lastNames.lastNamesFromDatabase();
 	}
 }

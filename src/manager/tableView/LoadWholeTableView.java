@@ -1,15 +1,18 @@
-package manager.loading.tableView;
+package manager.tableView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import database.ConnectionToDatabase;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import manager.cellFactory.CellFactory;
+import manager.data.DataManager;
+import manager.loading.MainLoadingManager;
 import manager.models.TableModel;
 
 public class LoadWholeTableView {
@@ -18,32 +21,20 @@ public class LoadWholeTableView {
 
 	public void loadWholeTableView(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
 			TableColumn<TableModel, String> birthdayColumn, TableColumn<TableModel, String> emailColumn, TableColumn<TableModel, String> telephoneColumn,
-			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, 
-			ObservableList<TableModel> searchModelObservableList) {
+			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, ObservableList<TableModel> searchModelObservableList) {
 		
+		
+		
+		
+		DataManager dataManager = new DataManager();
+		searchModelObservableList = FXCollections.observableArrayList();
 		searchModelObservableList.clear();
-		
-		String query = "SELECT * From customers";
-		try {
-			
-			ResultSet queryOutput = ConnectionToDatabase.preparedStatement(query).executeQuery();
-			while (queryOutput.next()) {
-
-				String firstName = queryOutput.getString("Vorname");
-				String lastName = queryOutput.getString("Nachname");
-				String birthday = queryOutput.getString("Geburtstag");
-				String email = queryOutput.getString("Email");
-				String telephonenumber = queryOutput.getString("Telefonnummer");
-				String titel = queryOutput.getString("Titel");
-				String orderDate = queryOutput.getString("AuftragDatum");
-				String gender = queryOutput.getString("Geschlecht");
-
-				searchModelObservableList.add(new TableModel(firstName, lastName, birthday, email, telephonenumber, titel, orderDate, gender));
-			}
-		} catch (SQLException e) {
-			System.out.println("EIN SQL FEHLER WURDE GESCHMISSEN");
-			e.printStackTrace();
+		for(int i = 0; i < 5; i++) {
+			searchModelObservableList.add(new TableModel(dataManager.getFirstNames().get(i), dataManager.getLastNames().get(i), dataManager.getBirthdays().get(i), 
+					dataManager.getEmails().get(i), dataManager.getTelNrs().get(i), dataManager.getDegrees().get(i), dataManager.getMeetingDays().get(i), dataManager.getGenders().get(i)));			
 		}
+		
+	
 		
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
 		lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));

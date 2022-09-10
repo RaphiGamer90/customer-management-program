@@ -2,9 +2,9 @@ package manager.loading.dataFromDatabase;
 
 import database.ValuesFromDatabase;
 
-public class LoadGenders {
+public interface LoadGenders {
  
-	public LoadGenders(ValuesFromDatabase genders) {
-		genders.getGendersFromDatabase();
+	default public void loadgenders(ValuesFromDatabase genders) {
+		genders.genderFromDatabase();
 	}
 }

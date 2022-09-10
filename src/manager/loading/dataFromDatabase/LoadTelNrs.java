@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import database.ValuesFromDatabase;
 
-public class LoadTelNrs {
+public interface LoadTelNrs {
 	
-	public LoadTelNrs(ValuesFromDatabase telNrs) {		
+	default public void loadtelnrs(ValuesFromDatabase telNrs) {		
 		telNrs.telNrFromDatabase();
 	}
 }

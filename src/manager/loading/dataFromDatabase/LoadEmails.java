@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import database.ValuesFromDatabase;
 
-public class LoadEmails {
+public interface LoadEmails {
 	
-	public LoadEmails(ValuesFromDatabase emails) {
+	default public void loademails(ValuesFromDatabase emails) {
 		emails.emailFromDatabase();
 	}
 	

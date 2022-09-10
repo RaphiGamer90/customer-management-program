@@ -2,9 +2,9 @@ package manager.loading.dataFromDatabase;
 
 import database.ValuesFromDatabase;
 
-public class LoadDegrees {
+public interface LoadDegrees {
 
-	public LoadDegrees(ValuesFromDatabase degrees) {
+	default public void loaddegrees(ValuesFromDatabase degrees) {
 		degrees.degreesFromDatabase();
 	}
 }

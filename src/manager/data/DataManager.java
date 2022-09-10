@@ -23,6 +23,7 @@ public class DataManager {
 	
 	public ArrayList<String> getBirthdays() {
 		loadingManager.loadBirthdays(valuesFromDatabase);
+		System.out.println(valuesFromDatabase.getBirthdaysFromDatabase());
 		return valuesFromDatabase.getBirthdaysFromDatabase();
 	}
 	

@@ -15,6 +15,7 @@ import javax.imageio.ImageIO;
 
 
 import manager.birthdayMessage.BirthdayMessage;
+import manager.cellFactory.CellFactory;
 import manager.checking.Checker;
 import controllers.actions.AddCustomer;
 import controllers.actions.EditColumn;
@@ -65,12 +66,13 @@ import javafx.scene.text.Font;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import controllers.listener.DatePickerListener;
+import manager.loading.MainLoadingManager;
 import manager.loading.dataFromDatabase.LoadEmails;
 import manager.loading.dataFromDatabase.LoadWholeDatabase;
-import manager.loading.tableView.LoadWholeTableView;
 import controllers.listener.DatePickerListener;
 import manager.models.TableModel;
 import manager.sendEmail.SendingEmail;
+import manager.tableView.LoadWholeTableView;
 
 public class MainController implements Initializable {
 	
@@ -384,8 +386,7 @@ public class MainController implements Initializable {
 //		loadDatabase.loadWholeDatabase();
 
 		LoadWholeTableView loadWholeTableView = new LoadWholeTableView();
-		loadWholeTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, birthdayColumn, genderColumn, searchModelObservableList);
-		
+		loadWholeTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn, searchModelObservableList);
 //			searchFilter();
 //			setBirthdayAreaContent();
 	}

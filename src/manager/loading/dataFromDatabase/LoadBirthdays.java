@@ -2,9 +2,9 @@ package manager.loading.dataFromDatabase;
 
 import database.ValuesFromDatabase;
 
-public class LoadBirthdays {
+public interface LoadBirthdays {
 	
-	public LoadBirthdays(ValuesFromDatabase birthdays) {
+	default public void loadbirthdays(ValuesFromDatabase birthdays) {
 		birthdays.birthdayFromDatabase();
 	}
 }

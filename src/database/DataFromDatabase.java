@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 
 
-public class ValuesFromDatabase {
+public class DataFromDatabase {
 
 	ArrayList<String> firstNamesFromDatabase = new ArrayList<>();
 	ArrayList<String> lastNamesFromDatabase = new ArrayList<>();

@@ -19,12 +19,11 @@ public class EditColumn {
 	HashMap<String, String> errorMap = new HashMap<>();
 	PutInDatabase editValue = new PutInDatabase();
 	DataManager dataManage = new DataManager();
-	MainLoadingManager loadingManager = new MainLoadingManager();
 	
 	
 	public void editFirstNameColumn(CellEditEvent<TableModel, String> event) {
 		TableModel value = event.getRowValue();
-		
+		dataManage.getFirstNames();
 		if(!customerDataChecker.isFirstName(event.getNewValue())) {
 			errorMap.put("firstNameErrorMessage", "Das ist kein richtiger Vorname!");
 			return;
