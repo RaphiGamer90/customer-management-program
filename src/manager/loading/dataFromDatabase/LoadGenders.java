@@ -1,10 +1,10 @@
 package manager.loading.dataFromDatabase;
 
-import database.ValuesFromDatabase;
+import database.DataFromDatabase;
 
 public interface LoadGenders {
  
-	default public void loadgenders(ValuesFromDatabase genders) {
+	default public void loadgenders(DataFromDatabase genders) {
 		genders.genderFromDatabase();
 	}
 }

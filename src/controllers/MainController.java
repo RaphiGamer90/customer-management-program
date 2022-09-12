@@ -1,78 +1,53 @@
 package controllers;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.net.URL;
-import java.nio.file.Paths;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 
-
-import manager.birthdayMessage.BirthdayMessage;
-import manager.cellFactory.CellFactory;
-import manager.checking.Checker;
 import controllers.actions.AddCustomer;
 import controllers.actions.EditColumn;
-import controllers.actions.AddCustomer;
+import controllers.listener.DatePickerListener;
+import database.AboutDatabase;
 import database.ConnectionToDatabase;
+import database.DataFromDatabase;
 import database.DeleteFromDatabase;
 import database.PutInDatabase;
-import database.ValuesFromDatabase;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.effect.ColorAdjust;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.util.Callback;
-import javafx.util.StringConverter;
-import controllers.listener.DatePickerListener;
-import manager.loading.MainLoadingManager;
-import manager.loading.dataFromDatabase.LoadEmails;
-import manager.loading.dataFromDatabase.LoadWholeDatabase;
-import controllers.listener.DatePickerListener;
+import manager.birthdayMessage.BirthdayMessage;
+import manager.cellFactory.CellFactory;
+import manager.checking.Checker;
+import manager.data.DataManager;
+import manager.loading.tableView.LoadWholeTableView;
 import manager.models.TableModel;
 import manager.sendEmail.SendingEmail;
-import manager.tableView.LoadWholeTableView;
+
 
 public class MainController implements Initializable {
 	
@@ -217,12 +192,16 @@ public class MainController implements Initializable {
 	
 	//Variablen 
 	ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
+	AboutDatabase aboutDatabase = new AboutDatabase();
+	DataManager dataManager = new DataManager();
+	CellFactory cellFactory = new CellFactory();
+	
 	
 	String birthdayFieldValue, meetingDayValue;
 	
 	String firstNameForDatabase, lastNameForDatabase, birthdayForDatabase, emailForDatabase, telephoneForDatabase, titleForDatabase, orderDateForDatabase, genderForDatabase;
 	
-	ValuesFromDatabase valuesFromDatabase = new ValuesFromDatabase();
+	DataFromDatabase dataFromDatabase = new DataFromDatabase();
 	Checker checker = new Checker();
 	PutInDatabase putInDatabase = new PutInDatabase();
 	ColorAdjust colorAdjust = new ColorAdjust(); 
@@ -380,15 +359,9 @@ public class MainController implements Initializable {
 	
 	//Ladet Daten, die in die Tabelle eingetragen werden
 	public void loadData() {
-//		searchModelObservableList.clear();
-//		valuesFromDatabase = new ValuesFromDatabase();
-//		LoadWholeDatabase loadDatabase = new LoadWholeDatabase();
-//		loadDatabase.loadWholeDatabase();
-
-		LoadWholeTableView loadWholeTableView = new LoadWholeTableView();
-		loadWholeTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn, searchModelObservableList);
-//			searchFilter();
-//			setBirthdayAreaContent();
+		LoadWholeTableView loadTableView = new LoadWholeTableView();
+		loadTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn,
+				searchModelObservableList, aboutDatabase, dataManager, cellFactory);
 	}
 	
 	

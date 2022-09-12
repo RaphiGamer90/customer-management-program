@@ -17,7 +17,6 @@ public class DataFromDatabase {
 	ArrayList<String> meetDaysFromDatabase = new ArrayList<>();
 	ArrayList<String> gendersFromDatabase = new ArrayList<>();
 	
-	String query = "select * from customers";
 	
 	public void initialiseAllLists() {
 		firstNamesFromDatabase();
@@ -35,17 +34,19 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> firstNamesFromDatabase() {
+		String query = "SELECT Vorname FROM customers";		
 		firstNamesFromDatabase.clear();
+
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				firstNamesFromDatabase.add(result.getString("Vorname"));
+				firstNamesFromDatabase.add(result.getString(1));
 			}
 			return null;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return firstNamesFromDatabase;
 	}
 	
@@ -55,18 +56,19 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> lastNamesFromDatabase() {
+		String query = "SELECT Nachname FROM customers";
 		lastNamesFromDatabase.clear();
+
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				lastNamesFromDatabase.add(result.getString("Nachname"));
-				
+				lastNamesFromDatabase.add(result.getString(1));
 			}
 			return null;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return lastNamesFromDatabase;
 	}
 
@@ -76,12 +78,13 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> birthdayFromDatabase() {
+		String query = "SELECT Geburtstag FROM customers";
 		birthdaysFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
+			
 			while(result.next()) {
-				birthdaysFromDatabase.add(result.getString("Geburtstag"));
-				
+				birthdaysFromDatabase.add(result.getString(1));	
 			}
 			return null;
 
@@ -97,11 +100,12 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> emailFromDatabase() {
+		String query = "SELECT Email FROM customers";
 		emailsFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				emailsFromDatabase.add(result.getString("Email"));
+				emailsFromDatabase.add(result.getString(1));
 			}
 			return null;
 
@@ -117,11 +121,12 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> telNrFromDatabase() {
+		String query = "SELECT Telefonnummer FROM customers";
 		telNrFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				telNrFromDatabase.add(result.getString("Telefonnummer"));
+				telNrFromDatabase.add(result.getString(1));
 			}
 			return null;
 
@@ -136,11 +141,12 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> degreesFromDatabase() {
+		String query = "SELECT Titel FROM customers";
 		degreeFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				degreeFromDatabase.add(result.getString("Titel"));
+				degreeFromDatabase.add(result.getString(1));
 			}
 			return null;
 			
@@ -155,11 +161,12 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> meetingDaysFromDatabase() {
+		String query = "SELECT AuftragDatum FROM customers";
 		meetDaysFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				meetDaysFromDatabase.add(result.getString("AuftragDatum"));
+				meetDaysFromDatabase.add(result.getString(1));
 			}
 			return null;
 			
@@ -175,11 +182,12 @@ public class DataFromDatabase {
 	 * 
 	 * */
 	public ArrayList<String> genderFromDatabase() {
+		String query = "SELECT Geschlecht FROM customers";
 		gendersFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				gendersFromDatabase.add(result.getString("Geschlecht"));
+				gendersFromDatabase.add(result.getString(1));
 				
 			}
 			return null;

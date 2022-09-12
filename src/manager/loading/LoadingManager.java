@@ -1,6 +1,8 @@
 package manager.loading;
 
-import database.ValuesFromDatabase;
+import java.sql.SQLException;
+
+import database.DataFromDatabase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
@@ -17,42 +19,48 @@ import manager.loading.dataFromDatabase.LoadTelNrs;
 import manager.loading.dataFromDatabase.LoadWholeDatabase;
 import manager.models.TableModel;
 
-public class MainLoadingManager implements LoadFirstNames, LoadLastNames, LoadBirthdays, LoadEmails, LoadTelNrs, LoadDegrees, LoadMeetingDays, LoadGenders {
+public class LoadingManager implements LoadFirstNames, LoadLastNames, LoadBirthdays, LoadEmails, LoadTelNrs, LoadDegrees, LoadMeetingDays, LoadGenders {
 
-	public void loadFirstNames(ValuesFromDatabase valuesFromDatabase) {
+	public void loadFirstNames(DataFromDatabase valuesFromDatabase) {
 		loadfirstnames(valuesFromDatabase);
 	}
 	
-	public void loadLastNames(ValuesFromDatabase valuesFromDatabase) {
+	public void loadLastNames(DataFromDatabase valuesFromDatabase) {
 		loadlastnames(valuesFromDatabase);
 	}
 	
-	public void loadBirthdays(ValuesFromDatabase valuesFromDatabase) {
+	public void loadBirthdays(DataFromDatabase valuesFromDatabase) {
 		loadbirthdays(valuesFromDatabase);
 	}
 	
-	public void loadEmails(ValuesFromDatabase valuesFromDatabase) {
+	public void loadEmails(DataFromDatabase valuesFromDatabase) {
 		loademails(valuesFromDatabase);
 	}
 	
-	public void loadTelNrs(ValuesFromDatabase valuesFromDatabase) {
+	public void loadTelNrs(DataFromDatabase valuesFromDatabase) {
 		loadtelnrs(valuesFromDatabase);
 	}
 	
-	public void loadDegrees(ValuesFromDatabase valuesFromDatabase) {
+	public void loadDegrees(DataFromDatabase valuesFromDatabase) {
 		loaddegrees(valuesFromDatabase);
 	}
 	
-	public void loadMeetingDays(ValuesFromDatabase valuesFromDatabase) {
+	public void loadMeetingDays(DataFromDatabase valuesFromDatabase) {
 		loadmeetingdays(valuesFromDatabase);
 	}
 	
-	public void loadGenders(ValuesFromDatabase valuesFromDatabase) {
+	public void loadGenders(DataFromDatabase valuesFromDatabase) {
 		loadgenders(valuesFromDatabase);
 	}
 	
-	public void loadWholeDatabase(ValuesFromDatabase initAll) {
+	public void loadWholeDatabase(DataFromDatabase initAll) {
 		initAll.initialiseAllLists();
+	}
+	
+	
+	
+	public void loadFirstNameColumn() {
+		
 	}
 	
 }

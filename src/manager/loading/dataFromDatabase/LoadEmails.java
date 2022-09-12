@@ -1,12 +1,10 @@
 package manager.loading.dataFromDatabase;
 
-import java.util.ArrayList;
-
-import database.ValuesFromDatabase;
+import database.DataFromDatabase;
 
 public interface LoadEmails {
 	
-	default public void loademails(ValuesFromDatabase emails) {
+	default public void loademails(DataFromDatabase emails) {
 		emails.emailFromDatabase();
 	}
 	

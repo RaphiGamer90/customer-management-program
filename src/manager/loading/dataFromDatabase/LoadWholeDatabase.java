@@ -1,10 +1,12 @@
 package manager.loading.dataFromDatabase;
 
-import database.ValuesFromDatabase;
+import java.sql.SQLException;
+
+import database.DataFromDatabase;
 
 public class LoadWholeDatabase {
 	
-	public void loadWholeDatabase(ValuesFromDatabase wholeDatabase) {
+	public void loadWholeDatabase(DataFromDatabase wholeDatabase) throws SQLException  {
 		wholeDatabase.initialiseAllLists();
 	}
 	

@@ -1,7 +1,3 @@
-/application/
-/controllers/
 /database/
-/images/
 /manager/
-/module-info.class
-/stylesheets/
+/controllers/

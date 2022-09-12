@@ -3,7 +3,7 @@ package controllers.actions;
 import manager.checking.Checker;
 import manager.checking.CustomerDataChecker;
 import manager.data.DataManager;
-import manager.loading.MainLoadingManager;
+import manager.loading.LoadingManager;
 import manager.loading.dataFromDatabase.LoadWholeDatabase;
 
 import java.awt.TextArea;
@@ -31,7 +31,6 @@ public class EditColumn {
 		 
 		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
-		
 	}
 	
 	

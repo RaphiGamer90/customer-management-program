@@ -1,10 +1,12 @@
 package manager.loading.dataFromDatabase;
 
-import database.ValuesFromDatabase;
+import java.sql.SQLException;
+
+import database.DataFromDatabase;
 
 public interface LoadLastNames {
 	
-	default public void loadlastnames(ValuesFromDatabase lastNames) {		
+	default public void loadlastnames(DataFromDatabase lastNames) {		
 		lastNames.lastNamesFromDatabase();
 	}
 }

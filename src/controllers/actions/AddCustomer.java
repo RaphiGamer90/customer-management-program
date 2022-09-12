@@ -7,7 +7,7 @@ import manager.checking.Checker;
 import manager.checking.CustomerDataChecker;
 import manager.data.DataManager;
 import database.PutInDatabase;
-import database.ValuesFromDatabase;
+import database.DataFromDatabase;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
