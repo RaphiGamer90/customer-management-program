@@ -12,8 +12,8 @@ public class DataFromDatabase {
 	ArrayList<String> lastNamesFromDatabase = new ArrayList<>();
 	ArrayList<String> birthdaysFromDatabase = new ArrayList<>();
 	ArrayList<String> emailsFromDatabase = new ArrayList<>();
-	ArrayList<String> telNrFromDatabase = new ArrayList<>();
-	ArrayList<String> degreeFromDatabase = new ArrayList<>();
+	ArrayList<String> telNrsFromDatabase = new ArrayList<>();
+	ArrayList<String> degreesFromDatabase = new ArrayList<>();
 	ArrayList<String> meetDaysFromDatabase = new ArrayList<>();
 	ArrayList<String> gendersFromDatabase = new ArrayList<>();
 	
@@ -21,12 +21,12 @@ public class DataFromDatabase {
 	public void initialiseAllLists() {
 		firstNamesFromDatabase();
 		lastNamesFromDatabase();
-		birthdayFromDatabase();
-		emailFromDatabase();
+		birthdaysFromDatabase();
+		emailsFromDatabase();
 		telNrFromDatabase();
 		degreesFromDatabase();
 		meetingDaysFromDatabase();
-		genderFromDatabase();
+		gendersFromDatabase();
 	}
 	
 	/*
@@ -77,7 +77,7 @@ public class DataFromDatabase {
 	 * Liste aus Geburtstagen aus der Datenbank
 	 * 
 	 * */
-	public ArrayList<String> birthdayFromDatabase() {
+	public ArrayList<String> birthdaysFromDatabase() {
 		String query = "SELECT Geburtstag FROM customers";
 		birthdaysFromDatabase.clear();
 		try {
@@ -99,7 +99,7 @@ public class DataFromDatabase {
 	 * Liste aus Emails aus der Datenbank
 	 * 
 	 * */
-	public ArrayList<String> emailFromDatabase() {
+	public ArrayList<String> emailsFromDatabase() {
 		String query = "SELECT Email FROM customers";
 		emailsFromDatabase.clear();
 		try {
@@ -122,18 +122,18 @@ public class DataFromDatabase {
 	 * */
 	public ArrayList<String> telNrFromDatabase() {
 		String query = "SELECT Telefonnummer FROM customers";
-		telNrFromDatabase.clear();
+		telNrsFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				telNrFromDatabase.add(result.getString(1));
+				telNrsFromDatabase.add(result.getString(1));
 			}
 			return null;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return telNrFromDatabase;
+		return telNrsFromDatabase;
 	}
 	
 	/*
@@ -142,18 +142,18 @@ public class DataFromDatabase {
 	 * */
 	public ArrayList<String> degreesFromDatabase() {
 		String query = "SELECT Titel FROM customers";
-		degreeFromDatabase.clear();
+		degreesFromDatabase.clear();
 		try {
 			ResultSet result = ConnectionToDatabase.preparedStatement(query).executeQuery();
 			while(result.next()) {
-				degreeFromDatabase.add(result.getString(1));
+				degreesFromDatabase.add(result.getString(1));
 			}
 			return null;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return degreeFromDatabase;
+		return degreesFromDatabase;
 	}
 	
 	/*
@@ -181,7 +181,7 @@ public class DataFromDatabase {
 	 * Liste aus Geschlechtern aus der Datenbank
 	 * 
 	 * */
-	public ArrayList<String> genderFromDatabase() {
+	public ArrayList<String> gendersFromDatabase() {
 		String query = "SELECT Geschlecht FROM customers";
 		gendersFromDatabase.clear();
 		try {
@@ -213,11 +213,11 @@ public class DataFromDatabase {
 	public ArrayList<String> getBirthdaysFromDatabase() {
 		return birthdaysFromDatabase;
 	}
-	public ArrayList<String> getTelNrFromDatabase() {
-		return telNrFromDatabase;
+	public ArrayList<String> getTelNrsFromDatabase() {
+		return telNrsFromDatabase;
 	}
 	public ArrayList<String> getDegreesFromDatabase() {
-		return degreeFromDatabase;
+		return degreesFromDatabase;
 	}
 	public ArrayList<String> getMeetingDaysFromDatabase() {
 		return meetDaysFromDatabase;

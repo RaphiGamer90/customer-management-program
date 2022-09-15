@@ -15,15 +15,15 @@ import manager.cellFactory.CellFactory;
 import manager.data.DataManager;
 import manager.models.TableModel;
 
-public class LoadWholeTableView {
+public interface LoadWholeTableView {
 
-	public void loadWholeTableView(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
+	default public void loadwholetableview(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
 			TableColumn<TableModel, String> birthdayColumn, TableColumn<TableModel, String> emailColumn, TableColumn<TableModel, String> telephoneColumn,
 			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, ObservableList<TableModel> searchModelObservableList,
 			AboutDatabase aboutDatabase, DataManager dataManager, CellFactory cellFactory) {
-		
-		
 		searchModelObservableList.clear();
+		
+		
 		for(int i = 0; i < aboutDatabase.getRowsCount(); i++) {
 			searchModelObservableList.add(new TableModel(dataManager.getLoadedFirstNames().get(i), dataManager.getLoadedLastNames().get(i), dataManager.getLoadedBirthdays().get(i), 
 					dataManager.getLoadedEmails().get(i), dataManager.getLoadedTelNrs().get(i), dataManager.getLoadedDegrees().get(i), dataManager.getLoadedMeetingDays().get(i), dataManager.getLoadedGenders().get(i)));			

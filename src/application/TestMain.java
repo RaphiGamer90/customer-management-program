@@ -13,7 +13,6 @@ public class TestMain {
 
 	public static void main(String[] args) {
 		DataManager lol = new DataManager();
-		System.out.println(lol.getTelNrs());
 		
 
 	}

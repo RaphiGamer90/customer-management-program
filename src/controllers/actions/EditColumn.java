@@ -3,8 +3,7 @@ package controllers.actions;
 import manager.checking.Checker;
 import manager.checking.CustomerDataChecker;
 import manager.data.DataManager;
-import manager.loading.LoadingManager;
-import manager.loading.dataFromDatabase.LoadWholeDatabase;
+import manager.loading.LoadManager;
 
 import java.awt.TextArea;
 import java.util.HashMap;
@@ -18,12 +17,13 @@ public class EditColumn {
 	CustomerDataChecker customerDataChecker = new CustomerDataChecker();
 	HashMap<String, String> errorMap = new HashMap<>();
 	PutInDatabase editValue = new PutInDatabase();
-	DataManager dataManage = new DataManager();
+	DataManager dataManager = new DataManager();
+	LoadManager loadManger = new LoadManager(); 
 	
 	
 	public void editFirstNameColumn(CellEditEvent<TableModel, String> event) {
 		TableModel value = event.getRowValue();
-		dataManage.getFirstNames();
+		
 		if(!customerDataChecker.isFirstName(event.getNewValue())) {
 			errorMap.put("firstNameErrorMessage", "Das ist kein richtiger Vorname!");
 			return;
@@ -31,6 +31,7 @@ public class EditColumn {
 		 
 		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+		loadManger.loadFirstNames();
 	}
 	
 	
@@ -67,7 +68,7 @@ public class EditColumn {
 			errorMap.put("emailErrorMessage", "Das ist keine richtige E-Mail!");
 			return;
 		}
-		else if(dataManage.getEmails().contains(event.getNewValue())) {
+		else if(dataManager.getUnloadedEmails().contains(event.getNewValue())) {
 			errorMap.put("emailErrorMessage", "Diese E-Mail exisitiert bereits!");
 			return;
 		}
@@ -83,13 +84,12 @@ public class EditColumn {
 			errorMap.put("telNrErrorMap", "Das ist keine richtige Telefonnummer!");
 			return;
 		}
-		else if(dataManage.getTelNrs().contains(event.getNewValue())) {
+		else if(dataManager.getUnloadedTelNrs().contains(event.getNewValue())) {
 			errorMap.put("telNrErrorMap", "Diese Telefonnummer existiert bereits!");
 			return;
 		}
 		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
-		
 	}
 	
 	
@@ -105,50 +105,33 @@ public class EditColumn {
 	}
 	
 	
+	public void editMeetingDayColumn(CellEditEvent<TableModel, String> event) {
+		TableModel value = event.getRowValue();
+		
+		if(!customerDataChecker.isMeetingDay(event.getNewValue())) {
+			errorMap.put("meetindDayErrorMessage", "Das ist kein richtiges Datum!");
+			return;
+		}
+		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
+				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+	}
+	
+	
+	public void editGenderColumn(CellEditEvent<TableModel, String> event) {
+		TableModel value = event.getRowValue();
+		
+		if(!customerDataChecker.isGender(event.getNewValue())) {
+			errorMap.put("genderErrorMessage", "Das ist kein richtiges Geschlecht! (Glaube ich)");
+			return;
+		}
+		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
+				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+	}
 
-//
-//	public void degreeColumnEdit(CellEditEvent<TableModel, String> event) {
-//		TableModel value = event.getRowValue();
-//		
-//		if (checker.isValidEmail(value.getEmail())) {
-//			if (checker.isInteger(event.getNewValue())) {
-//				putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getEmail());
-//				loadData();
-//				errorArea.setText("");
-//			} else {			
-//				errorArea.setText(event.getNewValue() + " ist keine Zahl!");
-//			}
-//		}
-//		
-//	}
-//
-//	public void meetingDayColumnEdit(CellEditEvent<TableModel, String> event) {
-//		TableModel value = event.getRowValue();
-//		
-//		if (checker.isValidEmail(value.getEmail())) {
-//			if (checker.isDateWithoutYear(event.getNewValue())
-//					|| checker.isDateWithYear(event.getNewValue())) {
-//				putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getEmail());
-//				loadData();
-//				errorArea.setText("");
-//			} else {
-//				errorArea.setText(event.getNewValue() + " ist kein richtiges Datum!");
-//			}
-//		}
-//	}
-//
-//	public void genderColumnEdit(CellEditEvent<TableModel, String> event) {
-//		TableModel value = event.getRowValue();
-//		
-//		if (checker.isValidEmail(value.getEmail())) {
-//			if (checker.isValidGender(event.getNewValue())) {
-//				putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getEmail());
-//				loadData();
-//				errorArea.setText("");
-//			} else {
-//				errorArea.setText("Das ist kein Geschlecht! (Glaube ich) :^D");
-//			}
-//		}
-//	}
+
+	public HashMap<String, String> getErrorMap() {
+		return errorMap;
+	}
+
 
 }

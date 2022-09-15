@@ -2,87 +2,85 @@ package manager.data;
 
 import java.util.ArrayList;
 
+import controllers.MainController;
 import database.DataFromDatabase;
-import manager.loading.LoadingManager;
-import manager.loading.dataFromDatabase.LoadTelNrs;
+import manager.loading.LoadManager;
 
-public class DataManager {
-	
-	LoadingManager loadingManager = new LoadingManager();
-	DataFromDatabase dataFromDatabase = new DataFromDatabase();
+public class DataManager extends LoadManager {
 
 	/*UNLOADED DATA*/
-	public ArrayList<String> getFirstNames() {
-		return dataFromDatabase.getFirstNamesFromDatabase();
+	public ArrayList<String> getUnloadedFirstNames() {
+		return getFirstNamesFromDatabase();
 	}
 	
-	public ArrayList<String> getLastNames() {
-		return dataFromDatabase.getLastNamesFromDatabase();
+	public ArrayList<String> getUnloadedLastNames() {
+		return getLastNamesFromDatabase();
 	}
 	
-	public ArrayList<String> getBirthdays() {
-		return dataFromDatabase.getBirthdaysFromDatabase();
+	public ArrayList<String> getUnloadedBirthdays() {
+		return getBirthdaysFromDatabase();
 	}
 	
-	public ArrayList<String> getEmails() {
-		return dataFromDatabase.getEmailsFromDatabase();
+	public ArrayList<String> getUnloadedEmails() {
+		return getEmailsFromDatabase();
 	}
 	
-	public ArrayList<String> getTelNrs() {
-		return dataFromDatabase.getTelNrFromDatabase();
+	public ArrayList<String> getUnloadedTelNrs() {
+		return getTelNrsFromDatabase();
 	}
 	
-	public ArrayList<String> getDegrees() {
-		return dataFromDatabase.getDegreesFromDatabase();
+	public ArrayList<String> getUnloadedDegrees() {
+		return getDegreesFromDatabase();
 	}
 	
-	public ArrayList<String> getMeetingDays() {
-		return dataFromDatabase.getMeetingDaysFromDatabase();
+	public ArrayList<String> getUnloadedMeetingDays() {
+		return getMeetingDaysFromDatabase();
 	}
 	
-	public ArrayList<String> getGenders() {
-		return dataFromDatabase.getGendersFromDatabase();
+	public ArrayList<String> getUnloadedGenders() {
+		return getGendersFromDatabase();
 	}
 	
 	
 	/*LOADED DATA*/
-	public ArrayList<String> getLoadedFirstNames() {
-		loadingManager.loadFirstNames(dataFromDatabase);
-		return dataFromDatabase.getFirstNamesFromDatabase();
+	public ArrayList<String> getReloadedFirstNames() {
+		loadFirstNames();
+		return getFirstNamesFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedLastNames() {
-		loadingManager.loadLastNames(dataFromDatabase);
+	public ArrayList<String> getReloadedLastNames() {
+		loadLastNames();
 		return dataFromDatabase.getLastNamesFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedBirthdays() {
-		loadingManager.loadBirthdays(dataFromDatabase);
+	public ArrayList<String> getReloadedBirthdays() {
+		loadBirthdays();
 		return dataFromDatabase.getBirthdaysFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedEmails() {
-		loadingManager.loadEmails(dataFromDatabase);
+	public ArrayList<String> getReloadeddEmails() {
+		loadEmails();
 		return dataFromDatabase.getEmailsFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedTelNrs() {
-		loadingManager.loadTelNrs(dataFromDatabase);
+	public ArrayList<String> getReloadedTelNrs() {
+		loadTelNrs();
 		return dataFromDatabase.getTelNrFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedDegrees() {
-		loadingManager.loadDegrees(dataFromDatabase);
+	public ArrayList<String> getReloadedDegrees() {
+		loadDegrees();
 		return dataFromDatabase.getDegreesFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedMeetingDays() {
-		loadingManager.loadMeetingDays(dataFromDatabase);
+	public ArrayList<String> getReloadedMeetingDays() {
+		loadMeetingDays();
 		return dataFromDatabase.getMeetingDaysFromDatabase();
 	}
 	
-	public ArrayList<String> getLoadedGenders() {
-		loadingManager.loadGenders(dataFromDatabase);
+	public ArrayList<String> getReloadedGenders() {
+		loadGenders();
 		return dataFromDatabase.getGendersFromDatabase();
 	}
+	
 }

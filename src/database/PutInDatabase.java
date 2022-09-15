@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import manager.data.DataManager;
-import manager.loading.dataFromDatabase.LoadEmails;
 
 
 public class PutInDatabase {
@@ -19,7 +18,7 @@ public class PutInDatabase {
 		try {
 			ConnectionToDatabase.preparedStatement(queryLookThrough).executeQuery();
 		
-			if(!dataManager.getEmails().contains(email) || email.trim() == "") {
+			if(!dataManager.getUnloadedEmails().contains(email) || email.trim() == "") {
 				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
 				
 				PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    

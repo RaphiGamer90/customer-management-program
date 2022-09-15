@@ -13,8 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import manager.loading.dataFromDatabase.LoadEmails;
-import manager.loading.dataFromDatabase.LoadTelNrs;
+
 
 public class AddCustomer {
 	
@@ -77,7 +76,7 @@ public class AddCustomer {
 		if(!customerDataChecker.isEmail(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Das ist keine E-Mail!\n");
 		}
-		else if(dataManager.getEmails().contains(emailField.getText())) {
+		else if(dataManager.getUnloadedEmails().contains(emailField.getText())) {
 			return errorMap.put("emailErrorMessage", "Diese E-Mail existiert bereits!\n");
 		}
 		return emailField.getText();
@@ -87,7 +86,7 @@ public class AddCustomer {
 		if(!customerDataChecker.isTelNr(telNrField.getText())) {
 			return errorMap.put("telNrErrorMessage", "Das ist keine Telefonnummer!\n");
 		}
-		else if(dataManager.getTelNrs().contains(telNrField.getText())) {
+		else if(dataManager.getUnloadedTelNrs().contains(telNrField.getText())) {
 			return errorMap.put("telNrErrorMessage", "Diese Telefonnummer existiert bereits!\n");
 		}
 		return telNrField.getText();

@@ -9,17 +9,17 @@ import manager.cellFactory.CellFactory;
 import manager.data.DataManager;
 import manager.models.TableModel;
 
-public class LoadLastNamesColumn {
-
-	public void loadLastNameColumn(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
+public interface LoadBirthdayColumn {
+	
+	default public void loadbirthdayColumn(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
 			TableColumn<TableModel, String> birthdayColumn, TableColumn<TableModel, String> emailColumn, TableColumn<TableModel, String> telephoneColumn,
 			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, ObservableList<TableModel> searchModelObservableList, 
 			AboutDatabase aboutDatabase, DataManager dataManager, CellFactory cellFactory) {
 		searchModelObservableList.clear();
 		
 		for(int i = 0; i < aboutDatabase.getRowsCount(); i++) {
-			searchModelObservableList.add(new TableModel(dataManager.getFirstNames().get(i), dataManager.getLoadedLastNames().get(i), dataManager.getBirthdays().get(i), 
-					dataManager.getEmails().get(i), dataManager.getTelNrs().get(i), dataManager.getDegrees().get(i), dataManager.getMeetingDays().get(i), dataManager.getGenders().get(i)));			
+			searchModelObservableList.add(new TableModel(dataManager.getUnloadedFirstNames().get(i), dataManager.getUnloadedLastNames().get(i), dataManager.getLoadedBirthdays().get(i), 
+					dataManager.getUnloadedEmails().get(i), dataManager.getUnloadedTelNrs().get(i), dataManager.getUnloadedDegrees().get(i), dataManager.getUnloadedMeetingDays().get(i), dataManager.getUnloadedGenders().get(i)));			
 		}
 		
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -34,7 +34,6 @@ public class LoadLastNamesColumn {
 		cellFactory.setCellFactory(firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, degreeColumn, meetingDayColumn, genderColumn);
 		
 		tableView.setItems(searchModelObservableList);
-		System.out.println("Es wurde LastNameColumn geladen!");
+		System.out.println("Es wurde BirthdayColumn geladen!");
 	}
-	
 }

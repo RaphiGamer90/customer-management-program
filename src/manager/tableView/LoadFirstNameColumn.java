@@ -1,6 +1,12 @@
 package manager.loading.tableView;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import database.AboutDatabase;
+import database.ConnectionToDatabase;
+import database.DataFromDatabase;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,17 +15,18 @@ import manager.cellFactory.CellFactory;
 import manager.data.DataManager;
 import manager.models.TableModel;
 
-public class LoadDegreeColumn {
+public interface LoadFirstNameColumn {
 
-	public void loadDegreeColumn(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
+
+	default public void loadfirstnameColumn(TableView<TableModel> tableView, TableColumn<TableModel, String> firstNameColumn, TableColumn<TableModel, String> lastNameColumn,
 			TableColumn<TableModel, String> birthdayColumn, TableColumn<TableModel, String> emailColumn, TableColumn<TableModel, String> telephoneColumn,
 			TableColumn<TableModel, String> degreeColumn, TableColumn<TableModel, String> meetingDayColumn, TableColumn<TableModel, String> genderColumn, ObservableList<TableModel> searchModelObservableList, 
 			AboutDatabase aboutDatabase, DataManager dataManager, CellFactory cellFactory) {
 		searchModelObservableList.clear();
 		
 		for(int i = 0; i < aboutDatabase.getRowsCount(); i++) {
-			searchModelObservableList.add(new TableModel(dataManager.getFirstNames().get(i), dataManager.getLastNames().get(i), dataManager.getBirthdays().get(i), 
-					dataManager.getEmails().get(i), dataManager.getTelNrs().get(i), dataManager.getLoadedDegrees().get(i), dataManager.getMeetingDays().get(i), dataManager.getGenders().get(i)));			
+			searchModelObservableList.add(new TableModel(dataManager.getReloadedFirstNames().get(i), dataManager.getUnloadedLastNames().get(i), dataManager.getUnloadedBirthdays().get(i), 
+					dataManager.getUnloadedEmails().get(i), dataManager.getUnloadedTelNrs().get(i), dataManager.getUnloadedDegrees().get(i), dataManager.getUnloadedMeetingDays().get(i), dataManager.getUnloadedGenders().get(i)));			
 		}
 		
 		firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -36,4 +43,5 @@ public class LoadDegreeColumn {
 		tableView.setItems(searchModelObservableList);
 		System.out.println("Es wurde FirstNameColumn geladen!");
 	}
+	
 }

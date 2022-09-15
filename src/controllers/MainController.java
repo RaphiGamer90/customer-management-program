@@ -8,9 +8,8 @@ import java.util.ResourceBundle;
 
 import controllers.actions.AddCustomer;
 import controllers.actions.EditColumn;
-import controllers.listener.DatePickerListener;
+import manager.listener.DatePickerListener;
 import database.AboutDatabase;
-import database.ConnectionToDatabase;
 import database.DataFromDatabase;
 import database.DeleteFromDatabase;
 import database.PutInDatabase;
@@ -44,7 +43,7 @@ import manager.birthdayMessage.BirthdayMessage;
 import manager.cellFactory.CellFactory;
 import manager.checking.Checker;
 import manager.data.DataManager;
-import manager.loading.tableView.LoadWholeTableView;
+import manager.loading.LoadManager;
 import manager.models.TableModel;
 import manager.sendEmail.SendingEmail;
 
@@ -186,25 +185,21 @@ public class MainController implements Initializable {
 	@FXML
 	private ImageView zanglLogoBackground;
 	
-	//Connection
-	ConnectionToDatabase connection = new ConnectionToDatabase();
+
 
 	
 	//Variablen 
 	ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
 	AboutDatabase aboutDatabase = new AboutDatabase();
-	DataManager dataManager = new DataManager();
 	CellFactory cellFactory = new CellFactory();
 	
-	
-	String birthdayFieldValue, meetingDayValue;
-	
-	String firstNameForDatabase, lastNameForDatabase, birthdayForDatabase, emailForDatabase, telephoneForDatabase, titleForDatabase, orderDateForDatabase, genderForDatabase;
-	
 	DataFromDatabase dataFromDatabase = new DataFromDatabase();
-	Checker checker = new Checker();
-	PutInDatabase putInDatabase = new PutInDatabase();
-	ColorAdjust colorAdjust = new ColorAdjust(); 
+	LoadManager loadManager = new LoadManager();
+	DataManager dataManager = new DataManager();
+	
+	
+	DatePickerListener datepickerListener = new DatePickerListener();
+ 
 	int afkCount;
 	int countForBirthdayEmails;
 	Thread afkThread;
@@ -215,7 +210,6 @@ public class MainController implements Initializable {
 	
 	
 	
-	DatePickerListener datepickerListener = new DatePickerListener();
 	
 
 	
@@ -339,7 +333,6 @@ public class MainController implements Initializable {
 	
 	//ALLES WAS BEIM START AUSGEFÜHRT WERDEN SOLL// 
 	public void init() {
-		loadData();
 		searchFilter();
 		startAFKThread();
 		startBirthdayThread();
@@ -352,17 +345,15 @@ public class MainController implements Initializable {
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
+		loadManager.loadWholeDatabase();
+		loadManager.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, birthdayColumn, genderColumn, searchModelObservableList);
 			init();
 		 datepickerListener.addBirthdayDatepickerListener(birthdayPicker);
 		 datepickerListener.addMeetingDayDatePickerListener(meetingDayPicker);
 	}
 	
 	//Ladet Daten, die in die Tabelle eingetragen werden
-	public void loadData() {
-		LoadWholeTableView loadTableView = new LoadWholeTableView();
-		loadTableView.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, orderDateColumn, genderColumn,
-				searchModelObservableList, aboutDatabase, dataManager, cellFactory);
-	}
+
 	
 	
 	//Suchfilter für Daten aus der Tabelle
@@ -490,7 +481,7 @@ public class MainController implements Initializable {
 		AddCustomer addPerson = new AddCustomer();
 		addPerson.setCustomerInDatabase(firstNameField, lastNameField, emailField, 
 				datepickerListener.getBirthdayDatePickerValue(), telephoneField, titleField, datepickerListener.getMeetingDayDatePickerValue(), genderBox, errorArea);
-		loadData();
+		
 	}
 
 	/*
@@ -499,40 +490,40 @@ public class MainController implements Initializable {
 	EditColumn editColumns = new EditColumn();
 	public void firstNameColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editFirstNameColumn(event);
-		loadData();
+		
 	}
 
 	public void lastNameColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editLastNameColumn(event);
-		loadData();
+		
 	}
 
 	public void birthdayColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editBirthdayColumn(event);
-		loadData();
+		
 	}
 
 	public void emailColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editEmailColumn(event);
-		loadData();
+		
 	}
 
 	public void telephoneColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editTelNr(event);
-		loadData();
+		
 	}
 
 	public void degreeColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editDegree(event);
-		loadData();
-	}
-
-	public void meetingDayColumnEdit(CellEditEvent<TableModel, String> event) {
 		
 	}
 
+	public void meetingDayColumnEdit(CellEditEvent<TableModel, String> event) {
+		editColumns.editMeetingDayColumn(event);
+	}
+
 	public void genderColumnEdit(CellEditEvent<TableModel, String> event) {
-	
+		editColumns.editGenderColumn(event);
 	}
 
 	
@@ -670,7 +661,7 @@ public class MainController implements Initializable {
 	//Reihe aus der Datenbank entfernen und die Tabelle updaten
 	public void deleteRow(ActionEvent event) {
 		deleteFromDatabase.deleteValueFromDatabase(deleteField.getText());
-		loadData();
+		
 	}
 	
 	
@@ -789,5 +780,224 @@ public class MainController implements Initializable {
 		birthdayPicker.getStylesheets().add(getClass().getResource("/stylesheets/popupForPicker.css").toExternalForm());
 		meetingDayPicker.getStylesheets().add(getClass().getResource("/stylesheets/popupForPicker.css").toExternalForm());
 	}
+
+	//GETTER
+	public TabPane getRoot() {
+		return root;
+	}
+
+	public Tab getVerwaltungstab() {
+		return verwaltungstab;
+	}
+
+	public Tab getEmailtab() {
+		return emailtab;
+	}
+
+	public Pane getVerwaltung() {
+		return verwaltung;
+	}
+
+	public Label getFirstNameLabel() {
+		return firstNameLabel;
+	}
+
+	public Label getLastNameLabel() {
+		return lastNameLabel;
+	}
+
+	public Label getBirthdayLabel() {
+		return birthdayLabel;
+	}
+
+	public Label getEmailLabel() {
+		return emailLabel;
+	}
+
+	public Label getTelephoneLabel() {
+		return telephoneLabel;
+	}
+
+	public Label getTitleLabel() {
+		return titleLabel;
+	}
+
+	public Label getOrderDateLabel() {
+		return orderDateLabel;
+	}
+
+	public Label getGenderLabel() {
+		return genderLabel;
+	}
+
+	public Label getBirthdayEmailLabel() {
+		return birthdayEmailLabel;
+	}
+
+	public TextField getFirstNameField() {
+		return firstNameField;
+	}
+
+	public TextField getLastNameField() {
+		return lastNameField;
+	}
+
+	public TextField getEmailField() {
+		return emailField;
+	}
+
+	public TextField getTelephoneField() {
+		return telephoneField;
+	}
+
+	public TextField getTitleField() {
+		return titleField;
+	}
+
+	public TextField getSearchField() {
+		return searchField;
+	}
+
+	public TextField getSearchFieldOutput() {
+		return searchFieldOutput;
+	}
+
+	public TextArea getErrorArea() {
+		return errorArea;
+	}
+
+	public TextField getDeleteField() {
+		return deleteField;
+	}
+
+	public TextField getBirthdayEmailField() {
+		return birthdayEmailField;
+	}
+
+	public TextArea getBirthdayMessageArea() {
+		return birthdayMessageArea;
+	}
+
+	public TextArea getEmailErrorField() {
+		return emailErrorField;
+	}
+
+	public TextField getRegardingField() {
+		return regardingField;
+	}
+
+	public DatePicker getBirthdayPicker() {
+		return birthdayPicker;
+	}
+
+	public DatePicker getMeetingDayPicker() {
+		return meetingDayPicker;
+	}
+
+	public ComboBox<String> getGenderBox() {
+		return genderBox;
+	}
+
+	public ComboBox<String> getSearchFor() {
+		return searchFor;
+	}
+
+	public Button getNewPerson() {
+		return newPerson;
+	}
+
+	public Button getSendData() {
+		return sendData;
+	}
+
+	public Button getNextPage() {
+		return nextPage;
+	}
+
+	public Button getNightButton() {
+		return nightButton;
+	}
+
+	public Button getLightButton() {
+		return lightButton;
+	}
+
+	public Button getLastPage() {
+		return lastPage;
+	}
+
+	public Button getUndo() {
+		return undo;
+	}
+
+	public Button getRestore() {
+		return restore;
+	}
+
+	public Button getNextMail() {
+		return nextMail;
+	}
+
+	public Button getResetButton() {
+		return resetButton;
+	}
+
+	public Button getSendEmailButton() {
+		return sendEmailButton;
+	}
+
+	public TableView<TableModel> getTableView() {
+		return tableView;
+	}
+
+	public TableColumn<TableModel, String> getFirstNameColumn() {
+		return firstNameColumn;
+	}
+
+	public TableColumn<TableModel, String> getLastNameColumn() {
+		return lastNameColumn;
+	}
+
+	public TableColumn<TableModel, String> getBirthdayColumn() {
+		return birthdayColumn;
+	}
+
+	public TableColumn<TableModel, String> getEmailColumn() {
+		return emailColumn;
+	}
+
+	public TableColumn<TableModel, String> getTelephoneColumn() {
+		return telephoneColumn;
+	}
+
+	public TableColumn<TableModel, String> getTitleColumn() {
+		return titleColumn;
+	}
+
+	public TableColumn<TableModel, String> getOrderDateColumn() {
+		return orderDateColumn;
+	}
+
+	public TableColumn<TableModel, String> getGenderColumn() {
+		return genderColumn;
+	}
+
+	public ImageView getBackgroundImage() {
+		return backgroundImage;
+	}
+
+	public ImageView getZanglLogo() {
+		return ZanglLogo;
+	}
+
+	public ImageView getBackground() {
+		return background;
+	}
+
+	public ImageView getZanglLogoBackground() {
+		return zanglLogoBackground;
+	}
+	
+	
 	
 }

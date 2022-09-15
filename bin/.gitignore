@@ -1,3 +1,5 @@
-/database/
+/module-info.class
 /manager/
 /controllers/
+/application/
+/database/
