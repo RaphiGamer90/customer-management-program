@@ -120,8 +120,8 @@
                         <TableColumn fx:id="birthdayColumn" onEditCommit="#birthdayColumnEdit" prefWidth="178.0" text="Geburtstag" />
                         <TableColumn fx:id="emailColumn" onEditCommit="#emailColumnEdit" prefWidth="217.0" text="Email" />
                         <TableColumn fx:id="telephoneColumn" onEditCommit="#telephoneColumnEdit" prefWidth="225.0" text="Telefonnummer" />
-                        <TableColumn fx:id="titleColumn" onEditCommit="#degreeColumnEdit" prefWidth="166.0" text="Titel" />
-                        <TableColumn fx:id="orderDateColumn" onEditCommit="#meetingDayColumnEdit" prefWidth="181.0" text="AuftragDatum" />
+                        <TableColumn fx:id="degreeColumn" onEditCommit="#degreeColumnEdit" prefWidth="166.0" text="Titel" />
+                        <TableColumn fx:id="meetingDayColumn" onEditCommit="#meetingDayColumnEdit" prefWidth="181.0" text="AuftragDatum" />
                         <TableColumn fx:id="genderColumn" onEditCommit="#genderColumnEdit" prefWidth="137.0" text="Geschlecht" />
                     </columns>
                   </TableView>

@@ -50,37 +50,37 @@ public class DataManager extends LoadManager {
 	
 	public ArrayList<String> getReloadedLastNames() {
 		loadLastNames();
-		return dataFromDatabase.getLastNamesFromDatabase();
+		return getLastNamesFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadedBirthdays() {
 		loadBirthdays();
-		return dataFromDatabase.getBirthdaysFromDatabase();
+		return getBirthdaysFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadeddEmails() {
 		loadEmails();
-		return dataFromDatabase.getEmailsFromDatabase();
+		return getEmailsFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadedTelNrs() {
 		loadTelNrs();
-		return dataFromDatabase.getTelNrFromDatabase();
+		return getTelNrsFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadedDegrees() {
 		loadDegrees();
-		return dataFromDatabase.getDegreesFromDatabase();
+		return getDegreesFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadedMeetingDays() {
 		loadMeetingDays();
-		return dataFromDatabase.getMeetingDaysFromDatabase();
+		return getMeetingDaysFromDatabase();
 	}
 	
 	public ArrayList<String> getReloadedGenders() {
 		loadGenders();
-		return dataFromDatabase.getGendersFromDatabase();
+		return getGendersFromDatabase();
 	}
 	
 }

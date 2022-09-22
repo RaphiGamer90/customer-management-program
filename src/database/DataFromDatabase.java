@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-
 public class DataFromDatabase {
 
 	ArrayList<String> firstNamesFromDatabase = new ArrayList<>();

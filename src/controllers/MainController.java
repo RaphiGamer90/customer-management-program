@@ -169,9 +169,9 @@ public class MainController implements Initializable {
 	@FXML
 	private TableColumn<TableModel, String> telephoneColumn;
 	@FXML
-	private TableColumn<TableModel, String> titleColumn;
+	private TableColumn<TableModel, String> degreeColumn;
 	@FXML
-	private TableColumn<TableModel, String> orderDateColumn;
+	private TableColumn<TableModel, String> meetingDayColumn;
 	@FXML
 	private TableColumn<TableModel, String> genderColumn;
 	
@@ -189,7 +189,7 @@ public class MainController implements Initializable {
 
 	
 	//Variablen 
-	ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
+	public ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
 	AboutDatabase aboutDatabase = new AboutDatabase();
 	CellFactory cellFactory = new CellFactory();
 	
@@ -346,7 +346,7 @@ public class MainController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
 		loadManager.loadWholeDatabase();
-		loadManager.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, titleColumn, birthdayColumn, genderColumn, searchModelObservableList);
+		loadManager.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, degreeColumn, meetingDayColumn, genderColumn, searchModelObservableList);
 			init();
 		 datepickerListener.addBirthdayDatepickerListener(birthdayPicker);
 		 datepickerListener.addMeetingDayDatePickerListener(meetingDayPicker);
@@ -970,12 +970,12 @@ public class MainController implements Initializable {
 		return telephoneColumn;
 	}
 
-	public TableColumn<TableModel, String> getTitleColumn() {
-		return titleColumn;
+	public TableColumn<TableModel, String> getDegreeColumn() {
+		return degreeColumn;
 	}
 
-	public TableColumn<TableModel, String> getOrderDateColumn() {
-		return orderDateColumn;
+	public TableColumn<TableModel, String> getMeetingDayColumn() {
+		return meetingDayColumn;
 	}
 
 	public TableColumn<TableModel, String> getGenderColumn() {

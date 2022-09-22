@@ -11,6 +11,7 @@ import java.util.HashMap;
 import database.PutInDatabase;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import manager.models.TableModel;
+import manager.tableView.TableManager;
 
 public class EditColumn {
 	
@@ -19,7 +20,7 @@ public class EditColumn {
 	PutInDatabase editValue = new PutInDatabase();
 	DataManager dataManager = new DataManager();
 	LoadManager loadManger = new LoadManager(); 
-	
+	TableManager tableManager = new TableManager();
 	
 	public void editFirstNameColumn(CellEditEvent<TableModel, String> event) {
 		TableModel value = event.getRowValue();
@@ -31,7 +32,7 @@ public class EditColumn {
 		 
 		editValue.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
-		loadManger.loadFirstNames();
+		tableManager.refreshFirstNameColumn();
 	}
 	
 	
