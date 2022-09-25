@@ -37,3 +37,4 @@ public interface LoadEmailColumn {
 		System.out.println("Es wurde FirstNameColumn geladen!");
 	}
 }
+

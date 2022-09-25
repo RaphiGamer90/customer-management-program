@@ -1,3 +1,5 @@
-/controllers/
+/module-info.class
 /manager/
-/application/
+/controllers/
+/email.class
+/email/

@@ -44,7 +44,6 @@ public class Main extends Application {
 			    }
 			});
 			Parent root = FXMLLoader.load(getClass().getResource("ControlSystem.fxml"));
-			MainController controller = root.getController();
 			primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/ZanglIcon.png")));
 			
 			System.out.println("Program wurde gestartet!");

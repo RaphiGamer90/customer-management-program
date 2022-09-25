@@ -58,102 +58,102 @@ public class MainController implements Initializable {
 	
 	//Tabl
 	@FXML
-	public static Tab verwaltungstab;
+	public Tab verwaltungstab;
 	@FXML
-	public static Tab emailtab;
+	public Tab emailtab;
 
 	
 	//Panes
 	@FXML
-	public static Pane verwaltung;
+	public Pane verwaltung;
 	@FXML
-	public static Pane email;
+	public Pane email;
 
 	
 	//Labels
 	@FXML
-	public static Label firstNameLabel;
+	public Label firstNameLabel;
 	@FXML
-	public static Label lastNameLabel;
+	public Label lastNameLabel;
 	@FXML
-	public static Label birthdayLabel;
+	public Label birthdayLabel;
 	@FXML
-	public static Label emailLabel;
+	public Label emailLabel;
 	@FXML
-	public static Label telephoneLabel;
+	public Label telephoneLabel;
 	@FXML
-	public static Label titleLabel;
+	public Label titleLabel;
 	@FXML
-	public static Label orderDateLabel;
+	public Label orderDateLabel;
 	@FXML
-	public static Label genderLabel;
+	public Label genderLabel;
 	@FXML
-	public static Label birthdayEmailLabel;
+	public Label birthdayEmailLabel;
 	
 	//TextFields & Areas
 	@FXML
-	public static TextField firstNameField;
+	public TextField firstNameField;
 	@FXML
-	public static TextField lastNameField;
+	public TextField lastNameField;
 	@FXML
-	public static TextField emailField;
+	public TextField emailField;
 	@FXML
-	public static TextField telephoneField;
+	public TextField telephoneField;
 	@FXML
-	public static TextField titleField;
+	public TextField titleField;
 	@FXML
-	public static TextField searchField;
+	public TextField searchField;
 	@FXML
-	public static TextField searchFieldOutput;
+	public TextField searchFieldOutput;
 	@FXML
-	public static TextArea errorArea;
+	public TextArea errorArea;
 	@FXML
-	public static TextField deleteField;
+	public TextField deleteField;
 	@FXML
-	public static TextField birthdayEmailField;
+	public TextField birthdayEmailField;
 	@FXML
-	public static TextArea birthdayMessageArea;
+	public TextArea birthdayMessageArea;
 	@FXML
-	public static TextArea emailErrorField;
+	public TextArea emailErrorField;
 	@FXML 
-	public static TextField regardingField;
+	public TextField regardingField;
 	
 	
 	//Boxes and Pickers
 	@FXML
-	public static DatePicker birthdayPicker;
+	public DatePicker birthdayPicker;
 	@FXML
-	public static DatePicker meetingDayPicker;
+	public DatePicker meetingDayPicker;
 	@FXML
-	public static ComboBox<String> genderBox;
+	public ComboBox<String> genderBox;
 	@FXML
-	public static ComboBox<String> searchFor;
+	public ComboBox<String> searchFor;
 	
 	//Buttons
 	@FXML
-	public static Button newPerson;
+	public Button newPerson;
 	@FXML
-	public static Button sendData;
+	public Button sendData;
 	@FXML
-	public static Button nextPage;
+	public Button nextPage;
 	@FXML
-	public static Button nightButton;
+	public Button nightButton;
 	@FXML
-	public static Button lightButton;
+	public Button lightButton;
 	@FXML
-	public static Button lastPage;
+	public Button lastPage;
 	@FXML
-	public static Button undo;
+	public Button undo;
 	@FXML
-	public static Button restore;
+	public Button restore;
 	@FXML
-	public static Button beforeMail;
+	public Button beforeMail;
 	@FXML
-	public static Button nextMail;
+	public Button nextMail;
 	@FXML
-	public static Button resetButton;
+	public Button resetButton;
 	@FXML
-	public static Button sendEmailButton;
+	public Button sendEmailButton;
 
 	
 	//TableView + TableColumns
@@ -178,33 +178,22 @@ public class MainController implements Initializable {
 	
 	//Images
 	@FXML
-	public static  ImageView backgroundImage;
+	public ImageView backgroundImage;
 	@FXML
-	public static  ImageView ZanglLogo;
+	public ImageView ZanglLogo;
 	@FXML
-	public static  ImageView background;
+	public ImageView background;
 	@FXML
-	public static  ImageView zanglLogoBackground;
+	public ImageView zanglLogoBackground;
 	
 	
-	private static MainController mainController = new MainController();
 
-	private MainController() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public static MainController getMainController() {
-		return mainController;
-	}
-	
-	//Variablen 
-	public static ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
-	AboutDatabase aboutDatabase = new AboutDatabase();
-	CellFactory cellFactory = new CellFactory();
-	
-	DataFromDatabase dataFromDatabase = new DataFromDatabase();
-	LoadManager loadManager = new LoadManager();
-	DataManager dataManager = new DataManager();
+	//Manager 
+	public LoadManager loadManager = new LoadManager();
+	public DataManager dataManager = new DataManager();
+	public TableManager tableManager = new TableManager();
+
 	
 	
 	DatePickerListener datepickerListener = new DatePickerListener();
@@ -215,9 +204,6 @@ public class MainController implements Initializable {
 	Thread birthdayThread;
 	DeleteFromDatabase deleteFromDatabase = new DeleteFromDatabase();
 //	BirthdayMessage birthdayMessage = new BirthdayMessage();
-	
-	
-	
 	
 	
 
@@ -351,11 +337,13 @@ public class MainController implements Initializable {
 		hasToBe();
 	}	
 	
+	
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
-		TableManager tableManager = new TableManager();
-		tableManager.loadWholeDatabase();
+		Controller.setMainController(this);
+		
+		tableManager.refreshWholeTableView();
 			init();
 		 datepickerListener.addBirthdayDatepickerListener(birthdayPicker);
 		 datepickerListener.addMeetingDayDatePickerListener(meetingDayPicker);

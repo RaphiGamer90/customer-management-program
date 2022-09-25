@@ -18,7 +18,7 @@ public interface LoadBirthdayColumn {
 		searchModelObservableList.clear();
 		
 		for(int i = 0; i < aboutDatabase.getRowsCount(); i++) {
-			searchModelObservableList.add(new TableModel(dataManager.getUnloadedFirstNames().get(i), dataManager.getUnloadedLastNames().get(i), dataManager.getLoadedBirthdays().get(i), 
+			searchModelObservableList.add(new TableModel(dataManager.getUnloadedFirstNames().get(i), dataManager.getUnloadedLastNames().get(i), dataManager.getReloadedBirthdays().get(i), 
 					dataManager.getUnloadedEmails().get(i), dataManager.getUnloadedTelNrs().get(i), dataManager.getUnloadedDegrees().get(i), dataManager.getUnloadedMeetingDays().get(i), dataManager.getUnloadedGenders().get(i)));			
 		}
 		
