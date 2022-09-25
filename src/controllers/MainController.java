@@ -46,6 +46,7 @@ import manager.data.DataManager;
 import manager.loading.LoadManager;
 import manager.models.TableModel;
 import manager.sendEmail.SendingEmail;
+import manager.tableView.TableManager;
 
 
 public class MainController implements Initializable {
@@ -53,143 +54,151 @@ public class MainController implements Initializable {
 	
 	// Root
 	@FXML
-	private TabPane root;
+	public TabPane root;
 	
 	//Tabl
 	@FXML
-	private Tab verwaltungstab;
+	public static Tab verwaltungstab;
 	@FXML
-	private Tab emailtab;
+	public static Tab emailtab;
 
 	
 	//Panes
 	@FXML
-	private Pane verwaltung;
+	public static Pane verwaltung;
 	@FXML
-	private Pane email;
+	public static Pane email;
 
 	
 	//Labels
 	@FXML
-	private Label firstNameLabel;
+	public static Label firstNameLabel;
 	@FXML
-	private Label lastNameLabel;
+	public static Label lastNameLabel;
 	@FXML
-	private Label birthdayLabel;
+	public static Label birthdayLabel;
 	@FXML
-	private Label emailLabel;
+	public static Label emailLabel;
 	@FXML
-	private Label telephoneLabel;
+	public static Label telephoneLabel;
 	@FXML
-	private Label titleLabel;
+	public static Label titleLabel;
 	@FXML
-	private Label orderDateLabel;
+	public static Label orderDateLabel;
 	@FXML
-	private Label genderLabel;
+	public static Label genderLabel;
 	@FXML
-	private Label birthdayEmailLabel;
+	public static Label birthdayEmailLabel;
 	
 	//TextFields & Areas
 	@FXML
-	private TextField firstNameField;
+	public static TextField firstNameField;
 	@FXML
-	private TextField lastNameField;
+	public static TextField lastNameField;
 	@FXML
-	private TextField emailField;
+	public static TextField emailField;
 	@FXML
-	private TextField telephoneField;
+	public static TextField telephoneField;
 	@FXML
-	private TextField titleField;
+	public static TextField titleField;
 	@FXML
-	private TextField searchField;
+	public static TextField searchField;
 	@FXML
-	private TextField searchFieldOutput;
+	public static TextField searchFieldOutput;
 	@FXML
-	private TextArea errorArea;
+	public static TextArea errorArea;
 	@FXML
-	private TextField deleteField;
+	public static TextField deleteField;
 	@FXML
-	private TextField birthdayEmailField;
+	public static TextField birthdayEmailField;
 	@FXML
-	private TextArea birthdayMessageArea;
+	public static TextArea birthdayMessageArea;
 	@FXML
-	private TextArea emailErrorField;
+	public static TextArea emailErrorField;
 	@FXML 
-	private TextField regardingField;
+	public static TextField regardingField;
 	
 	
 	//Boxes and Pickers
 	@FXML
-	private DatePicker birthdayPicker;
+	public static DatePicker birthdayPicker;
 	@FXML
-	private DatePicker meetingDayPicker;
+	public static DatePicker meetingDayPicker;
 	@FXML
-	private ComboBox<String> genderBox;
+	public static ComboBox<String> genderBox;
 	@FXML
-	private ComboBox<String> searchFor;
+	public static ComboBox<String> searchFor;
 	
 	//Buttons
 	@FXML
-	private Button newPerson;
+	public static Button newPerson;
 	@FXML
-	private Button sendData;
+	public static Button sendData;
 	@FXML
-	private Button nextPage;
+	public static Button nextPage;
 	@FXML
-	private Button nightButton;
+	public static Button nightButton;
 	@FXML
-	private Button lightButton;
+	public static Button lightButton;
 	@FXML
-	private Button lastPage;
+	public static Button lastPage;
 	@FXML
-	private Button undo;
+	public static Button undo;
 	@FXML
-	private Button restore;
+	public static Button restore;
 	@FXML
-	private Button beforeMail;
+	public static Button beforeMail;
 	@FXML
-	private Button nextMail;
+	public static Button nextMail;
 	@FXML
-	private Button resetButton;
+	public static Button resetButton;
 	@FXML
-	private Button sendEmailButton;
+	public static Button sendEmailButton;
 
 	
 	//TableView + TableColumns
 	@FXML
-	private TableView<TableModel> tableView;
+	public TableView<TableModel> tableView;
 	@FXML
-	private TableColumn<TableModel, String> firstNameColumn;
+	public TableColumn<TableModel, String> firstNameColumn;
 	@FXML
-	private TableColumn<TableModel, String> lastNameColumn;
+	public TableColumn<TableModel, String> lastNameColumn;
 	@FXML
-	private TableColumn<TableModel, String> birthdayColumn;
+	public TableColumn<TableModel, String> birthdayColumn;
 	@FXML
-	private TableColumn<TableModel, String> emailColumn;
+	public TableColumn<TableModel, String> emailColumn;
 	@FXML
-	private TableColumn<TableModel, String> telephoneColumn;
+	public TableColumn<TableModel, String> telephoneColumn;
 	@FXML
-	private TableColumn<TableModel, String> degreeColumn;
+	public TableColumn<TableModel, String> degreeColumn;
 	@FXML
-	private TableColumn<TableModel, String> meetingDayColumn;
+	public TableColumn<TableModel, String> meetingDayColumn;
 	@FXML
-	private TableColumn<TableModel, String> genderColumn;
+	public TableColumn<TableModel, String> genderColumn;
 	
 	//Images
 	@FXML
-	private ImageView backgroundImage;
+	public static  ImageView backgroundImage;
 	@FXML
-	private ImageView ZanglLogo;
+	public static  ImageView ZanglLogo;
 	@FXML
-	private ImageView background;
+	public static  ImageView background;
 	@FXML
-	private ImageView zanglLogoBackground;
+	public static  ImageView zanglLogoBackground;
 	
+	
+	private static MainController mainController = new MainController();
 
-
+	private MainController() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public static MainController getMainController() {
+		return mainController;
+	}
 	
 	//Variablen 
-	public ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
+	public static ObservableList<TableModel> searchModelObservableList = FXCollections.observableArrayList();
 	AboutDatabase aboutDatabase = new AboutDatabase();
 	CellFactory cellFactory = new CellFactory();
 	
@@ -205,7 +214,7 @@ public class MainController implements Initializable {
 	Thread afkThread;
 	Thread birthdayThread;
 	DeleteFromDatabase deleteFromDatabase = new DeleteFromDatabase();
-	BirthdayMessage birthdayMessage = new BirthdayMessage();
+//	BirthdayMessage birthdayMessage = new BirthdayMessage();
 	
 	
 	
@@ -281,29 +290,29 @@ public class MainController implements Initializable {
 	
 	//Setzen der Mails in die Birthday Area
 	public void setBirthdayAreaContent() {
-		  countForBirthdayEmails = 0;
-			if (!birthdayMessage.getBirthdayEmailList().isEmpty()) {
-				String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-				birthdayEmailField.setText(birthdayEmail);
-			} else {
-				birthdayEmailField.setText("");
-			}
-
-			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-			birthdayMessageArea.setText(birthDayMessageString);
+//		  countForBirthdayEmails = 0;
+//			if (!birthdayMessage.getBirthdayEmailList().isEmpty()) {
+//				String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
+//				birthdayEmailField.setText(birthdayEmail);
+//			} else {
+//				birthdayEmailField.setText("");
+//			}
+//
+//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
+//			birthdayMessageArea.setText(birthDayMessageString);
 	}
 	
 	//Listen Update der Birthday Area
 	public void changeListenerForBirthdayArea() {
-		birthdayMessageArea.textProperty().addListener(new ChangeListener<String>() {
-
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessageArea.getText());
-				
-			}
-		});
-		
+//		birthdayMessageArea.textProperty().addListener(new ChangeListener<String>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+//				birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessageArea.getText());
+//				
+//			}
+//		});
+//		
 	}
 	
 	//Formalitäten setzen
@@ -345,8 +354,8 @@ public class MainController implements Initializable {
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
-		loadManager.loadWholeDatabase();
-		loadManager.loadWholeTableView(tableView, firstNameColumn, lastNameColumn, birthdayColumn, emailColumn, telephoneColumn, degreeColumn, meetingDayColumn, genderColumn, searchModelObservableList);
+		TableManager tableManager = new TableManager();
+		tableManager.loadWholeDatabase();
 			init();
 		 datepickerListener.addBirthdayDatepickerListener(birthdayPicker);
 		 datepickerListener.addMeetingDayDatePickerListener(meetingDayPicker);
@@ -667,9 +676,9 @@ public class MainController implements Initializable {
 	
 	//Neue Seite öffnen / weiter zur E-Mail Seite
 	public void tabNewPage(ActionEvent event) {
-		birthdayMessage = new BirthdayMessage();
-		setBirthdayAreaContent();
-		verwaltungstab.getTabPane().getSelectionModel().select(emailtab);
+//		birthdayMessage = new BirthdayMessage();
+//		setBirthdayAreaContent();
+//		verwaltungstab.getTabPane().getSelectionModel().select(emailtab);
 		
 	}
 	
@@ -690,46 +699,46 @@ public class MainController implements Initializable {
 	
 	//Es wird eine Mail zurückgesprungen, falls eine existieren sollte.
 	public void switchBackMail(ActionEvent event) {
-		emailErrorField.setText("");
-		if (countForBirthdayEmails >= 0) {
-			countForBirthdayEmails -= 1;
-		}
-
-		if (countForBirthdayEmails >= 0 && !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
-			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-			birthdayEmailField.setText(birthdayEmail);
-			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-			birthdayMessageArea.setText(birthDayMessageString);
-		} else {
-			countForBirthdayEmails += 1;
-			return;
-		}
+//		emailErrorField.setText("");
+//		if (countForBirthdayEmails >= 0) {
+//			countForBirthdayEmails -= 1;
+//		}
+//
+//		if (countForBirthdayEmails >= 0 && !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
+//			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
+//			birthdayEmailField.setText(birthdayEmail);
+//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
+//			birthdayMessageArea.setText(birthDayMessageString);
+//		} else {
+//			countForBirthdayEmails += 1;
+//			return;
+//		}
 	}
 	
 	//Es wird zur nächsten Email gesprungen, falls eine existieren sollte.
 	public void switchNextMail(ActionEvent event) {
-		emailErrorField.setText("");
-		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()) {
-			countForBirthdayEmails += 1;
-		}
-
-		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()&& !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
-			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-			birthdayEmailField.setText(birthdayEmail);
-			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-			birthdayMessageArea.setText(birthDayMessageString);
-		} else {
-			countForBirthdayEmails -= 1;
-			return;
-		}
+//		emailErrorField.setText("");
+//		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()) {
+//			countForBirthdayEmails += 1;
+//		}
+//
+//		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()&& !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
+//			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
+//			birthdayEmailField.setText(birthdayEmail);
+//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
+//			birthdayMessageArea.setText(birthDayMessageString);
+//		} else {
+//			countForBirthdayEmails -= 1;
+//			return;
+//		}
 	}
 	
 	//Text Area wird auf den Ursprung zurückgesetzt
 	public void reset(ActionEvent event) {
 		emailErrorField.setText("");
-		birthdayMessage = new BirthdayMessage();
-		birthdayMessageArea.setText(birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
-		birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
+//		birthdayMessage = new BirthdayMessage();
+//		birthdayMessageArea.setText(birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
+//		birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
 		
 	}
 	
@@ -782,222 +791,7 @@ public class MainController implements Initializable {
 	}
 
 	//GETTER
-	public TabPane getRoot() {
-		return root;
-	}
-
-	public Tab getVerwaltungstab() {
-		return verwaltungstab;
-	}
-
-	public Tab getEmailtab() {
-		return emailtab;
-	}
-
-	public Pane getVerwaltung() {
-		return verwaltung;
-	}
-
-	public Label getFirstNameLabel() {
-		return firstNameLabel;
-	}
-
-	public Label getLastNameLabel() {
-		return lastNameLabel;
-	}
-
-	public Label getBirthdayLabel() {
-		return birthdayLabel;
-	}
-
-	public Label getEmailLabel() {
-		return emailLabel;
-	}
-
-	public Label getTelephoneLabel() {
-		return telephoneLabel;
-	}
-
-	public Label getTitleLabel() {
-		return titleLabel;
-	}
-
-	public Label getOrderDateLabel() {
-		return orderDateLabel;
-	}
-
-	public Label getGenderLabel() {
-		return genderLabel;
-	}
-
-	public Label getBirthdayEmailLabel() {
-		return birthdayEmailLabel;
-	}
-
-	public TextField getFirstNameField() {
-		return firstNameField;
-	}
-
-	public TextField getLastNameField() {
-		return lastNameField;
-	}
-
-	public TextField getEmailField() {
-		return emailField;
-	}
-
-	public TextField getTelephoneField() {
-		return telephoneField;
-	}
-
-	public TextField getTitleField() {
-		return titleField;
-	}
-
-	public TextField getSearchField() {
-		return searchField;
-	}
-
-	public TextField getSearchFieldOutput() {
-		return searchFieldOutput;
-	}
-
-	public TextArea getErrorArea() {
-		return errorArea;
-	}
-
-	public TextField getDeleteField() {
-		return deleteField;
-	}
-
-	public TextField getBirthdayEmailField() {
-		return birthdayEmailField;
-	}
-
-	public TextArea getBirthdayMessageArea() {
-		return birthdayMessageArea;
-	}
-
-	public TextArea getEmailErrorField() {
-		return emailErrorField;
-	}
-
-	public TextField getRegardingField() {
-		return regardingField;
-	}
-
-	public DatePicker getBirthdayPicker() {
-		return birthdayPicker;
-	}
-
-	public DatePicker getMeetingDayPicker() {
-		return meetingDayPicker;
-	}
-
-	public ComboBox<String> getGenderBox() {
-		return genderBox;
-	}
-
-	public ComboBox<String> getSearchFor() {
-		return searchFor;
-	}
-
-	public Button getNewPerson() {
-		return newPerson;
-	}
-
-	public Button getSendData() {
-		return sendData;
-	}
-
-	public Button getNextPage() {
-		return nextPage;
-	}
-
-	public Button getNightButton() {
-		return nightButton;
-	}
-
-	public Button getLightButton() {
-		return lightButton;
-	}
-
-	public Button getLastPage() {
-		return lastPage;
-	}
-
-	public Button getUndo() {
-		return undo;
-	}
-
-	public Button getRestore() {
-		return restore;
-	}
-
-	public Button getNextMail() {
-		return nextMail;
-	}
-
-	public Button getResetButton() {
-		return resetButton;
-	}
-
-	public Button getSendEmailButton() {
-		return sendEmailButton;
-	}
-
-	public TableView<TableModel> getTableView() {
-		return tableView;
-	}
-
 	public TableColumn<TableModel, String> getFirstNameColumn() {
 		return firstNameColumn;
 	}
-
-	public TableColumn<TableModel, String> getLastNameColumn() {
-		return lastNameColumn;
-	}
-
-	public TableColumn<TableModel, String> getBirthdayColumn() {
-		return birthdayColumn;
-	}
-
-	public TableColumn<TableModel, String> getEmailColumn() {
-		return emailColumn;
-	}
-
-	public TableColumn<TableModel, String> getTelephoneColumn() {
-		return telephoneColumn;
-	}
-
-	public TableColumn<TableModel, String> getDegreeColumn() {
-		return degreeColumn;
-	}
-
-	public TableColumn<TableModel, String> getMeetingDayColumn() {
-		return meetingDayColumn;
-	}
-
-	public TableColumn<TableModel, String> getGenderColumn() {
-		return genderColumn;
-	}
-
-	public ImageView getBackgroundImage() {
-		return backgroundImage;
-	}
-
-	public ImageView getZanglLogo() {
-		return ZanglLogo;
-	}
-
-	public ImageView getBackground() {
-		return background;
-	}
-
-	public ImageView getZanglLogoBackground() {
-		return zanglLogoBackground;
-	}
-	
-	
-	
 }

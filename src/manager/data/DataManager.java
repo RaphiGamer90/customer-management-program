@@ -58,7 +58,7 @@ public class DataManager extends LoadManager {
 		return getBirthdaysFromDatabase();
 	}
 	
-	public ArrayList<String> getReloadeddEmails() {
+	public ArrayList<String> getReloadedEmails() {
 		loadEmails();
 		return getEmailsFromDatabase();
 	}
