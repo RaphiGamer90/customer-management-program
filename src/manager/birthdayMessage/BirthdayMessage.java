@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import manager.checking.Checker;
+import manager.checking.CheckerManager;
 import database.ConnectionToDatabase;
 
 
@@ -17,7 +17,7 @@ public class BirthdayMessage {
 	ArrayList<String> birthdayMessage = new ArrayList<>();
 	int customerID;
 	ConnectionToDatabase connectionToDatabase = new ConnectionToDatabase();
-	Checker checker = new Checker();
+//	Checker checker = new Checker();
 	
 	
 	/*

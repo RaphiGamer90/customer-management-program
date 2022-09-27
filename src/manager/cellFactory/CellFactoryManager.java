@@ -8,7 +8,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import manager.models.TableModel;
 
-public class CellFactory {
+public class CellFactoryManager {
 
 	// Cellstruktur
 	@SuppressWarnings({ "rawtypes", "unchecked" })

@@ -3,8 +3,9 @@ package controllers.actions;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import manager.checking.Checker;
-import manager.checking.CustomerDataChecker;
+import controllers.Controller;
+import controllers.MainController;
+import manager.checking.CustomerDataCheckerManager;
 import manager.data.DataManager;
 import database.PutInDatabase;
 import database.DataFromDatabase;
@@ -15,30 +16,30 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 
-public class AddCustomer {
+public class AddCustomer extends CustomerDataCheckerManager {
+
+	Controller controller = new Controller();
 	
-	private CustomerDataChecker customerDataChecker = new CustomerDataChecker();
 	private HashMap<String, String> errorMap = new HashMap<>();
-	DataManager dataManager = new DataManager();
+
 	
 	/*SET ALL THE CUSTOMER DATA*/
-	public void setCustomerInDatabase(TextField firstNameField, TextField lastNameField, TextField emailField, String birthdayField, TextField telNrField, 
-			TextField degreeField, String meetingDayField, ComboBox<String> genderBox, TextArea errorArea) {
+	public void setCustomerInDatabase() {
 		
-		String firstName = setFirstName(firstNameField);
-		String lastName = setLastName(lastNameField);
-		String birthday = setBirthday(birthdayField);
-		String email = setEmail(emailField);
-		String telNr = setTelNr(telNrField);
-		String degree = setDegree(degreeField);
-		String meetingDay = setMeetDay(meetingDayField);
-		String gender = setGender(genderBox);
+		String firstName = setFirstName(controller.getMainController().firstNameField.getText());
+		String lastName = setLastName(controller.getMainController().lastNameField.getText());
+		String birthday = setBirthday(controller.getMainController().datePickerManager.getBirthdayDatePickerValue());
+		String email = setEmail(controller.getMainController().emailField.getText());
+		String telNr = setTelNr(controller.getMainController().telephoneField.getText());
+		String degree = setDegree(controller.getMainController().degreeField.getText());
+		String meetingDay = setMeetDay(controller.getMainController().datePickerManager.getMeetingDayDatePickerValue());
+		String gender = setGender(controller.getMainController().genderBox.getValue());
 		
 		if(!errorMap.isEmpty()) {
 			String errorMessage = "";
 			for(String error : errorMap.values()) {
 				errorMessage += error;
-				errorArea.setText(errorMessage);
+				controller.getMainController().errorArea.setText(errorMessage);
 			}
 		}
 		else {
@@ -51,66 +52,66 @@ public class AddCustomer {
 	
 	
 	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
-	private String setFirstName(TextField firstNameField) {
-		if(!customerDataChecker.isFirstName(firstNameField.getText())) {
+	private String setFirstName(String firstName) {
+		if(!isFirstName(firstName)) {
 			return errorMap.put("firstNameErrorMessage", "Das ist kein Vorname!\n");
 		}
-		return firstNameField.getText();
+		return firstName;
 	}
-	
-	private String setLastName(TextField lastNameField) {
-		if(!customerDataChecker.isLastName(lastNameField.getText())) {
+
+	private String setLastName(String lastName) {
+		if(!isLastName(lastName)) {
 			return errorMap.put("lastNameErrorMessage", "Das ist kein Nachname!\n");
 		}
-		return lastNameField.getText();
+		return lastName;
 	}
 	
-	private String setBirthday(String birthdayField) {
-		if(!customerDataChecker.isBirthday(birthdayField.trim())) {
+	private String setBirthday(String birthday) {
+		if(!isBirthday(birthday.trim())) {
 			return errorMap.put("birthdayErrorMessage", "Das ist kein Geburtstag!\n");
 		}
-		return birthdayField;
+		return birthday;
 	}
 	
-	private String setEmail(TextField emailField) {
-		if(!customerDataChecker.isEmail(emailField.getText())) {
+	private String setEmail(String email) {
+		if(!isEmail(email)) {
 			return errorMap.put("emailErrorMessage", "Das ist keine E-Mail!\n");
 		}
-		else if(dataManager.getUnloadedEmails().contains(emailField.getText())) {
+		else if(controller.getMainController().dataManager.getReloadedEmails().contains(email)) {
 			return errorMap.put("emailErrorMessage", "Diese E-Mail existiert bereits!\n");
 		}
-		return emailField.getText();
+		return email;
 	}
 	
-	private String setTelNr(TextField telNrField) {
-		if(!customerDataChecker.isTelNr(telNrField.getText())) {
+	private String setTelNr(String telNr) {
+		if(!isTelNr(telNr.trim())) {
 			return errorMap.put("telNrErrorMessage", "Das ist keine Telefonnummer!\n");
 		}
-		else if(dataManager.getUnloadedTelNrs().contains(telNrField.getText())) {
+		else if(controller.getMainController().dataManager.getReloadedTelNrs().contains(telNr)) {
 			return errorMap.put("telNrErrorMessage", "Diese Telefonnummer existiert bereits!\n");
 		}
-		return telNrField.getText();
+		return telNr;
 	}
 	
-	private String setDegree(TextField degreeField) {
-		if(!customerDataChecker.isDegree(degreeField.getText())) {
+	private String setDegree(String degree) {
+		if(!isDegree(degree)) {
 			return errorMap.put("degreeErrorMessage", "Das ist kein Titel!\n");
 		}
-		return degreeField.getText();
+		return degree;
 	}
 	
-	private String setMeetDay(String meetingDayField) {
-		if(!customerDataChecker.isBirthday(meetingDayField.trim())) {
+	private String setMeetDay(String meetingDay) {
+		if(!isBirthday(meetingDay.trim())) {
 			return errorMap.put("meetingDayErrorMessage", "Das ist kein Datum!\n");
 		}
-		return meetingDayField;
+		return meetingDay;
 	}
 	
-	private String setGender(ComboBox<String> genderBox) {
-		if(!customerDataChecker.isGender(genderBox.getValue())) {
+	private String setGender(String gender) {
+		if(!isGender(gender.trim())) {
 			return errorMap.put("genderErrorMessage", "Das ist kein passendes Geschlecht!\n");
 		}
-		return genderBox.getValue();
+		return gender;
 	}
 		
 }

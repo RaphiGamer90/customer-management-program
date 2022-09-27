@@ -1,0 +1,6 @@
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\rapha\\Desktop\\Programmier-Unterlagen\\All External References\\JavaFx\\javafx-sdk-16\\lib\\javafx.base.jar"
+    ]
+}

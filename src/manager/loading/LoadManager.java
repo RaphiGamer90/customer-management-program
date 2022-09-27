@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import manager.cellFactory.CellFactory;
 import manager.data.DataManager;
 import manager.models.TableModel;
 

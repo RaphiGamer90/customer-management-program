@@ -1,9 +1,9 @@
-package manager.listener;
+package manager.datePicker;
 
 
 import javafx.scene.control.DatePicker;
 
-public class DatePickerListener {
+public class DatePickerManager {
 
 	
 	private String birthdayDatePickerValue, meetingDayDatePickerValue;

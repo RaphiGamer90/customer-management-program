@@ -6,7 +6,7 @@ public class Controller {
 
     private static MainController mainController;
 
-    public static MainController getMainController() {
+    public MainController getMainController() {
         return mainController;
     }
 

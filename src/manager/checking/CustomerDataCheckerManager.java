@@ -3,23 +3,20 @@ package manager.checking;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CustomerDataChecker {
+public class CustomerDataCheckerManager extends CheckerManager {
 
-	Checker checker = new Checker();
 	
 	/*VORNAME*/
 	public boolean isFirstName(String firstName) {
-		if(!checker.isString(firstName) && !checker.isFirstLetterUpperCase(firstName)) {
-			System.out.println("Das ist KEIN Vorname");
+		if(!(isString(firstName) & isFirstLetterUpperCase(firstName))) {
 			return false;
 		}
-		System.out.println("Das ist EIN Vorname");
 		return true;
 	}
 	
 	/*NACHNAME*/
 	public boolean isLastName(String lastName) {
-		if(!(checker.isString(lastName) & checker.isFirstLetterUpperCase(lastName))) {
+		if(!(isString(lastName) & isFirstLetterUpperCase(lastName))) {
 			return false;
 		}
 		return true;
@@ -27,7 +24,7 @@ public class CustomerDataChecker {
 	
 	/*GEBURTSTAG*/
 	public boolean isBirthday(String birthday) {
-		if(!(checker.isValidDate(birthday))) {
+		if(!(isValidDatePattern(birthday))) {
 			return false;
 		}
 		return true;
@@ -35,7 +32,7 @@ public class CustomerDataChecker {
 	
 	/*EMAIL*/
 	public boolean isEmail(String email) {
-		if(!(checker.isValidEmailAddress(email))) {
+		if(!(isValidEmailAddress(email))) {
 			return false;
 		}
 		return true;
@@ -43,19 +40,15 @@ public class CustomerDataChecker {
 	
 	/*TELNR*/
 	public boolean isTelNr(String telNr) {
-	    String patterns 
-	      = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$" 
-	      + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$" 
-	      + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?)(\\d{2}[ ]?){2}\\d{2}$";
-
-	    Pattern pattern = Pattern.compile(patterns);
-	    Matcher matcher = pattern.matcher(telNr);
-	    return matcher.matches();
+	   if(!isValidTelNrPattern(telNr)) {
+		   return false;
+	   }
+	   return true;
 	}
 	
 	/*DEGREE*/
 	public boolean isDegree(String degree) {
-		if(!(checker.isString(degree))) {
+		if(!(isString(degree))) {
 			return false;
 		}
 		return true;
@@ -63,7 +56,7 @@ public class CustomerDataChecker {
 	
 	/*MEETING DAY*/
 	public boolean isMeetingDay(String meetingDay) {
-		if(!(checker.isValidEmailAddress(meetingDay))) {
+		if(!(isValidEmailAddress(meetingDay))) {
 			return false;
 		}
 		return true;

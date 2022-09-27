@@ -74,17 +74,17 @@
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="titleLabel" layoutX="10.0" layoutY="515.0" prefHeight="62.0" prefWidth="181.0" text="Titel" textFill="WHITE">
+                  <Label fx:id="degreeLabel" layoutX="10.0" layoutY="515.0" prefHeight="62.0" prefWidth="181.0" text="Titel" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="titleField" layoutX="11.0" layoutY="570.0" prefHeight="60.0" prefWidth="360.0" promptText="Hier den Titel!">
+                  <TextField fx:id="degreeField" layoutX="11.0" layoutY="570.0" prefHeight="60.0" prefWidth="360.0" promptText="Hier den Titel!">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <Label fx:id="orderDateLabel" layoutX="11.0" layoutY="637.0" text="Auftrag Datum" textFill="WHITE">
+                  <Label fx:id="meetingDayLabel" layoutX="11.0" layoutY="637.0" text="Auftrag Datum" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="30.0" />
                      </font>

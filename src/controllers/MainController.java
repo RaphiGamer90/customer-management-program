@@ -8,7 +8,7 @@ import java.util.ResourceBundle;
 
 import controllers.actions.AddCustomer;
 import controllers.actions.EditColumn;
-import manager.listener.DatePickerListener;
+import manager.datePicker.DatePickerManager;
 import database.AboutDatabase;
 import database.DataFromDatabase;
 import database.DeleteFromDatabase;
@@ -40,12 +40,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import manager.birthdayMessage.BirthdayMessage;
-import manager.cellFactory.CellFactory;
-import manager.checking.Checker;
+import manager.cellFactory.CellFactoryManager;
+import manager.checking.CheckerManager;
 import manager.data.DataManager;
 import manager.loading.LoadManager;
 import manager.models.TableModel;
-import manager.sendEmail.SendingEmail;
 import manager.tableView.TableManager;
 
 
@@ -82,9 +81,9 @@ public class MainController implements Initializable {
 	@FXML
 	public Label telephoneLabel;
 	@FXML
-	public Label titleLabel;
+	public Label degreeLabel;
 	@FXML
-	public Label orderDateLabel;
+	public Label meetingDayLabel;
 	@FXML
 	public Label genderLabel;
 	@FXML
@@ -100,7 +99,7 @@ public class MainController implements Initializable {
 	@FXML
 	public TextField telephoneField;
 	@FXML
-	public TextField titleField;
+	public TextField degreeField;
 	@FXML
 	public TextField searchField;
 	@FXML
@@ -109,14 +108,16 @@ public class MainController implements Initializable {
 	public TextArea errorArea;
 	@FXML
 	public TextField deleteField;
+	
 	@FXML
 	public TextField birthdayEmailField;
 	@FXML
 	public TextArea birthdayMessageArea;
-	@FXML
-	public TextArea emailErrorField;
 	@FXML 
 	public TextField regardingField;
+	@FXML
+	public TextArea emailErrorField;
+	
 	
 	
 	//Boxes and Pickers
@@ -190,13 +191,13 @@ public class MainController implements Initializable {
 
 	
 	//Manager 
-	public LoadManager loadManager = new LoadManager();
-	public DataManager dataManager = new DataManager();
-	public TableManager tableManager = new TableManager();
-
-	
-	
-	DatePickerListener datepickerListener = new DatePickerListener();
+	public LoadManager loadManager;
+	public DataManager dataManager;
+	public TableManager tableManager;
+	public CellFactoryManager cellFactoryManager;
+	public AboutDatabase aboutDatabase;
+	public PutInDatabase putInDatabase;
+	public DatePickerManager datePickerManager;
  
 	int afkCount;
 	int countForBirthdayEmails;
@@ -311,8 +312,8 @@ public class MainController implements Initializable {
 		birthdayLabel.setId("label");
 		emailLabel.setId("label");
 		telephoneLabel.setId("label");
-		titleLabel.setId("label");
-		orderDateLabel.setId("label");
+		degreeLabel.setId("label");
+		meetingDayLabel.setId("label");
 		genderLabel.setId("label");
 		genderBox.setScaleX(2);
 		genderBox.setScaleY(2);
@@ -341,12 +342,21 @@ public class MainController implements Initializable {
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
+		loadManager = new LoadManager();
+		dataManager = new DataManager();
+		tableManager = new TableManager();
+		cellFactoryManager = new CellFactoryManager();
+		aboutDatabase = new AboutDatabase();
+		putInDatabase = new PutInDatabase();
+		datePickerManager = new DatePickerManager();
+		
 		Controller.setMainController(this);
+		datePickerManager.addBirthdayDatepickerListener(birthdayPicker);
+		datePickerManager.addMeetingDayDatePickerListener(meetingDayPicker);
 		
 		tableManager.refreshWholeTableView();
-			init();
-		 datepickerListener.addBirthdayDatepickerListener(birthdayPicker);
-		 datepickerListener.addMeetingDayDatePickerListener(meetingDayPicker);
+		init();
+			
 	}
 	
 	//Ladet Daten, die in die Tabelle eingetragen werden
@@ -464,7 +474,7 @@ public class MainController implements Initializable {
 			birthdayPicker.setValue(null);
 			emailField.setText("");
 			telephoneField.setText("");
-			titleField.setText("");
+			degreeField.setText("");
 			meetingDayPicker.getEditor().clear();
 			meetingDayPicker.setValue(null);
 			genderBox.getSelectionModel().clearSelection();	
@@ -476,8 +486,8 @@ public class MainController implements Initializable {
 	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
 	public void sendDataToDatabase(ActionEvent event) {
 		AddCustomer addPerson = new AddCustomer();
-		addPerson.setCustomerInDatabase(firstNameField, lastNameField, emailField, 
-				datepickerListener.getBirthdayDatePickerValue(), telephoneField, titleField, datepickerListener.getMeetingDayDatePickerValue(), genderBox, errorArea);
+		addPerson.setCustomerInDatabase();
+		tableManager.refreshWholeTableView();
 		
 	}
 
@@ -546,10 +556,10 @@ public class MainController implements Initializable {
 		telephoneLabel.setStyle("-fx-text-fill: #e8e8df;");
 		telephoneField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Title
-		titleLabel.setStyle("-fx-text-fill: #e8e8df;");
-		titleField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
+		degreeLabel.setStyle("-fx-text-fill: #e8e8df;");
+		degreeField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Auftrag Datum
-		orderDateLabel.setStyle("-fx-text-fill: #e8e8df;");
+		meetingDayLabel.setStyle("-fx-text-fill: #e8e8df;");
 		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/picker.css").toExternalForm());
 		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/popupForPicker.css").toExternalForm());
 		//Geschlecht
@@ -622,9 +632,9 @@ public class MainController implements Initializable {
 		emailField.setStyle(null);
 		telephoneLabel.setStyle(null);
 		telephoneField.setStyle(null);
-		titleLabel.setStyle(null);
-		titleField.setStyle(null);
-		orderDateLabel.setStyle(null);
+		degreeLabel.setStyle(null);
+		degreeField.setStyle(null);
+		meetingDayLabel.setStyle(null);
 		meetingDayPicker.getStylesheets().clear();
 		genderLabel.setStyle(null);
 		genderBox.getStylesheets().clear();
@@ -654,7 +664,7 @@ public class MainController implements Initializable {
 		hasToBe();
 		
 	}
-	
+
 	//Reihe aus der Datenbank entfernen und die Tabelle updaten
 	public void deleteRow(ActionEvent event) {
 		deleteFromDatabase.deleteValueFromDatabase(deleteField.getText());
@@ -749,12 +759,12 @@ public class MainController implements Initializable {
 				mailSendingChecker = false;
 			}
 			if (mailSendingChecker) {
-				SendingEmail sendingEmail = new SendingEmail();
+//				SendingEmail sendingEmail = new SendingEmail();
 				emailErrorField.setStyle("-fx-text-fill: green;");
 				emailErrorField.setFont(new Font("Arial", 24));
 				emailErrorField.setText("Die E-Mail wird zum Versenden vorbereitet!");
-				sendingEmail.sendmail(birthdayEmailField.getText(), regardingField.getText(), birthdayMessageArea.getText());
-				emailErrorField.setText(sendingEmail.getMessageSendingText());
+//				sendingEmail.sendmail(birthdayEmailField.getText(), regardingField.getText(), birthdayMessageArea.getText());
+//				emailErrorField.setText(sendingEmail.getMessageSendingText());
 			} else {
 				String messageForSendingProcessField = "";
 				for (String error : mailErrorMessage) {

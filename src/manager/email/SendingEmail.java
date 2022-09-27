@@ -1,4 +1,4 @@
-package manager.sendEmail;
+package manager.email;
 
 import java.util.Properties;
 
