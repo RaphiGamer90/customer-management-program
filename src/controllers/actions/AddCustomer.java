@@ -43,9 +43,7 @@ public class AddCustomer extends CustomerDataCheckerManager {
 			}
 		}
 		else {
-			PutInDatabase addCustomer = new PutInDatabase();
-			System.out.println("Konnte erfolgreich abgeschickt werden.");
-			addCustomer.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
+			controller.getMainController().putInDatabase.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
 		}
 	}
 			

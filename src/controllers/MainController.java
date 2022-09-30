@@ -195,9 +195,10 @@ public class MainController implements Initializable {
 	public DataManager dataManager;
 	public TableManager tableManager;
 	public CellFactoryManager cellFactoryManager;
-	public AboutDatabase aboutDatabase;
+	public AboutDatabase aboutDatabase;	
 	public PutInDatabase putInDatabase;
-	public DatePickerManager datePickerManager;
+	public DatePickerManager datePickerManager;	
+	public AddCustomer addCustomer;
  
 	int afkCount;
 	int countForBirthdayEmails;
@@ -349,6 +350,7 @@ public class MainController implements Initializable {
 		aboutDatabase = new AboutDatabase();
 		putInDatabase = new PutInDatabase();
 		datePickerManager = new DatePickerManager();
+		addCustomer = new AddCustomer();
 		
 		Controller.setMainController(this);
 		datePickerManager.addBirthdayDatepickerListener(birthdayPicker);
@@ -485,8 +487,8 @@ public class MainController implements Initializable {
 
 	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
 	public void sendDataToDatabase(ActionEvent event) {
-		AddCustomer addPerson = new AddCustomer();
-		addPerson.setCustomerInDatabase();
+		
+		addCustomer.setCustomerInDatabase();
 		tableManager.refreshWholeTableView();
 		
 	}
