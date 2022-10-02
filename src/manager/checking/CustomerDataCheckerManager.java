@@ -64,7 +64,7 @@ public class CustomerDataCheckerManager extends CheckerManager {
 	
 	/*GENDER*/
 	public boolean isGender(String gender) {
-		if(!gender.equals("Herr") && !gender.equals("Frau") && !gender.equals("Divers") && !gender.equals("Unknown")) {
+		if(!isValidGender(gender)) {
 			return false;
 		}
 		return true;

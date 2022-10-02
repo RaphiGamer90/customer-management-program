@@ -5,6 +5,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
+import manager.errors.ErrorManager;
 
 import controllers.actions.AddCustomer;
 import controllers.actions.EditColumn;
@@ -36,6 +37,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -199,6 +201,7 @@ public class MainController implements Initializable {
 	public PutInDatabase putInDatabase;
 	public DatePickerManager datePickerManager;	
 	public AddCustomer addCustomer;
+	public ErrorManager errorManager;
  
 	int afkCount;
 	int countForBirthdayEmails;
@@ -351,6 +354,7 @@ public class MainController implements Initializable {
 		putInDatabase = new PutInDatabase();
 		datePickerManager = new DatePickerManager();
 		addCustomer = new AddCustomer();
+		errorManager = new ErrorManager();
 		
 		Controller.setMainController(this);
 		datePickerManager.addBirthdayDatepickerListener(birthdayPicker);

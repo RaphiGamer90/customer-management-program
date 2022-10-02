@@ -7,19 +7,32 @@ import controllers.Controller;
 public class ErrorManager {
 
 	Controller controller = new Controller();
-	
-	
-	public boolean addCustomerErrors(String firstName, String lastName, String birthday, String email, String telNr, String degree, String meetingDay, String gender) {
-		
-		if(controller.getMainController().addCustomer.set)
-		
-		return true;
+	private HashMap<String, String> addCustomerErrorMap = new HashMap<>();
+	private HashMap<String, String> editColumnErrorMap = new HashMap<>();
+
+
+	public void throwAddCustomerErrors() {
+		String errorMessage = "";
+		for(String error : controller.getMainController().errorManager.getAddCustomerErrorMap().values()) {
+			errorMessage += error;
+			controller.getMainController().errorArea.setText(errorMessage);
+		}
 	}
-	HashMap<String, String> addCustomerErrorMap = new HashMap<>();
 	
+	public void throwEditColumnErrors() {
+		
+	}
 	
-	
-	
-	HashMap<String, String> editColumnErrorMap = new HashMap<>();
-	
+	public void clearErrorMessages() {
+		controller.getMainController().errorArea.clear();
+	}
+
+	public HashMap<String, String> getAddCustomerErrorMap() {
+		return addCustomerErrorMap;
+	}
+
+	public HashMap<String, String> getEditColumnErrorMap() {
+		return editColumnErrorMap;
+	}
+
 }
