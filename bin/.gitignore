@@ -1,3 +1,4 @@
-/manager/
-/database/
+/application/
+/stylesheets/
 /controllers/
+/manager/

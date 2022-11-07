@@ -2,6 +2,7 @@ package manager.datePicker;
 
 
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 
 public class DatePickerManager {
 
@@ -24,7 +25,6 @@ public class DatePickerManager {
 			meetingDayDatePickerValue = newValue;
 		});
 	}
-
 	
 	public String getBirthdayDatePickerValue() {
 		return birthdayDatePickerValue;

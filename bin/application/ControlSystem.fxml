@@ -14,145 +14,208 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="root" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controllers.MainController">
+<TabPane fx:id="root" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
   <tabs>
     <Tab fx:id="verwaltungstab" text="Verwaltung">
          <content>
-            <Pane fx:id="verwaltung" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1920.0">
-               <children>
-                  <ImageView fx:id="backgroundImage" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/immobilienbackground.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="firstNameLabel" layoutX="12.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="45.0" prefWidth="159.0" text="Vorname" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="firstNameField" layoutX="11.0" layoutY="44.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="360.0" promptText="Hier Vorname!">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="lastNameLabel" layoutX="12.0" layoutY="104.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Nachname" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="lastNameField" layoutX="11.0" layoutY="145.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="360.0" promptText="Hier Nachname!">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="birthdayLabel" layoutX="10.0" layoutY="205.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="51.0" prefWidth="183.0" text="Geburtstag" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="birthdayPicker" layoutX="101.0" layoutY="268.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="180.0" promptText="Hier Geburtstag!" />
-                  <Label fx:id="emailLabel" layoutX="11.0" layoutY="306.0" prefHeight="54.0" prefWidth="98.0" text="E-mail" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="emailField" layoutX="11.0" layoutY="349.0" prefHeight="60.0" prefWidth="360.0" promptText="Hier E-Mail!">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="telephoneLabel" layoutX="11.0" layoutY="403.0" prefHeight="66.0" prefWidth="278.0" text="Telefonnummer" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="telephoneField" layoutX="11.0" layoutY="455.0" prefHeight="60.0" prefWidth="360.0" promptText="Hier Telefonnummer!">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="degreeLabel" layoutX="10.0" layoutY="515.0" prefHeight="62.0" prefWidth="181.0" text="Titel" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <TextField fx:id="degreeField" layoutX="11.0" layoutY="570.0" prefHeight="60.0" prefWidth="360.0" promptText="Hier den Titel!">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Label fx:id="meetingDayLabel" layoutX="11.0" layoutY="637.0" text="Auftrag Datum" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <DatePicker fx:id="meetingDayPicker" layoutX="96.0" layoutY="697.0" prefHeight="30.0" prefWidth="180.0" promptText="Hier Auftrag Datum!" />
-                  <Label fx:id="genderLabel" layoutX="10.0" layoutY="738.0" prefHeight="45.0" prefWidth="180.0" text="Geschlecht" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="30.0" />
-                     </font>
-                  </Label>
-                  <ComboBox fx:id="genderBox" layoutX="96.0" layoutY="795.0" prefHeight="30.0" prefWidth="180.0" promptText="Geschlecht auswählen!" visibleRowCount="4">
-                     <cursor>
-                        <Cursor fx:constant="DEFAULT" />
-                     </cursor>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets></ComboBox>
-                  <Button fx:id="newPerson" layoutX="4.0" layoutY="845.0" mnemonicParsing="false" onAction="#setNewPerson" prefHeight="48.0" prefWidth="87.0" text="Neu">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="sendData" layoutX="101.0" layoutY="845.0" mnemonicParsing="false" onAction="#sendDataToDatabase" prefHeight="49.0" prefWidth="280.0" text="Eintrag speichern!">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Button>
-                  <TextArea fx:id="errorArea" layoutX="4.0" layoutY="899.0" prefHeight="93.0" prefWidth="395.0" />
-                  <TableView fx:id="tableView" layoutX="433.0" layoutY="223.0" opacity="0.85" prefHeight="679.0" prefWidth="1437.0">
-                    <columns>
-                      <TableColumn fx:id="firstNameColumn" onEditCommit="#firstNameColumnEdit" prefWidth="163.0" text="Vorname" />
-                      <TableColumn fx:id="lastNameColumn" onEditCommit="#lastNameColumnEdit" prefWidth="169.0" text="Nachname" />
-                        <TableColumn fx:id="birthdayColumn" onEditCommit="#birthdayColumnEdit" prefWidth="178.0" text="Geburtstag" />
-                        <TableColumn fx:id="emailColumn" onEditCommit="#emailColumnEdit" prefWidth="217.0" text="Email" />
-                        <TableColumn fx:id="telephoneColumn" onEditCommit="#telephoneColumnEdit" prefWidth="225.0" text="Telefonnummer" />
-                        <TableColumn fx:id="degreeColumn" onEditCommit="#degreeColumnEdit" prefWidth="166.0" text="Titel" />
-                        <TableColumn fx:id="meetingDayColumn" onEditCommit="#meetingDayColumnEdit" prefWidth="181.0" text="AuftragDatum" />
-                        <TableColumn fx:id="genderColumn" onEditCommit="#genderColumnEdit" prefWidth="137.0" text="Geschlecht" />
-                    </columns>
-                  </TableView>
-                  <ImageView fx:id="ZanglLogo" fitHeight="197.0" fitWidth="1494.0" layoutX="424.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/ZanglLogo.png" />
-                     </image>
-                  </ImageView>
-                  <TextField fx:id="searchField" layoutX="433.0" layoutY="915.0" prefHeight="62.0" prefWidth="425.0" promptText="Suchen">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <ComboBox fx:id="searchFor" layoutX="867.0" layoutY="917.0" prefHeight="25.0" prefWidth="120.0" promptText="Suche nach:" />
-                  <Button fx:id="nightButton" layoutX="867.0" layoutY="946.0" mnemonicParsing="false" onAction="#setOnNightMode" prefHeight="25.0" prefWidth="57.0" text="🌙" />
-                  <Button fx:id="lightButton" layoutX="927.0" layoutY="946.0" mnemonicParsing="false" onAction="#setOnLightMode" prefHeight="25.0" prefWidth="60.0" text="☀" />
-                  <TextField fx:id="searchFieldOutput" editable="false" layoutX="1003.0" layoutY="917.0" prefHeight="58.0" prefWidth="94.0">
-                     <font>
-                        <Font size="22.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="deleteField" layoutX="1115.0" layoutY="915.0" onAction="#deleteRow" prefHeight="62.0" prefWidth="426.0" promptText="Löschen">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </TextField>
-                  <Button fx:id="nextPage" layoutX="1723.0" layoutY="917.0" mnemonicParsing="false" onAction="#tabNewPage" prefHeight="57.0" prefWidth="147.0" text="Nächste Seite">
-                     <font>
-                        <Font size="18.0" />
-                     </font></Button>
-               </children></Pane>
+            <BorderPane prefHeight="200.0" prefWidth="200.0" styleClass="backgroundImage" stylesheets="@../stylesheets/style.css">
+               <left>
+                  <VBox fillWidth="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="33.0" styleClass="container" stylesheets="@../stylesheets/style.css">
+                     <children>
+                        <TextField fx:id="firstNameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="320.0" promptText="Hier Vorname!" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="lastNameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="320.0" promptText="Hier Nachname!" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <DatePicker fx:id="birthdayPicker" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="316.0" promptText="Hier Geburtstag!" styleClass="date-picker" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin></DatePicker>
+                        <TextField fx:id="emailField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="320.0" promptText="Hier E-Mail!" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="telephoneField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="320.0" promptText="Hier Telefonnummer!" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="degreeField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="320.0" promptText="Hier den Titel!" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </TextField>
+                        <DatePicker fx:id="meetingDayPicker" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="317.0" promptText="Hier Auftrag Datum!" styleClass="date-picker" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin></DatePicker>
+                        <ComboBox fx:id="genderBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="60.0" prefWidth="317.0" promptText="Geschlecht auswählen!" styleClass="combo-box-gender" stylesheets="@../stylesheets/style.css" visibleRowCount="4" VBox.vgrow="ALWAYS">
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" />
+                           </VBox.margin>
+                        </ComboBox>
+                        <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="31.0" prefWidth="343.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Button fx:id="sendData" mnemonicParsing="false" onAction="#sendDataToDatabase" prefHeight="60.0" prefWidth="200.0" text="Eintrag speichern!" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="newPerson" mnemonicParsing="false" onAction="#setNewPerson" prefHeight="60.0" prefWidth="100.0" text="Neu" HBox.hgrow="ALWAYS">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <TextArea fx:id="errorArea" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" VBox.vgrow="ALWAYS">
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="10.0" />
+                           </VBox.margin>
+                        </TextArea>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </left>
+               <center>
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="15.0" styleClass="container" stylesheets="@../stylesheets/style.css">
+                     <children>
+                        <AnchorPane prefHeight="183.0" prefWidth="884.0">
+                           <children>
+                              <ImageView fx:id="ZanglLogo" fitHeight="173.0" fitWidth="1271.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow-effect" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-340.0" AnchorPane.topAnchor="0.0">
+                                 <image>
+                                    <Image url="@../images/ZanglLogo.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets left="20.0" top="10.0" />
+                           </VBox.margin>
+                        </AnchorPane>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="1800.0" spacing="10.0" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TableView fx:id="tableView" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" opacity="0.85" styleClass="round-curves" stylesheets="@../stylesheets/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columns>
+                                          <TableColumn fx:id="firstNameColumn" onEditCommit="#firstNameColumnEdit" prefWidth="200.0" text="Vorname" />
+                                          <TableColumn fx:id="lastNameColumn" onEditCommit="#lastNameColumnEdit" prefWidth="200.0" text="Nachname" />
+                                          <TableColumn fx:id="birthdayColumn" onEditCommit="#birthdayColumnEdit" prefWidth="200.0" text="Geburtstag" />
+                                          <TableColumn fx:id="emailColumn" onEditCommit="#emailColumnEdit" prefWidth="200.0" text="Email" />
+                                          <TableColumn fx:id="telephoneColumn" onEditCommit="#telephoneColumnEdit" prefWidth="200.0" text="Telefonnummer" />
+                                          <TableColumn fx:id="degreeColumn" onEditCommit="#degreeColumnEdit" prefWidth="152.0" text="Titel" />
+                                          <TableColumn fx:id="meetingDayColumn" onEditCommit="#meetingDayColumnEdit" prefWidth="180.0" text="AuftragDatum" />
+                                          <TableColumn fx:id="genderColumn" onEditCommit="#genderColumnEdit" prefWidth="153.0" text="Geschlecht" />
+                                       </columns>
+                                    </TableView>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets />
+                                 </HBox.margin>
+                              </AnchorPane>
+                           </children>
+                           <VBox.margin>
+                              <Insets left="20.0" right="10.0" />
+                           </VBox.margin>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                        </HBox>
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="75.0" prefWidth="1800.0" spacing="27.0" styleClass="container" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
+                           <children>
+                              <TextField fx:id="searchField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="510.0" promptText="Suchen">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </TextField>
+                              <VBox prefHeight="55.0" prefWidth="120.0" spacing="5.0">
+                                 <children>
+                                    <ComboBox fx:id="searchBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" promptText="Suche nach:" styleClass="combo-box-search" stylesheets="@../stylesheets/style.css" />
+                                    <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Button fx:id="darkmodeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#setOnNightMode" prefHeight="25.0" prefWidth="57.0" text="🌙" />
+                                          <Button fx:id="lightmodeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#setOnLightMode" prefHeight="25.0" prefWidth="60.0" text="☀" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <TextField fx:id="searchOutputField" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="58.0" prefWidth="100.0">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </TextField>
+                              <TextField fx:id="deleteField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#deleteRow" prefHeight="50.0" prefWidth="510.0" promptText="Löschen">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </TextField>
+                              <Button fx:id="nextPageButton" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#tabNewPage" prefHeight="54.0" prefWidth="150.0" text="Nächste Seite">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </padding>
+                           <VBox.margin>
+                              <Insets bottom="10.0" left="20.0" right="10.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                     <BorderPane.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </BorderPane.margin>
+                  </VBox>
+               </center></BorderPane>
          </content>
     </Tab>
     <Tab fx:id="emailtab" text="E-Mail">

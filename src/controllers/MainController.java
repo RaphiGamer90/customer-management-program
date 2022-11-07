@@ -48,6 +48,7 @@ import manager.data.DataManager;
 import manager.loading.LoadManager;
 import manager.models.TableModel;
 import manager.tableView.TableManager;
+import manager.threads.ThreadManager;
 
 
 public class MainController implements Initializable {
@@ -73,22 +74,6 @@ public class MainController implements Initializable {
 	
 	//Labels
 	@FXML
-	public Label firstNameLabel;
-	@FXML
-	public Label lastNameLabel;
-	@FXML
-	public Label birthdayLabel;
-	@FXML
-	public Label emailLabel;
-	@FXML
-	public Label telephoneLabel;
-	@FXML
-	public Label degreeLabel;
-	@FXML
-	public Label meetingDayLabel;
-	@FXML
-	public Label genderLabel;
-	@FXML
 	public Label birthdayEmailLabel;
 	
 	//TextFields & Areas
@@ -105,7 +90,7 @@ public class MainController implements Initializable {
 	@FXML
 	public TextField searchField;
 	@FXML
-	public TextField searchFieldOutput;
+	public TextField searchOutputField;
 	@FXML
 	public TextArea errorArea;
 	@FXML
@@ -130,7 +115,7 @@ public class MainController implements Initializable {
 	@FXML
 	public ComboBox<String> genderBox;
 	@FXML
-	public ComboBox<String> searchFor;
+	public ComboBox<String> searchBox;
 	
 	//Buttons
 	@FXML
@@ -138,11 +123,11 @@ public class MainController implements Initializable {
 	@FXML
 	public Button sendData;
 	@FXML
-	public Button nextPage;
+	public Button nextPageButton;
 	@FXML
-	public Button nightButton;
+	public Button darkmodeButton;
 	@FXML
-	public Button lightButton;
+	public Button lightmodeButton;
 	@FXML
 	public Button lastPage;
 	@FXML
@@ -202,10 +187,12 @@ public class MainController implements Initializable {
 	public DatePickerManager datePickerManager;	
 	public AddCustomer addCustomer;
 	public ErrorManager errorManager;
+	public ThreadManager threadManager;
+	
+	//Controllers 
+	public EditColumn editColumns;
  
-	int afkCount;
 	int countForBirthdayEmails;
-	Thread afkThread;
 	Thread birthdayThread;
 	DeleteFromDatabase deleteFromDatabase = new DeleteFromDatabase();
 //	BirthdayMessage birthdayMessage = new BirthdayMessage();
@@ -213,50 +200,7 @@ public class MainController implements Initializable {
 	
 
 	
-	//AFK Thread
-	public void startAFKThread() {
-		afkCount = 1200;
-		afkThread = new Thread() 
-		{
-			public void run()
-			{
-				while (true){
-					if(afkCount > 10) {
-						afkCount--;
-	            	}else if(afkCount <= 10 && afkCount >= 2) {
-	            		errorArea.setText("Schließt in: " + afkCount);
-	            		afkCount--;
-	            	}else if(afkCount == 1) {
-	            		errorArea.setText("Auf Wiedersehen!");
-	            		afkCount--;
-	            	}
-	            	else if(afkCount == 0) {
-	            		Platform.exit();
-	            	}
-	            	else {
-	            		Platform.exit();
-	            	}
-					try
-	                {
-	                    Thread.sleep(1000); 
-	                } catch (Exception e)
-	                {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-	    };
-	    
-	    root.setOnMouseMoved(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				afkCount = 1200;
-			}
-			
-	    });
-		
-	}
+	
 	
 	//Es wird für die Überschrift ein Thread gestartet, der die Farbe der Schrift verändert
 	public void startBirthdayThread() {
@@ -308,33 +252,19 @@ public class MainController implements Initializable {
 	
 	//Formalitäten setzen
 	public void setFormalities() {
-		searchFieldOutput.setText(tableView.getItems().size() + "");
-	    afkThread.start();
+		searchOutputField.setText(tableView.getItems().size() + "");
+	    
 	    birthdayThread.start();
-		firstNameLabel.setId("label");
-		lastNameLabel.setId("label");
-		birthdayLabel.setId("label");
-		emailLabel.setId("label");
-		telephoneLabel.setId("label");
-		degreeLabel.setId("label");
-		meetingDayLabel.setId("label");
-		genderLabel.setId("label");
-		genderBox.setScaleX(2);
-		genderBox.setScaleY(2);
-		birthdayPicker.setScaleX(2);
-		birthdayPicker.setScaleY(2);
-		meetingDayPicker.setScaleX(2);
-		meetingDayPicker.setScaleY(2);
+
 		tableView.getSelectionModel().setCellSelectionEnabled(true);
-		tableView.setEditable(true);
+		
 		genderBox.getItems().addAll("Herr", "Frau", "Divers", "Unknown");
-		searchFor.getItems().addAll("Alle", "Vorname", "Nachname", "Geburtstag", "E-Mail", "Telefonnummer", "Titel", "Auftrag Datum", "Geschlecht");
+		searchBox.getItems().addAll("Alle", "Vorname", "Nachname", "Geburtstag", "E-Mail", "Telefonnummer", "Titel", "Auftrag Datum", "Geschlecht");
 	}
 	
 	//ALLES WAS BEIM START AUSGEFÜHRT WERDEN SOLL// 
 	public void init() {
 		searchFilter();
-		startAFKThread();
 		startBirthdayThread();
 		setFormalities();
 		setBirthdayAreaContent();
@@ -355,8 +285,13 @@ public class MainController implements Initializable {
 		datePickerManager = new DatePickerManager();
 		addCustomer = new AddCustomer();
 		errorManager = new ErrorManager();
+		threadManager = new ThreadManager();
+		
+		editColumns = new EditColumn();
 		
 		Controller.setMainController(this);
+		
+		threadManager.startAFKThread();
 		datePickerManager.addBirthdayDatepickerListener(birthdayPicker);
 		datePickerManager.addMeetingDayDatePickerListener(meetingDayPicker);
 		
@@ -364,8 +299,6 @@ public class MainController implements Initializable {
 		init();
 			
 	}
-	
-	//Ladet Daten, die in die Tabelle eingetragen werden
 
 	
 	
@@ -500,7 +433,6 @@ public class MainController implements Initializable {
 	/*
 	 * Hiermit können die Zellen unabhängig voneinader bearbeitet werden
 	 * */
-	EditColumn editColumns = new EditColumn();
 	public void firstNameColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editFirstNameColumn(event);
 		
@@ -546,30 +478,22 @@ public class MainController implements Initializable {
 		//Muss nicht unbedingt sein :d
 		
 		//Vorname
-		firstNameLabel.setStyle("-fx-text-fill: #e8e8df;");
 		firstNameField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Nachname
-		lastNameLabel.setStyle("-fx-text-fill: #e8e8df;");
 		lastNameField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Geburtstag
-		birthdayLabel.setStyle("-fx-text-fill: #e8e8df;");
 		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/picker.css").toExternalForm());
 		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/popupForPicker.css").toExternalForm());
 		//E-Mail
-		emailLabel.setStyle("-fx-text-fill: #e8e8df;");
 		emailField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Telefon
-		telephoneLabel.setStyle("-fx-text-fill: #e8e8df;");
 		telephoneField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Title
-		degreeLabel.setStyle("-fx-text-fill: #e8e8df;");
 		degreeField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Auftrag Datum
-		meetingDayLabel.setStyle("-fx-text-fill: #e8e8df;");
 		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/picker.css").toExternalForm());
 		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/popupForPicker.css").toExternalForm());
 		//Geschlecht
-		genderLabel.setStyle("-fx-text-fill: #e8e8df;");
 		genderBox.getStylesheets().add(getClass().getResource("/cssfiles/combobox.css").toExternalForm());
 		//Neue Person
 		newPerson.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
@@ -580,19 +504,19 @@ public class MainController implements Initializable {
 		//Suchen
 		searchField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Suche nach
-		searchFor.getStylesheets().add(getClass().getResource("/cssfiles/combobox.css").toExternalForm());
+		searchBox.getStylesheets().add(getClass().getResource("/cssfiles/combobox.css").toExternalForm());
 		//Darkmode
-		nightButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
+		darkmodeButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
 		//Lightmode
-		lightButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
+		lightmodeButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
 		//Such Feld ausgabe
-		searchFieldOutput.setStyle("-fx-text-fill: #e8e8df;");
-		searchFieldOutput.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
+		searchOutputField.setStyle("-fx-text-fill: #e8e8df;");
+		searchOutputField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Lösch Feld
 		deleteField.setStyle("-fx-text-fill: #e8e8df;");
 		deleteField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
 		//Nächste Seite
-		nextPage.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
+		nextPageButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
 		//TableView
 		tableView.getStylesheets().add(getClass().getResource("/cssfiles/tableview.css").toExternalForm());
 		
@@ -628,32 +552,24 @@ public class MainController implements Initializable {
 	public void setOnLightMode(ActionEvent event) {
 		background.setEffect(null);
 		backgroundImage.setEffect(null);  
-		firstNameLabel.setStyle(null);
 		firstNameField.setStyle(null);
-		lastNameLabel.setStyle(null);
 		lastNameField.setStyle(null);
-		birthdayLabel.setStyle(null);
 		birthdayPicker.getStylesheets().clear();
-		emailLabel.setStyle(null);
 		emailField.setStyle(null);
-		telephoneLabel.setStyle(null);
 		telephoneField.setStyle(null);
-		degreeLabel.setStyle(null);
 		degreeField.setStyle(null);
-		meetingDayLabel.setStyle(null);
 		meetingDayPicker.getStylesheets().clear();
-		genderLabel.setStyle(null);
 		genderBox.getStylesheets().clear();
 		newPerson.getStylesheets().clear();
 		sendData.getStylesheets().clear();
 		errorArea.setStyle(null);
 		searchField.setStyle(null);
-		searchFor.getStylesheets().clear();
-		nightButton.getStylesheets().clear();
-		lightButton.getStylesheets().clear();
-		searchFieldOutput.setStyle(null);
+		searchBox.getStylesheets().clear();
+		darkmodeButton.getStylesheets().clear();
+		lightmodeButton.getStylesheets().clear();
+		searchOutputField.setStyle(null);
 		deleteField.setStyle(null);
-		nextPage.getStylesheets().clear();
+		nextPageButton.getStylesheets().clear();
 		tableView.getStylesheets().clear();
 		
 		birthdayEmailField.setStyle(null);
