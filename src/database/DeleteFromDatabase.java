@@ -12,11 +12,9 @@ public class DeleteFromDatabase {
 		
 		try {
 			ConnectionToDatabase.preparedStatement(query).executeUpdate();
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
 	
 }

@@ -10,7 +10,7 @@
 }
 
 .date-picker {
-    -fx-font-size: 20.0;
+    -fx-font-size: 25.0;
 }
 
 .combo-box-gender {
@@ -27,4 +27,9 @@
 
 .round-curves {
 	-fx-background-radius: 10;
+}
+
+#errorArea {
+	-fx-text-fill: red;
+    -fx-font-size: 12px;
 }

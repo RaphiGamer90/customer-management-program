@@ -18,7 +18,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isString(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		for (char i : input.toCharArray()) {
 			if (Character.isDigit(i)) {
 				return false;
@@ -32,7 +32,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isInteger(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		for (char i : input.toCharArray()) {
 			if (!Character.isDigit(i)) {
 				return false;
@@ -46,7 +46,7 @@ public class CheckerManager {
 	 * Wörtern überüfen)
 	 */
 	public boolean isInteger(String input, int radix) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		for (int i = 0; i < input.length(); i++) {
 			if (i == 0 && input.charAt(i) == '-') {
 				if (input.length() == 1)
@@ -66,7 +66,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isFirstLetterUpperCase(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		if (!(Character.isUpperCase(input.charAt(0)))) {
 			return false;
 		}
@@ -79,7 +79,7 @@ public class CheckerManager {
 	 */
 	public boolean isValidDatePattern(String input) {
 		String DATE_FORMAT = "dd.MM.yyyy";
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		try {
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			df.setLenient(false);
@@ -95,7 +95,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isValidTelNrPattern(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 	    String patterns 
 	      = "^(\\+\\d{1,3}( )?)?((\\(\\d{3}\\))|\\d{3})[- .]?\\d{3}[- .]?\\d{4}$" 
 	      + "|^(\\+\\d{1,3}( )?)?(\\d{3}[ ]?){2}\\d{3}$" 
@@ -111,7 +111,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isValidEmailAddress(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		try {
 			InternetAddress emailAddr = new InternetAddress(input);
 			emailAddr.validate();
@@ -126,7 +126,7 @@ public class CheckerManager {
 	 * 
 	 */
 	public boolean isValidGender(String input) {
-		if (input.trim() == "" || input.isEmpty()) {return false;}
+		if (input == null || input.isEmpty()) {return false;}
 		if(!input.equals("Herr") && !input.equals("Frau") && !input.equals("Divers") && !input.equals("Unknown")) {
 			return false;
 		}

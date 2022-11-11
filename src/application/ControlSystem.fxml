@@ -108,7 +108,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <TextArea fx:id="errorArea" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" VBox.vgrow="ALWAYS">
+                        <TextArea id="errorArea" fx:id="errorArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="120.0" prefWidth="320.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" />
                            </VBox.margin>
@@ -122,9 +122,9 @@
                <center>
                   <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="15.0" styleClass="container" stylesheets="@../stylesheets/style.css">
                      <children>
-                        <AnchorPane prefHeight="183.0" prefWidth="884.0">
+                        <AnchorPane prefHeight="237.0" prefWidth="1116.0">
                            <children>
-                              <ImageView fx:id="ZanglLogo" fitHeight="173.0" fitWidth="1271.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow-effect" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-340.0" AnchorPane.topAnchor="0.0">
+                              <ImageView fx:id="ZanglLogo" fitHeight="170.0" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow-effect" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-720.0" AnchorPane.topAnchor="0.0">
                                  <image>
                                     <Image url="@../images/ZanglLogo.png" />
                                  </image>
@@ -178,7 +178,7 @@
                                     <ComboBox fx:id="searchBox" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="25.0" prefWidth="120.0" promptText="Suche nach:" styleClass="combo-box-search" stylesheets="@../stylesheets/style.css" />
                                     <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <Button fx:id="darkmodeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#setOnNightMode" prefHeight="25.0" prefWidth="57.0" text="🌙" />
+                                          <Button fx:id="darkmodeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#setDarkMode" prefHeight="25.0" prefWidth="57.0" text="🌙" />
                                           <Button fx:id="lightmodeButton" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#setOnLightMode" prefHeight="25.0" prefWidth="60.0" text="☀" />
                                        </children>
                                     </HBox>
@@ -189,7 +189,7 @@
                                     <Font size="22.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="deleteField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#deleteRow" prefHeight="50.0" prefWidth="510.0" promptText="Löschen">
+                              <TextField fx:id="deleteField" maxHeight="-Infinity" maxWidth="-Infinity" onAction="#deleteRow" prefHeight="50.0" prefWidth="510.0" promptText="Löschen: example@gmail.com">
                                  <font>
                                     <Font size="25.0" />
                                  </font>

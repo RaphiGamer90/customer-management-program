@@ -1,24 +1,34 @@
 package manager.threads;
 
+import java.util.Random;
+
 import controllers.Controller;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
 public class ThreadManager {
-	
+
 	Controller controller = new Controller();
-	
-	//Threads
+
+	// Threads
 	Thread afkThread;
-	
-	
-	//Variables
+	Thread birthdayThread;
+
+	// Variables
 	int afkCount;
 
+	public ThreadManager() {
+		startAFKThread();
+		startBirthdayThread();
+	}
+
+	// Es wird ein Thread gestartet, der das Programm nach 4 Minuten schließt, wenn
+	// der User die Maus nicht bewegt
 	public void startAFKThread() {
 		afkCount = 240;
-		
+
 		afkThread = new Thread() {
 			public void run() {
 				while (true) {
@@ -52,9 +62,28 @@ public class ThreadManager {
 			}
 
 		});
-		
-		afkThread.start();
 
+		afkThread.start();
+	}
+
+	// Es wird für die Überschrift ein Thread gestartet, der die Farbe der Schrift
+	// verändert
+	public void startBirthdayThread() {
+		birthdayThread = new Thread() {
+			public void run() {
+				while (true) {
+					Random myColor = new Random();
+					controller.getMainController().birthdayEmailLabel
+							.setTextFill(Color.rgb(myColor.nextInt(255), myColor.nextInt(255), myColor.nextInt(255)));
+					try {
+						Thread.sleep(1000);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		};
+		birthdayThread.start();
 	}
 
 }

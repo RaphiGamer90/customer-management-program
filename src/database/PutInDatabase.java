@@ -19,7 +19,7 @@ public class PutInDatabase {
 		try {
 			ConnectionToDatabase.preparedStatement(queryLookThrough).executeQuery();
 		
-			if(!controller.getMainController().dataManager.getUnloadedEmails().contains(email) || email.trim() == "") {
+			if(!controller.getMainController().dataManager.getUnloadedEmails().contains(email) || email == null) {
 				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
 				
 				PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    

@@ -49,7 +49,7 @@ public class Main extends Application {
 			System.out.println("Program wurde gestartet!");
 			
 			Scene scene = new Scene(root);
-			scene.getStylesheets().add(getClass().getResource("/stylesheets/application.css").toExternalForm());
+			//scene.getStylesheets().add(getClass().getResource("/stylesheets/application.css").toExternalForm());
 			primaryStage.setMaximized(true);
 			primaryStage.setScene(scene);
 			primaryStage.show();

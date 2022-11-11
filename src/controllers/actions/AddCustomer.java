@@ -31,13 +31,15 @@ public class AddCustomer extends CustomerDataCheckerManager {
 		String degree = setDegree(controller.getMainController().degreeField.getText());
 		String meetingDay = setMeetDay(controller.getMainController().datePickerManager.getMeetingDayDatePickerValue());
 		String gender = setGender(controller.getMainController().genderBox.getValue());
+
 		
-		if(!controller.getMainController().errorManager.getAddCustomerErrorMap().isEmpty()) {
-			controller.getMainController().errorManager.throwAddCustomerErrors();
+		if(!controller.getMainController().errorManager.getErrorMessages().isEmpty()) {
+			controller.getMainController().errorManager.throwErrors();
 		}
 		else {
 			controller.getMainController().putInDatabase.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
-			controller.getMainController().errorManager.clearErrorMessages();
+			controller.getMainController().tableManager.refreshWholeTableView();
+			controller.getMainController().errorManager.clearErrorMessagesArea();
 		}
 	}
 			
@@ -46,62 +48,63 @@ public class AddCustomer extends CustomerDataCheckerManager {
 	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
 	private String setFirstName(String firstName) {
 		if(!isFirstName(firstName)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("firstNameErrorMessage", "Das ist kein Vorname!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("firstNameError"));
 		}
 		return firstName;
 	}
 
 	private String setLastName(String lastName) {
 		if(!isLastName(lastName)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("lastNameErrorMessage", "Das ist kein Nachname!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("lastNameError"));
 		}
 		return lastName;
 	}
 	
 	private String setBirthday(String birthday) {
 		if(!isBirthday(birthday)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("birthdayErrorMessage", "Das ist kein Geburtstag!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("birthdayError"));
+			
 		}
 		return birthday;
 	}
 	
 	private String setEmail(String email) {
 		if(!isEmail(email)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("emailErrorMessage", "Das ist keine E-Mail!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("emailError"));
 		}
 		else if(controller.getMainController().dataManager.getReloadedEmails().contains(email)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("emailErrorMessage", "Diese E-Mail existiert bereits!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("emailExists"));
 		}
 		return email;
 	}
 	
 	private String setTelNr(String telNr) {
 		if(!isTelNr(telNr)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("telNrErrorMessage", "Das ist keine Telefonnummer!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("telNrError"));
 		}
 		else if(controller.getMainController().dataManager.getReloadedTelNrs().contains(telNr)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("telNrErrorMessage", "Diese Telefonnummer existiert bereits!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("telNrExists"));
 		}
 		return telNr;
 	}
 	
 	private String setDegree(String degree) {
 		if(!isDegree(degree)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("degreeErrorMessage", "Das ist kein Titel!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("degreeError"));
 		}
 		return degree;
 	}
 	
 	private String setMeetDay(String meetingDay) {
-		if(!isBirthday(meetingDay)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("meetingDayErrorMessage", "Das ist kein Datum!\n");
+		if(!isMeetingDay(meetingDay)) {
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("meetingDayError"));
 		}
 		return meetingDay;
 	}
 	
 	private String setGender(String gender) {
 		if(!isGender(gender)) {
-			return controller.getMainController().errorManager.getAddCustomerErrorMap().put("genderErrorMessage", "Das ist kein passendes Geschlecht!\n");
+			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("genderError"));
 		}
 		return gender;
 	}

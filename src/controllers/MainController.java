@@ -8,7 +8,9 @@ import java.util.ResourceBundle;
 import manager.errors.ErrorManager;
 
 import controllers.actions.AddCustomer;
+import controllers.actions.DeletingCustomer;
 import controllers.actions.EditColumn;
+import controllers.actions.NewCustomer;
 import manager.datePicker.DatePickerManager;
 import database.AboutDatabase;
 import database.DataFromDatabase;
@@ -44,6 +46,7 @@ import javafx.scene.text.Font;
 import manager.birthdayMessage.BirthdayMessage;
 import manager.cellFactory.CellFactoryManager;
 import manager.checking.CheckerManager;
+import manager.combobox.ComboboxManager;
 import manager.data.DataManager;
 import manager.loading.LoadManager;
 import manager.models.TableModel;
@@ -174,9 +177,7 @@ public class MainController implements Initializable {
 	@FXML
 	public ImageView zanglLogoBackground;
 	
-	
 
-	
 	//Manager 
 	public LoadManager loadManager;
 	public DataManager dataManager;
@@ -185,43 +186,22 @@ public class MainController implements Initializable {
 	public AboutDatabase aboutDatabase;	
 	public PutInDatabase putInDatabase;
 	public DatePickerManager datePickerManager;	
-	public AddCustomer addCustomer;
 	public ErrorManager errorManager;
 	public ThreadManager threadManager;
+	public ComboboxManager comboboxManager;
 	
 	//Controllers 
+	public AddCustomer addCustomer;
 	public EditColumn editColumns;
+	public NewCustomer newCustomer;
+	public DeletingCustomer deleteCustomer;
  
 	int countForBirthdayEmails;
 	Thread birthdayThread;
-	DeleteFromDatabase deleteFromDatabase = new DeleteFromDatabase();
 //	BirthdayMessage birthdayMessage = new BirthdayMessage();
 	
 	
 
-	
-	
-	
-	//Es wird für die Überschrift ein Thread gestartet, der die Farbe der Schrift verändert
-	public void startBirthdayThread() {
-		birthdayThread = new Thread() 
-		{
-			public void run()
-			{
-				while (true){
-					 Random myColor = new Random();
-					 birthdayEmailLabel.setTextFill(Color.rgb(myColor.nextInt(255), myColor.nextInt(255), myColor.nextInt(255)));
-					try
-	                {
-	                    Thread.sleep(1000); 
-	                } catch (Exception e)
-	                {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-	    };
-	}
 	
 	//Setzen der Mails in die Birthday Area
 	public void setBirthdayAreaContent() {
@@ -250,32 +230,19 @@ public class MainController implements Initializable {
 //		
 	}
 	
-	//Formalitäten setzen
-	public void setFormalities() {
-		searchOutputField.setText(tableView.getItems().size() + "");
-	    
-	    birthdayThread.start();
-
-		tableView.getSelectionModel().setCellSelectionEnabled(true);
-		
-		genderBox.getItems().addAll("Herr", "Frau", "Divers", "Unknown");
-		searchBox.getItems().addAll("Alle", "Vorname", "Nachname", "Geburtstag", "E-Mail", "Telefonnummer", "Titel", "Auftrag Datum", "Geschlecht");
-	}
-	
 	//ALLES WAS BEIM START AUSGEFÜHRT WERDEN SOLL// 
 	public void init() {
 		searchFilter();
-		startBirthdayThread();
-		setFormalities();
 		setBirthdayAreaContent();
 		changeListenerForBirthdayArea();
-		hasToBe();
 	}	
 	
 	
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
+		Controller.setMainController(this);
+		//Manager Klassen
 		loadManager = new LoadManager();
 		dataManager = new DataManager();
 		tableManager = new TableManager();
@@ -283,17 +250,25 @@ public class MainController implements Initializable {
 		aboutDatabase = new AboutDatabase();
 		putInDatabase = new PutInDatabase();
 		datePickerManager = new DatePickerManager();
-		addCustomer = new AddCustomer();
 		errorManager = new ErrorManager();
 		threadManager = new ThreadManager();
+		comboboxManager = new ComboboxManager();
+
 		
+		addCustomer = new AddCustomer();
 		editColumns = new EditColumn();
+		newCustomer = new NewCustomer();
+		deleteCustomer = new DeletingCustomer();
 		
-		Controller.setMainController(this);
 		
-		threadManager.startAFKThread();
-		datePickerManager.addBirthdayDatepickerListener(birthdayPicker);
-		datePickerManager.addMeetingDayDatePickerListener(meetingDayPicker);
+		
+		//Weiß nicht ob man das braucht :d
+		tableView.getSelectionModel().setCellSelectionEnabled(true);
+		emailErrorField.setStyle("-fx-text-fill: red;");
+
+
+		//MUSS NOCH UMVERLAGERT WERDEN
+		searchOutputField.setText(tableView.getItems().size() + "");
 		
 		tableManager.refreshWholeTableView();
 		init();
@@ -406,28 +381,12 @@ public class MainController implements Initializable {
 	
 	//Neue Person anlegen
 	public void setNewPerson(ActionEvent event) {
-		try {
-			firstNameField.setText("");
-			lastNameField.setText("");
-			birthdayPicker.getEditor().clear();
-			birthdayPicker.setValue(null);
-			emailField.setText("");
-			telephoneField.setText("");
-			degreeField.setText("");
-			meetingDayPicker.getEditor().clear();
-			meetingDayPicker.setValue(null);
-			genderBox.getSelectionModel().clearSelection();	
-		} catch (DateTimeParseException e) {}
-		
-		
+		newCustomer.setNewCustomer();
 	}
 
 	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
 	public void sendDataToDatabase(ActionEvent event) {
-		
 		addCustomer.setCustomerInDatabase();
-		tableManager.refreshWholeTableView();
-		
 	}
 
 	/*
@@ -473,123 +432,19 @@ public class MainController implements Initializable {
 
 	
 	//Darkmode / Nachtmodus
-	public void setOnNightMode(ActionEvent event) {   
-		//Image Background Views
-		//Muss nicht unbedingt sein :d
-		
-		//Vorname
-		firstNameField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Nachname
-		lastNameField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Geburtstag
-		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/picker.css").toExternalForm());
-		birthdayPicker.getStylesheets().add(getClass().getResource("@../stylesheets/popupForPicker.css").toExternalForm());
-		//E-Mail
-		emailField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Telefon
-		telephoneField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Title
-		degreeField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Auftrag Datum
-		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/picker.css").toExternalForm());
-		meetingDayPicker.getStylesheets().add(getClass().getResource("/cssfiles/popupForPicker.css").toExternalForm());
-		//Geschlecht
-		genderBox.getStylesheets().add(getClass().getResource("/cssfiles/combobox.css").toExternalForm());
-		//Neue Person
-		newPerson.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Daten senden
-		sendData.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Error Area
-		errorArea.setStyle("-fx-background-color: black; -fx-control-inner-background: #292b2a;");
-		//Suchen
-		searchField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Suche nach
-		searchBox.getStylesheets().add(getClass().getResource("/cssfiles/combobox.css").toExternalForm());
-		//Darkmode
-		darkmodeButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Lightmode
-		lightmodeButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Such Feld ausgabe
-		searchOutputField.setStyle("-fx-text-fill: #e8e8df;");
-		searchOutputField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Lösch Feld
-		deleteField.setStyle("-fx-text-fill: #e8e8df;");
-		deleteField.setStyle("-fx-background-color: grey; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Nächste Seite
-		nextPageButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//TableView
-		tableView.getStylesheets().add(getClass().getResource("/cssfiles/tableview.css").toExternalForm());
-		
-		//Email Feld
-		birthdayEmailField.setStyle("-fx-text-fill: #e8e8df;");
-		birthdayEmailField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Betreff Feld
-		regardingField.setStyle("-fx-text-fill: #e8e8df;");
-		regardingField.setStyle("-fx-background-color: #292b2a; -fx-text-inner-color: #e8e8df; -fx-border-color: black;");
-		//Geburtstags Area
-		birthdayMessageArea.setStyle("-fx-background-color: black; -fx-control-inner-background: #292b2a;");
-		//Einen Schritt zurück
-		undo.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Einen Schritt wieder herstellen
-		restore.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Zurück
-		lastPage.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Geburtstags Mail Error Feld
-		emailErrorField.setStyle("-fx-background-color: black; -fx-control-inner-background: #292b2a;");
-		//Mail zuvor
-		beforeMail.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Mail danach
-		nextMail.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Zurücksetzen
-		resetButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		//Senden
-		sendEmailButton.getStylesheets().add(getClass().getResource("/cssfiles/button.css").toExternalForm());
-		
+	public void setDarkMode(ActionEvent event) {   
+	
 	}
 	
 	
 	//Lightmode / Heller Modus
 	public void setOnLightMode(ActionEvent event) {
-		background.setEffect(null);
-		backgroundImage.setEffect(null);  
-		firstNameField.setStyle(null);
-		lastNameField.setStyle(null);
-		birthdayPicker.getStylesheets().clear();
-		emailField.setStyle(null);
-		telephoneField.setStyle(null);
-		degreeField.setStyle(null);
-		meetingDayPicker.getStylesheets().clear();
-		genderBox.getStylesheets().clear();
-		newPerson.getStylesheets().clear();
-		sendData.getStylesheets().clear();
-		errorArea.setStyle(null);
-		searchField.setStyle(null);
-		searchBox.getStylesheets().clear();
-		darkmodeButton.getStylesheets().clear();
-		lightmodeButton.getStylesheets().clear();
-		searchOutputField.setStyle(null);
-		deleteField.setStyle(null);
-		nextPageButton.getStylesheets().clear();
-		tableView.getStylesheets().clear();
-		
-		birthdayEmailField.setStyle(null);
-		regardingField.setStyle(null);
-		birthdayMessageArea.setStyle(null);
-		undo.getStylesheets().clear();
-		restore.getStylesheets().clear();
-		lastPage.getStylesheets().clear();
-		emailErrorField.setStyle(null);
-		beforeMail.getStylesheets().clear();
-		nextMail.getStylesheets().clear();
-		resetButton.getStylesheets().clear();
-		sendEmailButton.getStylesheets().clear();
-		hasToBe();
-		
+
 	}
 
 	//Reihe aus der Datenbank entfernen und die Tabelle updaten
 	public void deleteRow(ActionEvent event) {
-		deleteFromDatabase.deleteValueFromDatabase(deleteField.getText());
+		deleteCustomer.deleteCustomer();
 		
 	}
 	
@@ -698,20 +553,5 @@ public class MainController implements Initializable {
 		}
 	}
 
-	
-	//Sachen die immer so sein sollen!
-	public void hasToBe() {
-		errorArea.setStyle("-fx-text-fill: red;");
-		errorArea.setEditable(false);
-		errorArea.setFont(new Font(14));
-		emailErrorField.setStyle("-fx-text-fill: red;");
-		genderBox.getStylesheets().add(getClass().getResource("/stylesheets/popupForGenderbox.css").toExternalForm());
-		birthdayPicker.getStylesheets().add(getClass().getResource("/stylesheets/popupForPicker.css").toExternalForm());
-		meetingDayPicker.getStylesheets().add(getClass().getResource("/stylesheets/popupForPicker.css").toExternalForm());
-	}
 
-	//GETTER
-	public TableColumn<TableModel, String> getFirstNameColumn() {
-		return firstNameColumn;
-	}
 }

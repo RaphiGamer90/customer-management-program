@@ -56,7 +56,7 @@ public class CustomerDataCheckerManager extends CheckerManager {
 	
 	/*MEETING DAY*/
 	public boolean isMeetingDay(String meetingDay) {
-		if(!(isValidEmailAddress(meetingDay))) {
+		if(!(isValidDatePattern(meetingDay))) {
 			return false;
 		}
 		return true;
