@@ -1,5 +1,6 @@
 package manager.filter;
 
+import controllers.Controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -11,19 +12,19 @@ import manager.models.TableModel;
 
 public class SearchFilter {
 	
+	Controller controller = new Controller();
 	
-	public void searchFilter(TableView<TableModel> tableView, TextField searchField, ComboBox<String> searchFor, TextField searchFieldOutput, 
-			ObservableList<TableModel> searchModelObservableList) {
+	public void searchFilter() {
 		
-		FilteredList<TableModel> filteredData = new FilteredList<>(searchModelObservableList, b -> true);
-		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+		FilteredList<TableModel> filteredData = new FilteredList<>(controller.getMainController().tableManager.searchModelObservableList, b -> true);
+		controller.getMainController().searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 			filteredData.setPredicate(searchModel -> {
 				if(newValue.isEmpty() || newValue.isBlank() || newValue == null) {
 					return true;
 				}
 				String searchKeyword = newValue.toLowerCase();
 				
-				if(searchFor.getValue() == null || searchFor.getValue() == "Alle") {
+				if(controller.getMainController().searchBox.getValue() == null || controller.getMainController().searchBox.getValue() == "Alle") {
 					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}	
@@ -50,49 +51,49 @@ public class SearchFilter {
 					}
 					
 				}
-				else if(searchFor.getValue().equals("Vorname")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Vorname")) {
 					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Nachname")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Nachname")) {
 					if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Geburtstag")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Geburtstag")) {
 					if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("E-Mail")) {
+				else if(controller.getMainController().searchBox.getValue().equals("E-Mail")) {
 					if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Telefonnummer")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Telefonnummer")) {
 					if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Titel")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Titel")) {
 					if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Auftrag Datum")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Auftrag Datum")) {
 					if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
 					return false;
 				}
-				else if(searchFor.getValue().equals("Geschlecht")) {
+				else if(controller.getMainController().searchBox.getValue().equals("Geschlecht")) {
 					if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					}
@@ -103,13 +104,14 @@ public class SearchFilter {
 				
 			});
 			
-			searchFieldOutput.setText(tableView.getItems().size() + "");
+			controller.getMainController().searchOutputField.setText(controller.getMainController().tableView.getItems().size() + "");
 		});
 		
 		SortedList<TableModel> sortedData = new SortedList<>(filteredData);
-		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
+		System.out.println(sortedData + " " + filteredData);
+		sortedData.comparatorProperty().bind(controller.getMainController().tableView.comparatorProperty());
 		
-//		tableView.setItems(sortedData);
+		controller.getMainController().tableView.setItems(sortedData);
 		
 	}
 

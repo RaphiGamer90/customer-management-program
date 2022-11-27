@@ -1,12 +1,14 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
-import manager.errors.ErrorManager;
 
+import manager.errors.ErrorManager;
+import manager.filter.SearchFilter;
 import controllers.actions.AddCustomer;
 import controllers.actions.DeletingCustomer;
 import controllers.actions.EditColumn;
@@ -24,7 +26,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -43,6 +47,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import manager.birthdayMessage.BirthdayMessage;
 import manager.cellFactory.CellFactoryManager;
 import manager.checking.CheckerManager;
@@ -189,6 +194,7 @@ public class MainController implements Initializable {
 	public ErrorManager errorManager;
 	public ThreadManager threadManager;
 	public ComboboxManager comboboxManager;
+	public SearchFilter searchFilter;
 	
 	//Controllers 
 	public AddCustomer addCustomer;
@@ -232,7 +238,6 @@ public class MainController implements Initializable {
 	
 	//ALLES WAS BEIM START AUSGEFÜHRT WERDEN SOLL// 
 	public void init() {
-		searchFilter();
 		setBirthdayAreaContent();
 		changeListenerForBirthdayArea();
 	}	
@@ -253,6 +258,7 @@ public class MainController implements Initializable {
 		errorManager = new ErrorManager();
 		threadManager = new ThreadManager();
 		comboboxManager = new ComboboxManager();
+		searchFilter = new SearchFilter();
 
 		
 		addCustomer = new AddCustomer();
@@ -261,122 +267,17 @@ public class MainController implements Initializable {
 		deleteCustomer = new DeletingCustomer();
 		
 		
-		
-		//Weiß nicht ob man das braucht :d
 		tableView.getSelectionModel().setCellSelectionEnabled(true);
-		emailErrorField.setStyle("-fx-text-fill: red;");
-
-
-		//MUSS NOCH UMVERLAGERT WERDEN
-		searchOutputField.setText(tableView.getItems().size() + "");
 		
 		tableManager.refreshWholeTableView();
 		init();
 			
 	}
 
-	
-	
-	//Suchfilter für Daten aus der Tabelle
-	public void searchFilter() {
-//		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
-//			filteredData.setPredicate(searchModel -> {
-//				if(newValue.isEmpty() || newValue.isBlank() || newValue == null) {
-//					return true;
-//				}
-//				String searchKeyword = newValue.toLowerCase();
-//				
-//				if(searchFor.getValue() == null || searchFor.getValue() == "Alle") {
-//					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}	
-//					else if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					else if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					
-//				}
-//				else if(searchFor.getValue().equals("Vorname")) {
-//					if(searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Nachname")) {
-//					if(searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Geburtstag")) {
-//					if(searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("E-Mail")) {
-//					if(searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Telefonnummer")) {
-//					if(searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Titel")) {
-//					if(searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Auftrag Datum")) {
-//					if(searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				else if(searchFor.getValue().equals("Geschlecht")) {
-//					if(searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
-//						return true;
-//					}
-//					return false;
-//				}
-//				
-//				return false;
-//				
-//			});
-//			
-//			searchFieldOutput.setText(tableView.getItems().size() + "");
-//		});
-		
-//		SortedList<TableModel> sortedData = new SortedList<>(filteredData);
-//		
-//		sortedData.comparatorProperty().bind(tableView.comparatorProperty());
-//		
-//		tableView.setItems(sortedData);
-		
+	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
+	public void sendDataToDatabase(ActionEvent event) {
+		addCustomer.setCustomerInDatabase();
 	}
-	
 	
 	
 	//Neue Person anlegen
@@ -384,9 +285,10 @@ public class MainController implements Initializable {
 		newCustomer.setNewCustomer();
 	}
 
-	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
-	public void sendDataToDatabase(ActionEvent event) {
-		addCustomer.setCustomerInDatabase();
+	
+	//Suchen nach bestimmten Useren
+	public void search(ActionEvent event) {
+		searchFilter.searchFilter();
 	}
 
 	/*
@@ -432,8 +334,8 @@ public class MainController implements Initializable {
 
 	
 	//Darkmode / Nachtmodus
-	public void setDarkMode(ActionEvent event) {   
-	
+	public void setDarkMode(ActionEvent event) throws IOException {   
+		root.getStylesheets().add(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
 	}
 	
 	
