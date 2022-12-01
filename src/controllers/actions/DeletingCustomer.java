@@ -10,13 +10,11 @@ public class DeletingCustomer {
 	
 	public void deleteCustomer() {
 		if(!controller.getMainController().dataManager.getReloadedEmails().contains(controller.getMainController().deleteField.getText())) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("emailNotExists"));
-			controller.getMainController().errorManager.throwErrors();
+			controller.getMainController().errorManager.throwErrors("Diese E-Mail existiert nicht!\n");
 		}
 		else {
 			deleteFromDatabase.deleteValueFromDatabase(controller.getMainController().deleteField.getText());
 			controller.getMainController().errorManager.clearErrorMessagesArea();
-			controller.getMainController().tableManager.refreshWholeTableView();	
 		}
 	}
 	

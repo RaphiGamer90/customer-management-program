@@ -33,8 +33,8 @@ public class AddCustomer extends CustomerDataCheckerManager {
 		String gender = setGender(controller.getMainController().genderBox.getValue());
 
 		
-		if(!controller.getMainController().errorManager.getErrorMessages().isEmpty()) {
-			controller.getMainController().errorManager.throwErrors();
+		if(!(controller.getMainController().managementErrorArea.getText() == "")) {
+			return;
 		}
 		else {
 			controller.getMainController().putInDatabase.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
@@ -48,21 +48,21 @@ public class AddCustomer extends CustomerDataCheckerManager {
 	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
 	private String setFirstName(String firstName) {
 		if(!isFirstName(firstName)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("firstNameError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein Vorname!\n");
 		}
 		return firstName;
 	}
 
 	private String setLastName(String lastName) {
 		if(!isLastName(lastName)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("lastNameError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein Nachname!\n");
 		}
 		return lastName;
 	}
 	
 	private String setBirthday(String birthday) {
 		if(!isBirthday(birthday)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("birthdayError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
 			
 		}
 		return birthday;
@@ -70,41 +70,41 @@ public class AddCustomer extends CustomerDataCheckerManager {
 	
 	private String setEmail(String email) {
 		if(!isEmail(email)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("emailError"));
+			controller.getMainController().errorManager.throwErrors("Das ist keine E-Mail!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedEmails().contains(email)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("emailExists"));
+			controller.getMainController().errorManager.throwErrors("Diese E-Mail ist bereits eingetragen!\n");
 		}
 		return email;
 	}
 	
 	private String setTelNr(String telNr) {
 		if(!isTelNr(telNr)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("telNrError"));
+			controller.getMainController().errorManager.throwErrors("Das ist keine Telefonnummer!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedTelNrs().contains(telNr)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("telNrExists"));
+			controller.getMainController().errorManager.throwErrors("Diese Telefonnummer gibt es schon!\n");
 		}
 		return telNr;
 	}
 	
 	private String setDegree(String degree) {
 		if(!isDegree(degree)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("degreeError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein Titel!\n");
 		}
 		return degree;
 	}
 	
 	private String setMeetDay(String meetingDay) {
 		if(!isMeetingDay(meetingDay)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("meetingDayError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
 		}
 		return meetingDay;
 	}
 	
 	private String setGender(String gender) {
 		if(!isGender(gender)) {
-			controller.getMainController().errorManager.getErrorMessages().add(controller.getMainController().errorManager.getManagementErrorMessages().get("genderError"));
+			controller.getMainController().errorManager.throwErrors("Das ist kein Geschlecht, glaub ich!\n");
 		}
 		return gender;
 	}

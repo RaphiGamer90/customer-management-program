@@ -8,7 +8,7 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 import manager.errors.ErrorManager;
-import manager.filter.SearchFilter;
+import manager.filter.SearchFilterManager;
 import controllers.actions.AddCustomer;
 import controllers.actions.DeletingCustomer;
 import controllers.actions.EditColumn;
@@ -48,7 +48,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import manager.birthdayMessage.BirthdayMessage;
+import manager.birthdayMessage.BirthdayMessageManager;
 import manager.cellFactory.CellFactoryManager;
 import manager.checking.CheckerManager;
 import manager.combobox.ComboboxManager;
@@ -100,7 +100,7 @@ public class MainController implements Initializable {
 	@FXML
 	public TextField searchOutputField;
 	@FXML
-	public TextArea errorArea;
+	public TextArea  managementErrorArea;
 	@FXML
 	public TextField deleteField;
 	
@@ -111,7 +111,7 @@ public class MainController implements Initializable {
 	@FXML 
 	public TextField regardingField;
 	@FXML
-	public TextArea emailErrorField;
+	public TextArea emailErrorArea;
 	
 	
 	
@@ -136,6 +136,8 @@ public class MainController implements Initializable {
 	public Button darkmodeButton;
 	@FXML
 	public Button lightmodeButton;
+	@FXML
+	public Button searchButton;
 	@FXML
 	public Button lastPage;
 	@FXML
@@ -182,19 +184,21 @@ public class MainController implements Initializable {
 	@FXML
 	public ImageView zanglLogoBackground;
 	
-
+	//Database
+	public AboutDatabase aboutDatabase;	
+	public PutInDatabase putInDatabase;
+	
 	//Manager 
 	public LoadManager loadManager;
 	public DataManager dataManager;
 	public TableManager tableManager;
 	public CellFactoryManager cellFactoryManager;
-	public AboutDatabase aboutDatabase;	
-	public PutInDatabase putInDatabase;
 	public DatePickerManager datePickerManager;	
 	public ErrorManager errorManager;
 	public ThreadManager threadManager;
 	public ComboboxManager comboboxManager;
-	public SearchFilter searchFilter;
+	public BirthdayMessageManager birthdayMessageManager;
+	public SearchFilterManager searchFilterManager;
 	
 	//Controllers 
 	public AddCustomer addCustomer;
@@ -204,7 +208,6 @@ public class MainController implements Initializable {
  
 	int countForBirthdayEmails;
 	Thread birthdayThread;
-//	BirthdayMessage birthdayMessage = new BirthdayMessage();
 	
 	
 
@@ -236,7 +239,7 @@ public class MainController implements Initializable {
 //		
 	}
 	
-	//ALLES WAS BEIM START AUSGEFÜHRT WERDEN SOLL// 
+	//ALLES WAS BEIM START AUSGEFï¿½HRT WERDEN SOLL// 
 	public void init() {
 		setBirthdayAreaContent();
 		changeListenerForBirthdayArea();
@@ -258,7 +261,9 @@ public class MainController implements Initializable {
 		errorManager = new ErrorManager();
 		threadManager = new ThreadManager();
 		comboboxManager = new ComboboxManager();
-		searchFilter = new SearchFilter();
+		searchFilterManager = new SearchFilterManager();
+		birthdayMessageManager = new BirthdayMessageManager();
+		
 
 		
 		addCustomer = new AddCustomer();
@@ -276,6 +281,7 @@ public class MainController implements Initializable {
 
 	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
 	public void sendDataToDatabase(ActionEvent event) {
+		managementErrorArea.clear();
 		addCustomer.setCustomerInDatabase();
 	}
 	
@@ -284,15 +290,14 @@ public class MainController implements Initializable {
 	public void setNewPerson(ActionEvent event) {
 		newCustomer.setNewCustomer();
 	}
-
 	
-	//Suchen nach bestimmten Useren
+	//Suchen mit Button 
 	public void search(ActionEvent event) {
-		searchFilter.searchFilter();
+		searchFilterManager.searchFilter();
 	}
 
 	/*
-	 * Hiermit können die Zellen unabhängig voneinader bearbeitet werden
+	 * Hiermit kï¿½nnen die Zellen unabhï¿½ngig voneinader bearbeitet werden
 	 * */
 	public void firstNameColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editFirstNameColumn(event);
@@ -300,28 +305,23 @@ public class MainController implements Initializable {
 	}
 
 	public void lastNameColumnEdit(CellEditEvent<TableModel, String> event) {
-		editColumns.editLastNameColumn(event);
-		
+		editColumns.editLastNameColumn(event);	
 	}
 
 	public void birthdayColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editBirthdayColumn(event);
-		
 	}
 
 	public void emailColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editEmailColumn(event);
-		
 	}
 
 	public void telephoneColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editTelNr(event);
-		
 	}
 
 	public void degreeColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editDegree(event);
-		
 	}
 
 	public void meetingDayColumnEdit(CellEditEvent<TableModel, String> event) {
@@ -334,37 +334,32 @@ public class MainController implements Initializable {
 
 	
 	//Darkmode / Nachtmodus
-	public void setDarkMode(ActionEvent event) throws IOException {   
+	public void setDarkMode(ActionEvent event) throws IOException {  
 		root.getStylesheets().add(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
 	}
 	
-	
 	//Lightmode / Heller Modus
 	public void setOnLightMode(ActionEvent event) {
-
+		root.getStylesheets().remove(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
 	}
 
 	//Reihe aus der Datenbank entfernen und die Tabelle updaten
 	public void deleteRow(ActionEvent event) {
-		deleteCustomer.deleteCustomer();
-		
+		deleteCustomer.deleteCustomer();	
 	}
 	
 	
 	//Neue Seite öffnen / weiter zur E-Mail Seite
-	public void tabNewPage(ActionEvent event) {
-//		birthdayMessage = new BirthdayMessage();
-//		setBirthdayAreaContent();
-//		verwaltungstab.getTabPane().getSelectionModel().select(emailtab);
-		
+	public void tabEmailPage(ActionEvent event) {
+		verwaltungstab.getTabPane().getSelectionModel().select(emailtab);
 	}
 	
-	//Zurück zur Verwaltungsseite
-	public void tabLastPage(ActionEvent event) {
+	//Zurï¿½ck zur Verwaltungsseite
+	public void tabManagementPage(ActionEvent event) {
 		emailtab.getTabPane().getSelectionModel().select(verwaltungstab);
 	}
 	
-	//Einen Schritt zurückgehen
+	//Einen Schritt zur+ckgehen
 	public void undoBirthdayEmailArea(ActionEvent event) {
 		birthdayMessageArea.undo();
 	}
@@ -374,7 +369,7 @@ public class MainController implements Initializable {
 		birthdayMessageArea.redo();
 	}
 	
-	//Es wird eine Mail zurückgesprungen, falls eine existieren sollte.
+	//Es wird eine Mail zurï¿½ckgesprungen, falls eine existieren sollte.
 	public void switchBackMail(ActionEvent event) {
 //		emailErrorField.setText("");
 //		if (countForBirthdayEmails >= 0) {
@@ -392,7 +387,7 @@ public class MainController implements Initializable {
 //		}
 	}
 	
-	//Es wird zur nächsten Email gesprungen, falls eine existieren sollte.
+	//Es wird zur nï¿½chsten Email gesprungen, falls eine existieren sollte.
 	public void switchNextMail(ActionEvent event) {
 //		emailErrorField.setText("");
 //		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()) {
@@ -410,9 +405,9 @@ public class MainController implements Initializable {
 //		}
 	}
 	
-	//Text Area wird auf den Ursprung zurückgesetzt
+	//Text Area wird auf den Ursprung zurï¿½ckgesetzt
 	public void reset(ActionEvent event) {
-		emailErrorField.setText("");
+		emailErrorArea.setText("");
 //		birthdayMessage = new BirthdayMessage();
 //		birthdayMessageArea.setText(birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
 //		birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
@@ -426,7 +421,7 @@ public class MainController implements Initializable {
 		boolean mailSendingChecker = true;
 		
 		if (birthdayEmailField.getText().equals("")) {
-			emailErrorField.setText("Es kann keine E-Mail verschickt werden!");
+			emailErrorArea.setText("Es kann keine E-Mail verschickt werden!");
 			mailSendingChecker = false;
 		} else {
 			if (regardingField.getText().equals("")) {
@@ -439,9 +434,9 @@ public class MainController implements Initializable {
 			}
 			if (mailSendingChecker) {
 //				SendingEmail sendingEmail = new SendingEmail();
-				emailErrorField.setStyle("-fx-text-fill: green;");
-				emailErrorField.setFont(new Font("Arial", 24));
-				emailErrorField.setText("Die E-Mail wird zum Versenden vorbereitet!");
+				emailErrorArea.setStyle("-fx-text-fill: green;");
+				emailErrorArea.setFont(new Font("Arial", 24));
+				emailErrorArea.setText("Die E-Mail wird zum Versenden vorbereitet!");
 //				sendingEmail.sendmail(birthdayEmailField.getText(), regardingField.getText(), birthdayMessageArea.getText());
 //				emailErrorField.setText(sendingEmail.getMessageSendingText());
 			} else {
@@ -449,8 +444,8 @@ public class MainController implements Initializable {
 				for (String error : mailErrorMessage) {
 					messageForSendingProcessField += error + "\n";
 				}
-				emailErrorField.setFont(new Font("Arial", 16));
-				emailErrorField.setText(messageForSendingProcessField);
+				emailErrorArea.setFont(new Font("Arial", 16));
+				emailErrorArea.setText(messageForSendingProcessField);
 			}
 		}
 	}

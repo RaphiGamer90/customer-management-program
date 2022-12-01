@@ -35,10 +35,10 @@ public class ThreadManager {
 					if (afkCount > 10) {
 						afkCount--;
 					} else if (afkCount <= 10 && afkCount >= 2) {
-						controller.getMainController().errorArea.setText("Schlieﬂt in: " + afkCount);
+						controller.getMainController().managementErrorArea.setText("Schlieﬂt in: " + afkCount);
 						afkCount--;
 					} else if (afkCount == 1) {
-						controller.getMainController().errorArea.setText("Auf Wiedersehen!");
+						controller.getMainController().managementErrorArea.setText("Auf Wiedersehen!");
 						afkCount--;
 					} else if (afkCount == 0) {
 						Platform.exit();
@@ -60,7 +60,6 @@ public class ThreadManager {
 			public void handle(MouseEvent event) {
 				afkCount = 240;
 			}
-
 		});
 
 		afkThread.start();

@@ -6,6 +6,11 @@
     -fx-control-inner-background-alt: -fx-control-inner-background ;
 }
 
+.container {
+	-fx-background-color: rgba(128,128,128, 0.5);
+	-fx-background-radius: 10;
+}
+
 .label{
     -fx-text-fill: lightgray;
 }
@@ -69,3 +74,8 @@
     -fx-table-cell-border-color:transparent;
 }
 
+.backgroundImage {
+	-fx-background-image: url('../images/immobilienbackgrounddarkmode.png');
+	-fx-background-size: 1920, 1080;
+	-fx-background-repeat: no-repeat;
+}

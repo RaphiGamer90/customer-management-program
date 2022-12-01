@@ -16,7 +16,6 @@ import manager.tableView.TableManager;
 
 public class EditColumn extends CustomerDataCheckerManager {
 	
-	HashMap<String, String> errorMap = new HashMap<>();
 	Controller controller = new Controller();
 
 	
@@ -24,7 +23,7 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isFirstName(event.getNewValue())) {
-			errorMap.put("firstNameErrorMessage", "Das ist kein richtiger Vorname!");
+			controller.getMainController().errorManager.throwErrors("Das ist kein Vorname!\n");
 			return;
 		}
 		 
@@ -38,7 +37,7 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isLastName(event.getNewValue())) {
-			errorMap.put("firstNameErrorMessage", "Das ist kein richtiger Nachname!");
+			controller.getMainController().errorManager.throwErrors("Das ist kein Nachname!\n");
 			return;
 		}
 		
@@ -52,7 +51,7 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isBirthday(event.getNewValue())) {
-			errorMap.put("birthdayErrorMessage", "Das ist kein richtiger Geburstag!");
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
 			return;
 		}
 		
@@ -66,15 +65,16 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isEmail(event.getNewValue())) {
-			errorMap.put("emailErrorMessage", "Das ist keine richtige E-Mail!");
+			controller.getMainController().errorManager.throwErrors("Das ist keine richtige E-Mail!\n");
 			return;
 		}
 		else if(controller.getMainController().dataManager.getUnloadedEmails().contains(event.getNewValue())) {
-			errorMap.put("emailErrorMessage", "Diese E-Mail exisitiert bereits!");
+			controller.getMainController().errorManager.throwErrors("Diese E-Mail existiert bereits!\n");
 			return;
 		}
 		controller.getMainController().putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+		controller.getMainController().tableManager.refreshEmailColumn();
 	}
 	
 	
@@ -82,15 +82,16 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isTelNr(event.getNewValue())) {
-			errorMap.put("telNrErrorMap", "Das ist keine richtige Telefonnummer!");
+			controller.getMainController().errorManager.throwErrors("Das ist keine richtige Telefonnummer!\n");
 			return;
 		}
 		else if(controller.getMainController().dataManager.getUnloadedTelNrs().contains(event.getNewValue())) {
-			errorMap.put("telNrErrorMap", "Diese Telefonnummer existiert bereits!");
+			controller.getMainController().errorManager.throwErrors("Diese Telefonnummer gibt es bereits!\n");
 			return;
 		}
 		controller.getMainController().putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+				controller.getMainController().tableManager.refreshTelNrColumn();
 	}
 	
 	
@@ -98,11 +99,12 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isDegree(event.getNewValue())) {
-			errorMap.put("degreeErrorMessage", "Das ist kein richtiger Titel!");
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiger Titel!\n");
 			return;
 		}
 		controller.getMainController().putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+				controller.getMainController().tableManager.refreshDegreeColumn();
 	}
 	
 	
@@ -110,11 +112,12 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isMeetingDay(event.getNewValue())) {
-			errorMap.put("meetindDayErrorMessage", "Das ist kein richtiges Datum!");
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
 			return;
 		}
 		controller.getMainController().putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
+				controller.getMainController().tableManager.refreshMeetingDayColumn();
 	}
 	
 	
@@ -122,16 +125,12 @@ public class EditColumn extends CustomerDataCheckerManager {
 		TableModel value = event.getRowValue();
 		
 		if(!isGender(event.getNewValue())) {
-			errorMap.put("genderErrorMessage", "Das ist kein richtiges Geschlecht! (Glaube ich)");
+			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Geschlecht, glaube ich!\n");
 			return;
 		}
 		controller.getMainController().putInDatabase.setValueInDatabase(event.getTableColumn().getText(), event.getNewValue(), value.getFirstName(), value.getLastName(), 
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
-	}
-
-
-	public HashMap<String, String> getErrorMap() {
-		return errorMap;
+				controller.getMainController().tableManager.refreshGenderColumn();
 	}
 
 

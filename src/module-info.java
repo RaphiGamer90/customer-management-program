@@ -6,6 +6,7 @@ module CustomerManagmentProgram {
 	requires javafx.base;
 	requires javafx.graphics;
 	requires java.mail;
+	requires java.base;
 
 	opens application to javafx.graphics, javafx.fxml;
 	opens controllers to javafx.graphics, javafx.fxml;

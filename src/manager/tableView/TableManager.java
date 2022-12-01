@@ -68,6 +68,36 @@ public class TableManager extends DataManager {
 				controller.getMainController().genderColumn);
 		controller.getMainController().tableView.setItems(searchModelObservableList);
 	}
+	
+	/*
+	 * Birthday Column gets refreshed
+	 * 
+	 */
+	public void refreshBirthdayColumn() {
+		searchModelObservableList.clear();
+
+		for (int i = 0; i < controller.getMainController().aboutDatabase.getRowsCount(); i++) {
+			searchModelObservableList.add(new TableModel(getUnloadedFirstNames().get(i), getUnloadedLastNames().get(i),
+					getReloadedBirthdays().get(i), getUnloadedEmails().get(i), getUnloadedTelNrs().get(i),
+					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
+		}
+
+		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
+		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
+		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
+		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
+		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
+
+		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
+				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
+				controller.getMainController().emailColumn, controller.getMainController().telephoneColumn,
+				controller.getMainController().degreeColumn, controller.getMainController().meetingDayColumn,
+				controller.getMainController().genderColumn);
+		controller.getMainController().tableView.setItems(searchModelObservableList);
+	}
 
 	/*
 	 * Email Column gets refreshed
@@ -193,7 +223,7 @@ public class TableManager extends DataManager {
 	 * Gender Column gets refreshed
 	 * 
 	 */
-	public void refreshBirthdayColumn() {
+	public void refreshGenderColumn() {
 		searchModelObservableList.clear();
 
 		for (int i = 0; i < controller.getMainController().aboutDatabase.getRowsCount(); i++) {
