@@ -210,41 +210,6 @@ public class MainController implements Initializable {
 	Thread birthdayThread;
 	
 	
-
-	
-	//Setzen der Mails in die Birthday Area
-	public void setBirthdayAreaContent() {
-//		  countForBirthdayEmails = 0;
-//			if (!birthdayMessage.getBirthdayEmailList().isEmpty()) {
-//				String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-//				birthdayEmailField.setText(birthdayEmail);
-//			} else {
-//				birthdayEmailField.setText("");
-//			}
-//
-//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-//			birthdayMessageArea.setText(birthDayMessageString);
-	}
-	
-	//Listen Update der Birthday Area
-	public void changeListenerForBirthdayArea() {
-//		birthdayMessageArea.textProperty().addListener(new ChangeListener<String>() {
-//
-//			@Override
-//			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//				birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessageArea.getText());
-//				
-//			}
-//		});
-//		
-	}
-	
-	//ALLES WAS BEIM START AUSGEFï¿½HRT WERDEN SOLL// 
-	public void init() {
-		setBirthdayAreaContent();
-		changeListenerForBirthdayArea();
-	}	
-	
 	
 	//Wird ausgeführt, wenn das Program startet
 	@Override
@@ -264,8 +229,7 @@ public class MainController implements Initializable {
 		searchFilterManager = new SearchFilterManager();
 		birthdayMessageManager = new BirthdayMessageManager();
 		
-
-		
+		//Controller Klassen
 		addCustomer = new AddCustomer();
 		editColumns = new EditColumn();
 		newCustomer = new NewCustomer();
@@ -275,7 +239,6 @@ public class MainController implements Initializable {
 		tableView.getSelectionModel().setCellSelectionEnabled(true);
 		
 		tableManager.refreshWholeTableView();
-		init();
 			
 	}
 
@@ -297,7 +260,7 @@ public class MainController implements Initializable {
 	}
 
 	/*
-	 * Hiermit kï¿½nnen die Zellen unabhï¿½ngig voneinader bearbeitet werden
+	 * Hiermit kï¿½nnen die Zellen unabhängig voneinader bearbeitet werden
 	 * */
 	public void firstNameColumnEdit(CellEditEvent<TableModel, String> event) {
 		editColumns.editFirstNameColumn(event);
@@ -335,12 +298,12 @@ public class MainController implements Initializable {
 	
 	//Darkmode / Nachtmodus
 	public void setDarkMode(ActionEvent event) throws IOException {  
-		root.getStylesheets().add(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
+		root.getStylesheets().addAll(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
 	}
 	
 	//Lightmode / Heller Modus
 	public void setOnLightMode(ActionEvent event) {
-		root.getStylesheets().remove(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
+		root.getStylesheets().removeAll(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
 	}
 
 	//Reihe aus der Datenbank entfernen und die Tabelle updaten

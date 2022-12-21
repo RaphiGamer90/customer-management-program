@@ -1,0 +1,35 @@
+.container {
+	-fx-background-color: rgba(255, 255, 255, 0.5);
+	-fx-background-radius: 10;
+}
+
+.backgroundImage {
+	-fx-background-image: url('../images/immobilienbackground.png');
+	-fx-background-size: 1920, 1080;
+	-fx-background-repeat: no-repeat;
+}
+
+.date-picker {
+    -fx-font-size: 21.0;
+}
+
+.combo-box-gender {
+	-fx-font-size: 20.0;
+}
+
+.combo-box-search {
+	-fx-font-size: 12.0;
+}
+
+.shadow-effect {
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.round-curves {
+	-fx-background-radius: 10;
+}
+
+#errorArea {
+	-fx-text-fill: red;
+    -fx-font-size: 12px;
+}

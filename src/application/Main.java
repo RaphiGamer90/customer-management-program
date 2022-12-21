@@ -43,13 +43,12 @@ public class Main extends Application {
 			        System.exit(0);
 			    }
 			});
-			Parent root = FXMLLoader.load(getClass().getResource("ControlSystem.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainWindow.fxml"));
 			primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/ZanglIcon.png")));
 			
 			System.out.println("Program wurde gestartet!");
 			
 			Scene scene = new Scene(root);
-			//scene.getStylesheets().add(getClass().getResource("/stylesheets/application.css").toExternalForm());
 			primaryStage.setMaximized(true);
 			primaryStage.setScene(scene);
 			primaryStage.show();

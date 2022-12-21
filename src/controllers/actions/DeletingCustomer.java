@@ -15,6 +15,7 @@ public class DeletingCustomer {
 		else {
 			deleteFromDatabase.deleteValueFromDatabase(controller.getMainController().deleteField.getText());
 			controller.getMainController().errorManager.clearErrorMessagesArea();
+			controller.getMainController().errorManager.throwErrors("Person wurde erfolgreich entfernt!\n");
 		}
 	}
 	

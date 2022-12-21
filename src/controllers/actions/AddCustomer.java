@@ -1,24 +1,16 @@
 package controllers.actions;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import controllers.Controller;
-import controllers.MainController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.WindowEvent;
 import manager.checking.CustomerDataCheckerManager;
-import manager.data.DataManager;
-import database.PutInDatabase;
-import database.DataFromDatabase;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 
 
 public class AddCustomer extends CustomerDataCheckerManager {
 
 	Controller controller = new Controller();
+	public boolean confirmErrorPopUp;
 	
 	/*SET ALL THE CUSTOMER DATA*/
 	public void setCustomerInDatabase() {
@@ -47,63 +39,65 @@ public class AddCustomer extends CustomerDataCheckerManager {
 	
 	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
 	private String setFirstName(String firstName) {
-		if(!isFirstName(firstName)) {
+		if(!isFirstName(firstName) && !(firstName == null|| firstName.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein Vorname!\n");
 		}
 		return firstName;
 	}
 
 	private String setLastName(String lastName) {
-		if(!isLastName(lastName)) {
+		if(!isLastName(lastName) && !(lastName == null || lastName.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein Nachname!\n");
 		}
 		return lastName;
 	}
 	
 	private String setBirthday(String birthday) {
-		if(!isBirthday(birthday)) {
+		if(!isBirthday(birthday) && !(birthday == null || birthday.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
-			
 		}
 		return birthday;
 	}
 	
 	private String setEmail(String email) {
-		if(!isEmail(email)) {
+		if(!isEmail(email) && !(email == null || email.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist keine E-Mail!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedEmails().contains(email)) {
-			controller.getMainController().errorManager.throwErrors("Diese E-Mail ist bereits eingetragen!\n");
-		}
+			controller.getMainController().errorManager.throwPopUpError("Diese E-Mail ist bereits eingetragen! (ACHTUNG BEIM LÖSCHEN!)\n");
+			
+		}		
 		return email;
 	}
 	
 	private String setTelNr(String telNr) {
-		if(!isTelNr(telNr)) {
+		if(!isTelNr(telNr) && !(telNr == null || telNr.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist keine Telefonnummer!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedTelNrs().contains(telNr)) {
-			controller.getMainController().errorManager.throwErrors("Diese Telefonnummer gibt es schon!\n");
+			controller.getMainController().errorManager.throwPopUpError("Diese Telefonnummer gibt es schon! (AUFPASSEN!)\n");	
+			
+			
 		}
 		return telNr;
 	}
 	
 	private String setDegree(String degree) {
-		if(!isDegree(degree)) {
+		if(!isDegree(degree) && !(degree == null || degree.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein Titel!\n");
 		}
 		return degree;
 	}
 	
 	private String setMeetDay(String meetingDay) {
-		if(!isMeetingDay(meetingDay)) {
+		if(!isMeetingDay(meetingDay) && !(meetingDay == null|| meetingDay.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein richtiges Datum!\n");
 		}
 		return meetingDay;
 	}
 	
 	private String setGender(String gender) {
-		if(!isGender(gender)) {
+		if(!isGender(gender) && !(gender == null || gender.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein Geschlecht, glaub ich!\n");
 		}
 		return gender;
