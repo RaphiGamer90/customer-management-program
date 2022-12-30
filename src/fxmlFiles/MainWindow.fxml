@@ -20,13 +20,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane fx:id="root" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="890.0" prefWidth="1315.0" styleClass="backgroundImage" stylesheets="@../stylesheets/style.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
+<TabPane fx:id="root" styleClass="backgroundImage" stylesheets="@../stylesheets/style.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="20.0" tabMinWidth="100.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.MainController">
   <tabs>
     <Tab fx:id="verwaltungstab" text="Verwaltung">
          <content>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <left>
-                  <VBox fillWidth="false" minWidth="100.0" spacing="33.0" styleClass="container" stylesheets="@../stylesheets/style.css">
+                  <VBox fillWidth="false" spacing="25.0" styleClass="container" stylesheets="@../stylesheets/style.css">
                      <children>
                         <TextField fx:id="firstNameField" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="100.0" prefHeight="60.0" prefWidth="320.0" promptText="Hier Vorname!" VBox.vgrow="ALWAYS">
                            <font>
@@ -89,7 +89,7 @@
                         </ComboBox>
                         <HBox fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="100.0" prefHeight="31.0" prefWidth="343.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button fx:id="sendData" mnemonicParsing="false" onAction="#sendDataToDatabase" prefHeight="60.0" prefWidth="200.0" text="Eintrag speichern!" HBox.hgrow="ALWAYS">
+                              <Button fx:id="sendDataButton" mnemonicParsing="false" onAction="#sendDataToDatabase" prefHeight="60.0" prefWidth="200.0" text="Eintrag speichern!" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -97,7 +97,7 @@
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="newPerson" mnemonicParsing="false" onAction="#setNewPerson" prefHeight="60.0" prefWidth="100.0" text="Neu" HBox.hgrow="ALWAYS">
+                              <Button fx:id="newPersonButton" mnemonicParsing="false" onAction="#setNewPerson" prefHeight="60.0" prefWidth="100.0" text="Neu" HBox.hgrow="ALWAYS">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -107,7 +107,7 @@
                               </Button>
                            </children>
                         </HBox>
-                        <TextArea id="errorArea" fx:id="managementErrorArea" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="100.0" prefHeight="120.0" prefWidth="320.0" VBox.vgrow="ALWAYS">
+                        <TextArea id="errorArea" fx:id="managementErrorArea" editable="false" prefHeight="120.0" prefWidth="320.0" style="-fx-text-fill: red;" VBox.vgrow="ALWAYS">
                            <VBox.margin>
                               <Insets bottom="10.0" left="10.0" />
                            </VBox.margin>
@@ -119,9 +119,9 @@
                   </VBox>
                </left>
                <center>
-                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="930.0" prefHeight="0.0" prefWidth="0.0" spacing="15.0" styleClass="container" stylesheets="@../stylesheets/style.css">
+                  <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="0.0" spacing="15.0" styleClass="container" stylesheets="@../stylesheets/style.css">
                      <children>
-                        <AnchorPane minWidth="900.0" prefHeight="237.0" prefWidth="1116.0">
+                        <AnchorPane>
                            <children>
                               <ImageView fx:id="ZanglLogo" fitHeight="170.0" fitWidth="1500.0" pickOnBounds="true" preserveRatio="true" styleClass="shadow-effect" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-720.0" AnchorPane.topAnchor="0.0">
                                  <image>
@@ -138,7 +138,7 @@
                         </AnchorPane>
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minWidth="900.0" prefHeight="1000.0" prefWidth="1800.0" spacing="10.0" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" HBox.hgrow="ALWAYS">
+                              <AnchorPane HBox.hgrow="ALWAYS">
                                  <children>
                                     <TableView fx:id="tableView" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="500.0" opacity="0.85" styleClass="round-curves" stylesheets="@../stylesheets/style.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <columns>
@@ -165,9 +165,9 @@
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                            </padding>
                         </HBox>
-                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="900.0" prefHeight="75.0" prefWidth="1800.0" spacing="20.0" styleClass="container" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
+                        <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="1800.0" spacing="20.0" styleClass="container" stylesheets="@../stylesheets/style.css" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="searchField" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="100.0" prefHeight="50.0" prefWidth="510.0" promptText="Suchen">
+                              <TextField fx:id="searchField" prefHeight="50.0" prefWidth="510.0" promptText="Suchen">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -191,17 +191,17 @@
                                     </HBox>
                                  </children>
                               </VBox>
-                              <TextField fx:id="searchOutputField" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="40.0" prefHeight="58.0" prefWidth="100.0">
+                              <TextField fx:id="searchOutputField" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="50.0" prefHeight="58.0" prefWidth="100.0">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
                               </TextField>
-                              <TextField fx:id="deleteField" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="100.0" onAction="#deleteRow" prefHeight="50.0" prefWidth="510.0" promptText="Löschen: example@gmail.com">
+                              <TextField fx:id="deleteField" onAction="#deleteRow" prefHeight="50.0" prefWidth="510.0" promptText="Löschen: example@gmail.com">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </TextField>
-                              <Button fx:id="nextPageButton" alignment="CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="70.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#tabEmailPage" prefHeight="54.0" prefWidth="150.0" text="Nächste Seite">
+                              <Button fx:id="nextPageButton" alignment="CENTER" contentDisplay="TOP" minWidth="100.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#tabEmailPage" prefHeight="54.0" prefWidth="150.0" text="Nächste Seite">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -256,7 +256,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <TextField fx:id="birthdayEmailField" editable="false" prefHeight="51.0" prefWidth="432.0" promptText="An:">
+                              <TextField fx:id="birthdayEmailField" prefHeight="51.0" prefWidth="432.0" promptText="An:">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -296,7 +296,21 @@
                      <children>
                         <VBox prefHeight="100.0" prefWidth="121.0" spacing="5.0">
                            <children>
-                              <Button fx:id="lastPage" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tabManagementPage" prefHeight="43.0" prefWidth="125.0" text="Zurück">
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <Button fx:id="undoButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#undoBirthdayEmailArea" prefHeight="50.0" prefWidth="60.0" text="↩">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="restoreButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#restoreBirthdayEmailArea" prefHeight="50.0" prefWidth="60.0" text="↪">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Button fx:id="lastPageButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#tabManagementPage" prefHeight="43.0" prefWidth="125.0" text="Zurück">
                                  <font>
                                     <Font size="18.0" />
                                  </font>
@@ -304,20 +318,6 @@
                                     <Insets />
                                  </VBox.margin>
                               </Button>
-                              <HBox spacing="5.0">
-                                 <children>
-                                    <Button fx:id="undo" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#undoBirthdayEmailArea" prefHeight="50.0" prefWidth="60.0" text="↩">
-                                       <font>
-                                          <Font size="21.0" />
-                                       </font>
-                                    </Button>
-                                    <Button fx:id="restore" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#restoreBirthdayEmailArea" prefHeight="50.0" prefWidth="60.0" text="↪">
-                                       <font>
-                                          <Font size="21.0" />
-                                       </font>
-                                    </Button>
-                                 </children>
-                              </HBox>
                            </children>
                            <HBox.margin>
                               <Insets bottom="10.0" left="10.0" top="10.0" />
@@ -325,7 +325,7 @@
                         </VBox>
                         <HBox prefHeight="100.0" prefWidth="1500.0">
                            <children>
-                              <TextArea fx:id="emailErrorArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="101.0" prefWidth="1500.0">
+                              <TextArea fx:id="emailErrorArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="101.0" prefWidth="1500.0" style="-fx-text-fill: red; -fx-font-size: 20;">
                                  <HBox.margin>
                                     <Insets bottom="10.0" top="10.0" />
                                  </HBox.margin></TextArea>
@@ -336,23 +336,23 @@
                         </HBox>
                         <VBox prefHeight="100.0" prefWidth="255.0" spacing="5.0">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="247.0">
+                              <HBox prefHeight="100.0" prefWidth="245.0">
                                  <children>
-                                    <Button fx:id="resetButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#reset" prefHeight="47.0" prefWidth="109.0" text="Zurücksetzen" />
-                                    <Button fx:id="sendEmailButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="123.0" text="Senden">
-                                       <font>
-                                          <Font size="18.0" />
-                                       </font>
+                                    <Button fx:id="lastBirthdayMailButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#lastBirthdayMail" prefHeight="45.0" prefWidth="109.0" text="Vorherige Mail" />
+                                    <Button fx:id="nextBirthdayMailButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#nextBirthdayMail" prefHeight="45.0" prefWidth="122.0" text="Nächste Mail">
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="245.0">
+                              <HBox prefHeight="100.0" prefWidth="247.0">
                                  <children>
-                                    <Button fx:id="beforeMail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchBackMail" prefHeight="45.0" prefWidth="109.0" text="Vorherige Mail" />
-                                    <Button fx:id="nextMail" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchNextMail" prefHeight="45.0" prefWidth="122.0" text="Nächste Mail">
+                                    <Button fx:id="resetBirthdayMailButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#resetBirthdayMessage" prefHeight="47.0" prefWidth="109.0" text="Zurücksetzen" />
+                                    <Button fx:id="sendEmailButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#sendEmail" prefHeight="46.0" prefWidth="123.0" text="Senden">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
                                        <HBox.margin>
                                           <Insets left="10.0" />
                                        </HBox.margin>

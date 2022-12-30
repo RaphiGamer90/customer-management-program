@@ -4,9 +4,10 @@ import javafx.fxml.FXMLLoader;
 
 public class Controller {
 
+	/*Klasse referenziert auf verschiedene Controller Klassen*/
+	
     private static MainController mainController;
     
-
     public MainController getMainController() {
         return mainController;
     }

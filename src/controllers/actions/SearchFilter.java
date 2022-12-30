@@ -1,4 +1,4 @@
-package manager.filter;
+package controllers.actions;
 
 import controllers.Controller;
 import javafx.beans.value.ChangeListener;
@@ -12,10 +12,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import manager.models.TableModel;
 
-public class SearchFilterManager {
+public class SearchFilter {
 
 	Controller controller = new Controller();
 
+	/*
+	 * Suchen bestimmter String-Werte in der TableView
+	 * */
 	public void searchFilter() {
 
 		FilteredList<TableModel> filteredData = new FilteredList<>(
@@ -27,8 +30,7 @@ public class SearchFilterManager {
 				}
 				String searchKeyword = newValue.toLowerCase();
 
-				if (controller.getMainController().searchBox.getValue() == null
-						|| controller.getMainController().searchBox.getValue() == "Alle") {
+				if (controller.getMainController().searchBox.getValue() == null || controller.getMainController().searchBox.getValue() == "Alle") {
 					if (searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
 						return true;
 					} else if (searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
@@ -47,50 +49,38 @@ public class SearchFilterManager {
 						return true;
 					}
 
-				} else if (controller.getMainController().searchBox.getValue().equals("Vorname")) {
-					if (searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Nachname")) {
-					if (searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Geburtstag")) {
-					if (searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("E-Mail")) {
-					if (searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Telefonnummer")) {
-					if (searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Titel")) {
-					if (searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Auftrag Datum")) {
-					if (searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
-				} else if (controller.getMainController().searchBox.getValue().equals("Geschlecht")) {
-					if (searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) {
-						return true;
-					}
-					return false;
 				}
-
+				else {
+					switch (controller.getMainController().searchBox.getValue()) {
+						case "Vorname":
+							if (searchModel.getFirstName().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Nachname": 
+							if (searchModel.getLastName().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Geburtstag": 
+							if (searchModel.getBirthday().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "E-Mail": 
+							if (searchModel.getEmail().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Telefonnummer": 
+							if (searchModel.getTelNr().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Titel": 
+							if (searchModel.getDegree().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Auftrag Datum": 
+							if (searchModel.getMeetingDay().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						case "Geschlecht": 
+							if (searchModel.getGender().toLowerCase().indexOf(searchKeyword) != -1) { return true; }
+							break;
+						default:
+							break;
+					}
+				}
 				return false;
-
 			});
 
 			SortedList<TableModel> sortedData = new SortedList<>(filteredData);

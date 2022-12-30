@@ -52,15 +52,6 @@ public class TableManager extends DataManager {
 					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
 
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
 				controller.getMainController().emailColumn, controller.getMainController().telephoneColumn,
@@ -81,15 +72,6 @@ public class TableManager extends DataManager {
 					getReloadedBirthdays().get(i), getUnloadedEmails().get(i), getUnloadedTelNrs().get(i),
 					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
-
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
@@ -112,15 +94,6 @@ public class TableManager extends DataManager {
 					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
 
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
 				controller.getMainController().emailColumn, controller.getMainController().telephoneColumn,
@@ -141,15 +114,6 @@ public class TableManager extends DataManager {
 					getUnloadedBirthdays().get(i), getUnloadedEmails().get(i), getReloadedTelNrs().get(i),
 					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
-
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
@@ -172,15 +136,6 @@ public class TableManager extends DataManager {
 					getReloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
 
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
 				controller.getMainController().emailColumn, controller.getMainController().telephoneColumn,
@@ -202,15 +157,6 @@ public class TableManager extends DataManager {
 					getUnloadedDegrees().get(i), getReloadedMeetingDays().get(i), getUnloadedGenders().get(i)));
 		}
 
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
-
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
 				controller.getMainController().emailColumn, controller.getMainController().telephoneColumn,
@@ -231,15 +177,6 @@ public class TableManager extends DataManager {
 					getUnloadedBirthdays().get(i), getUnloadedEmails().get(i), getUnloadedTelNrs().get(i),
 					getUnloadedDegrees().get(i), getUnloadedMeetingDays().get(i), getReloadedGenders().get(i)));
 		}
-
-		controller.getMainController().firstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-		controller.getMainController().lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		controller.getMainController().birthdayColumn.setCellValueFactory(new PropertyValueFactory<>("birthday"));
-		controller.getMainController().emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-		controller.getMainController().telephoneColumn.setCellValueFactory(new PropertyValueFactory<>("telNr"));
-		controller.getMainController().degreeColumn.setCellValueFactory(new PropertyValueFactory<>("degree"));
-		controller.getMainController().meetingDayColumn.setCellValueFactory(new PropertyValueFactory<>("meetingDay"));
-		controller.getMainController().genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
 		controller.getMainController().cellFactoryManager.setCellFactory(controller.getMainController().firstNameColumn,
 				controller.getMainController().lastNameColumn, controller.getMainController().birthdayColumn,
@@ -277,6 +214,7 @@ public class TableManager extends DataManager {
 				controller.getMainController().degreeColumn, controller.getMainController().meetingDayColumn,
 				controller.getMainController().genderColumn);
 		controller.getMainController().tableView.setItems(searchModelObservableList);
+		controller.getMainController().birthdayMessageManager.setBirthdayMessages(0);
 	}
 
 }

@@ -16,17 +16,16 @@ public class ErrorManager {
 	private ArrayList<String> errorMessages = new ArrayList<>();
 	private Stage errorStage = new Stage();
 
+	/*Je nach Tab wird Fehler ins entsprechende Fehlerfeld eingetragen*/
 	public void throwErrors(String errorMessage) {
 
 		switch (controller.getMainController().root.getSelectionModel().getSelectedItem().getText()) {
 		case "Verwaltung":
 			controller.getMainController().managementErrorArea.appendText("" + errorMessage);
-			controller.getMainController().tableManager.refreshWholeTableView();
 			break;
 
 		case "E-Mail":
-			controller.getMainController().managementErrorArea.appendText("" + errorMessage);
-			controller.getMainController().tableManager.refreshWholeTableView();
+			controller.getMainController().emailErrorArea.setText("" + errorMessage);
 			break;
 
 		default:
@@ -35,11 +34,13 @@ public class ErrorManager {
 
 	}
 
+	/*Erstellen eines Fehlerfeldes*/
 	public void createErrorPopUpWindow() {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/ErrorWindow.fxml"));
 			Scene errorScene = new Scene(root);
 			errorStage.setScene(errorScene);
+			errorStage.setAlwaysOnTop(true);
 			errorStage.show();
 
 		} catch (Exception e) {
@@ -47,13 +48,13 @@ public class ErrorManager {
 		}
 	}
 
+	/*Fehlerfeld wird geschmissen*/
 	public void throwPopUpError(String errorMessage) {
 		if (!errorStage.isShowing()) {
 			createErrorPopUpWindow();
 			controller.getMainController().root.setDisable(true);
 		}
 		controller.getErrorWindowController().setErrorWindow(errorMessage);
-		
 	}
 
 
@@ -68,5 +69,4 @@ public class ErrorManager {
 	public Stage getErrorStage() {
 		return errorStage;
 	}
-
 }

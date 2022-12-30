@@ -6,6 +6,7 @@ public class NewCustomer {
 
 	Controller controller = new Controller();
 	
+	/*Es werden alle Eintragfelder zurückgesetzt*/
 	public void setNewCustomer() {
 		controller.getMainController().firstNameField.setText("");
 		controller.getMainController().lastNameField.setText("");

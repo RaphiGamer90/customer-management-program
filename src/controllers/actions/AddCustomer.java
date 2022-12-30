@@ -25,12 +25,12 @@ public class AddCustomer extends CustomerDataCheckerManager {
 		String gender = setGender(controller.getMainController().genderBox.getValue());
 
 		
-		if(!(controller.getMainController().managementErrorArea.getText() == "")) {
+		if(!(controller.getMainController().managementErrorArea.getText() == "" || controller.getMainController().managementErrorArea.getText().isEmpty() 
+				|| controller.getMainController().managementErrorArea.getText().isBlank()) || controller.getMainController().errorManager.getErrorStage().isShowing()) {
 			return;
 		}
 		else {
 			controller.getMainController().putInDatabase.putInDatabase(firstName, lastName, birthday, email, telNr, degree, meetingDay, gender);
-			controller.getMainController().tableManager.refreshWholeTableView();
 			controller.getMainController().errorManager.clearErrorMessagesArea();
 		}
 	}
@@ -39,7 +39,7 @@ public class AddCustomer extends CustomerDataCheckerManager {
 	
 	/*RETURN ALL THE CHECKED CUSTOMER DATA*/
 	private String setFirstName(String firstName) {
-		if(!isFirstName(firstName) && !(firstName == null|| firstName.isBlank())) {
+		if(!isFirstName(firstName) && !(firstName == null || firstName.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist kein Vorname!\n");
 		}
 		return firstName;
@@ -59,25 +59,22 @@ public class AddCustomer extends CustomerDataCheckerManager {
 		return birthday;
 	}
 	
-	private String setEmail(String email) {
+	public String setEmail(String email) {
 		if(!isEmail(email) && !(email == null || email.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist keine E-Mail!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedEmails().contains(email)) {
 			controller.getMainController().errorManager.throwPopUpError("Diese E-Mail ist bereits eingetragen! (ACHTUNG BEIM LÖSCHEN!)\n");
-			
 		}		
 		return email;
 	}
 	
-	private String setTelNr(String telNr) {
+	public String setTelNr(String telNr) {
 		if(!isTelNr(telNr) && !(telNr == null || telNr.isBlank())) {
 			controller.getMainController().errorManager.throwErrors("Das ist keine Telefonnummer!\n");
 		}
 		else if(controller.getMainController().dataManager.getReloadedTelNrs().contains(telNr)) {
 			controller.getMainController().errorManager.throwPopUpError("Diese Telefonnummer gibt es schon! (AUFPASSEN!)\n");	
-			
-			
 		}
 		return telNr;
 	}

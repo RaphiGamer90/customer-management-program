@@ -8,6 +8,7 @@ public class DeletingCustomer {
 	Controller controller = new Controller();
 	DeleteFromDatabase deleteFromDatabase = new DeleteFromDatabase();
 	
+	/*Löschen eines Customers*/
 	public void deleteCustomer() {
 		if(!controller.getMainController().dataManager.getReloadedEmails().contains(controller.getMainController().deleteField.getText())) {
 			controller.getMainController().errorManager.throwErrors("Diese E-Mail existiert nicht!\n");

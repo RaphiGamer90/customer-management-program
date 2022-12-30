@@ -19,6 +19,11 @@ public class EditColumn extends CustomerDataCheckerManager {
 	Controller controller = new Controller();
 
 	
+	/**
+	 * Es können alle Zellen der TableView einzeln bearbeitet werden 
+	 * 
+	 */
+	
 	public void editFirstNameColumn(CellEditEvent<TableModel, String> event) {
 		TableModel value = event.getRowValue();
 		
@@ -132,6 +137,4 @@ public class EditColumn extends CustomerDataCheckerManager {
 				value.getBirthday(), value.getEmail(), value.getTelNr(), value.getDegree(), value.getMeetingDay(), value.getGender());
 				controller.getMainController().tableManager.refreshGenderColumn();
 	}
-
-
 }

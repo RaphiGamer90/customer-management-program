@@ -150,7 +150,7 @@ public class CheckerManager {
 		if (input == null || input.isEmpty()) {
 			return false;
 		}
-		if (!input.equals("Herr") && !input.equals("Frau") && !input.equals("Divers") && !input.equals("Unknown")) {
+		if (!input.equals("Herr") && !input.equals("Frau") && !input.equals("Divers")) {
 			return false;
 		}
 		return true;

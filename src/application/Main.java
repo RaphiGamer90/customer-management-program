@@ -26,11 +26,14 @@ public class Main extends Application {
 	
 	ConnectionToDatabase connection = new ConnectionToDatabase();
 	
-	
+	/*
+	 * Hier wird das ganze Program gestartet und Datenbank-Verbindung hergestellt
+	 * */
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			connection.openConnection();
+	
 			primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			    @Override
 			    public void handle(WindowEvent event) {
@@ -43,6 +46,7 @@ public class Main extends Application {
 			        System.exit(0);
 			    }
 			});
+		
 			Parent root = FXMLLoader.load(getClass().getResource("/fxmlFiles/MainWindow.fxml"));
 			primaryStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/images/ZanglIcon.png")));
 			

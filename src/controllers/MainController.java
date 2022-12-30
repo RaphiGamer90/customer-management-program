@@ -2,33 +2,19 @@ package controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Random;
 import java.util.ResourceBundle;
 
-import manager.errors.ErrorManager;
-import manager.filter.SearchFilterManager;
 import controllers.actions.AddCustomer;
 import controllers.actions.DeletingCustomer;
 import controllers.actions.EditColumn;
 import controllers.actions.NewCustomer;
-import manager.datePicker.DatePickerManager;
+import controllers.actions.SearchFilter;
+import controllers.actions.SendEmails;
 import database.AboutDatabase;
-import database.DataFromDatabase;
-import database.DeleteFromDatabase;
 import database.PutInDatabase;
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -40,19 +26,15 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import manager.birthdayMessage.BirthdayMessageManager;
 import manager.cellFactory.CellFactoryManager;
 import manager.checking.CheckerManager;
 import manager.combobox.ComboboxManager;
 import manager.data.DataManager;
+import manager.datePicker.DatePickerManager;
+import manager.errors.ErrorManager;
 import manager.loading.LoadManager;
 import manager.models.TableModel;
 import manager.tableView.TableManager;
@@ -127,9 +109,9 @@ public class MainController implements Initializable {
 	
 	//Buttons
 	@FXML
-	public Button newPerson;
+	public Button newPersonButton;
 	@FXML
-	public Button sendData;
+	public Button sendDataButton;
 	@FXML
 	public Button nextPageButton;
 	@FXML
@@ -139,17 +121,17 @@ public class MainController implements Initializable {
 	@FXML
 	public Button searchButton;
 	@FXML
-	public Button lastPage;
+	public Button lastPageButton;
 	@FXML
-	public Button undo;
+	public Button undoButton;
 	@FXML
-	public Button restore;
+	public Button restoreButton;
 	@FXML
-	public Button beforeMail;
+	public Button lastBirthdayMailButton;
 	@FXML
-	public Button nextMail;
+	public Button nextBirthdayMailButton;
 	@FXML
-	public Button resetButton;
+	public Button resetBirthdayMailButton;
 	@FXML
 	public Button sendEmailButton;
 
@@ -189,6 +171,7 @@ public class MainController implements Initializable {
 	public PutInDatabase putInDatabase;
 	
 	//Manager 
+	public CheckerManager checkerManager;
 	public LoadManager loadManager;
 	public DataManager dataManager;
 	public TableManager tableManager;
@@ -198,24 +181,24 @@ public class MainController implements Initializable {
 	public ThreadManager threadManager;
 	public ComboboxManager comboboxManager;
 	public BirthdayMessageManager birthdayMessageManager;
-	public SearchFilterManager searchFilterManager;
 	
 	//Controllers 
 	public AddCustomer addCustomer;
 	public EditColumn editColumns;
 	public NewCustomer newCustomer;
 	public DeletingCustomer deleteCustomer;
- 
-	int countForBirthdayEmails;
-	Thread birthdayThread;
+	public SearchFilter searchFilter;
+	public SendEmails sendEmails;
 	
+	//Variablen
 	
-	
+
 	//Wird ausgeführt, wenn das Program startet
 	@Override
 	public void initialize(URL url, ResourceBundle resource) {
 		Controller.setMainController(this);
 		//Manager Klassen
+		checkerManager = new CheckerManager();
 		loadManager = new LoadManager();
 		dataManager = new DataManager();
 		tableManager = new TableManager();
@@ -226,7 +209,6 @@ public class MainController implements Initializable {
 		errorManager = new ErrorManager();
 		threadManager = new ThreadManager();
 		comboboxManager = new ComboboxManager();
-		searchFilterManager = new SearchFilterManager();
 		birthdayMessageManager = new BirthdayMessageManager();
 		
 		//Controller Klassen
@@ -234,20 +216,19 @@ public class MainController implements Initializable {
 		editColumns = new EditColumn();
 		newCustomer = new NewCustomer();
 		deleteCustomer = new DeletingCustomer();
+		searchFilter = new SearchFilter();
+		sendEmails = new SendEmails();
 		
-		
+		//Initialisation of Variables
 		tableView.getSelectionModel().setCellSelectionEnabled(true);
-		
-		tableManager.refreshWholeTableView();
-			
+		tableManager.refreshWholeTableView();	
 	}
 
-	//Daten in die Datenbank eintragen und auf der Tabelle sichtbar machen
+	//Daten in die Datenbank eintragen und auf der TableView sichtbar machen
 	public void sendDataToDatabase(ActionEvent event) {
 		managementErrorArea.clear();
 		addCustomer.setCustomerInDatabase();
-	}
-	
+	}	
 	
 	//Neue Person anlegen
 	public void setNewPerson(ActionEvent event) {
@@ -256,7 +237,7 @@ public class MainController implements Initializable {
 	
 	//Suchen mit Button 
 	public void search(ActionEvent event) {
-		searchFilterManager.searchFilter();
+		searchFilter.searchFilter();
 	}
 
 	/*
@@ -295,7 +276,6 @@ public class MainController implements Initializable {
 		editColumns.editGenderColumn(event);
 	}
 
-	
 	//Darkmode / Nachtmodus
 	public void setDarkMode(ActionEvent event) throws IOException {  
 		root.getStylesheets().addAll(getClass().getResource("/stylesheets/darkmode.css").toExternalForm());
@@ -310,8 +290,7 @@ public class MainController implements Initializable {
 	public void deleteRow(ActionEvent event) {
 		deleteCustomer.deleteCustomer();	
 	}
-	
-	
+		
 	//Neue Seite öffnen / weiter zur E-Mail Seite
 	public void tabEmailPage(ActionEvent event) {
 		verwaltungstab.getTabPane().getSelectionModel().select(emailtab);
@@ -326,92 +305,29 @@ public class MainController implements Initializable {
 	public void undoBirthdayEmailArea(ActionEvent event) {
 		birthdayMessageArea.undo();
 	}
-	
+
 	//Einen Schritt nach vorne
 	public void restoreBirthdayEmailArea(ActionEvent event) {
 		birthdayMessageArea.redo();
 	}
 	
 	//Es wird eine Mail zurï¿½ckgesprungen, falls eine existieren sollte.
-	public void switchBackMail(ActionEvent event) {
-//		emailErrorField.setText("");
-//		if (countForBirthdayEmails >= 0) {
-//			countForBirthdayEmails -= 1;
-//		}
-//
-//		if (countForBirthdayEmails >= 0 && !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
-//			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-//			birthdayEmailField.setText(birthdayEmail);
-//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-//			birthdayMessageArea.setText(birthDayMessageString);
-//		} else {
-//			countForBirthdayEmails += 1;
-//			return;
-//		}
-	}
+	public void lastBirthdayMail(ActionEvent event) {
+		birthdayMessageManager.lastBirthdayMail();
+	}	
 	
 	//Es wird zur nï¿½chsten Email gesprungen, falls eine existieren sollte.
-	public void switchNextMail(ActionEvent event) {
-//		emailErrorField.setText("");
-//		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()) {
-//			countForBirthdayEmails += 1;
-//		}
-//
-//		if (countForBirthdayEmails < birthdayMessage.getBirthdayEmailList().size()&& !birthdayMessage.getBirthdayEmailList().isEmpty() && !birthdayMessage.getBirthdayMessage().isEmpty()) {
-//			String birthdayEmail = birthdayMessage.getBirthdayEmailList().get(countForBirthdayEmails);
-//			birthdayEmailField.setText(birthdayEmail);
-//			String birthDayMessageString = birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails);
-//			birthdayMessageArea.setText(birthDayMessageString);
-//		} else {
-//			countForBirthdayEmails -= 1;
-//			return;
-//		}
+	public void nextBirthdayMail(ActionEvent event) {
+		birthdayMessageManager.nextBirthdayMail();
 	}
 	
 	//Text Area wird auf den Ursprung zurï¿½ckgesetzt
-	public void reset(ActionEvent event) {
-		emailErrorArea.setText("");
-//		birthdayMessage = new BirthdayMessage();
-//		birthdayMessageArea.setText(birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
-//		birthdayMessage.getBirthdayMessage().set(countForBirthdayEmails, birthdayMessage.getBirthdayMessage().get(countForBirthdayEmails));
-		
+	public void resetBirthdayMessage(ActionEvent event) {
+		birthdayMessageManager.resetBirthdayMail();
 	}
-	
 	
 	//Email senden
 	public void sendEmail(ActionEvent event) {
-		ArrayList<String> mailErrorMessage = new ArrayList<>();
-		boolean mailSendingChecker = true;
-		
-		if (birthdayEmailField.getText().equals("")) {
-			emailErrorArea.setText("Es kann keine E-Mail verschickt werden!");
-			mailSendingChecker = false;
-		} else {
-			if (regardingField.getText().equals("")) {
-				mailErrorMessage.add("Bitte tragen Sie noch einen Betreff ein!");
-				mailSendingChecker = false;
-			}
-			if (birthdayMessageArea.getText().equals("")) {
-				mailErrorMessage.add("Es kann keine E-Mail verschickt werden, ohne Inhalt!");
-				mailSendingChecker = false;
-			}
-			if (mailSendingChecker) {
-//				SendingEmail sendingEmail = new SendingEmail();
-				emailErrorArea.setStyle("-fx-text-fill: green;");
-				emailErrorArea.setFont(new Font("Arial", 24));
-				emailErrorArea.setText("Die E-Mail wird zum Versenden vorbereitet!");
-//				sendingEmail.sendmail(birthdayEmailField.getText(), regardingField.getText(), birthdayMessageArea.getText());
-//				emailErrorField.setText(sendingEmail.getMessageSendingText());
-			} else {
-				String messageForSendingProcessField = "";
-				for (String error : mailErrorMessage) {
-					messageForSendingProcessField += error + "\n";
-				}
-				emailErrorArea.setFont(new Font("Arial", 16));
-				emailErrorArea.setText(messageForSendingProcessField);
-			}
-		}
+		sendEmails.sendEmail();
 	}
-
-
 }

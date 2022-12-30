@@ -75,9 +75,5 @@ String messageSendingText = "Die Mail wird vorbereitet!";
 		
 		return null;
 	}
-
-	public String getMessageSendingText() {
-		return messageSendingText;
-	}
 	
 }

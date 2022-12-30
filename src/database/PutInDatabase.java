@@ -14,17 +14,13 @@ public class PutInDatabase {
 	
 	//Es werden die Werte, die in die Felder auf der GUI eingtragen werden, in die Datenbank hinzugefügt
 	public void putInDatabase(String firstName, String lastName, String birthday, String email, String telNr, String degree, String meetingDay, String gender) {
-		String queryLookThrough = "select * from customers";
 				
-		try {
-			ConnectionToDatabase.preparedStatement(queryLookThrough).executeQuery();
-		
-			if(!controller.getMainController().dataManager.getUnloadedEmails().contains(email) || email == null) {
-				String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
+		try {			
+			String queryPutIn = "INSERT INTO customers VALUES ('" + firstName + "', '" + lastName + "', '" + birthday + "', '" + email + "', '" + telNr + "','" + degree + "','" + meetingDay + "','" + gender + "');";
 				
-				PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    
-				statementToPutIn.executeUpdate(); 
-			}					
+			PreparedStatement statementToPutIn = ConnectionToDatabase.preparedStatement(queryPutIn);    
+			statementToPutIn.executeUpdate(); 
+			controller.getMainController().tableManager.refreshWholeTableView();			
 				
 		} catch (SQLException e) {
 			e.printStackTrace();

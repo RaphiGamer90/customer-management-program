@@ -12,7 +12,7 @@ public class ComboboxManager {
 	}
 
 	public void setGenderBoxChoices() {
-		controller.getMainController().genderBox.getItems().addAll("Herr", "Frau", "Divers", "Unknown");
+		controller.getMainController().genderBox.getItems().addAll("Herr", "Frau", "Divers");
 	}
 
 	public void setSearchBoxChoices() {

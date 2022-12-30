@@ -16,8 +16,7 @@ public class BirthdayMessageManager {
 	Controller controller = new Controller();
 
 	public BirthdayMessageManager() {
-		setBithdayMessages();
-
+		setBirthdayMessages(0);
 	}
 
 	/* Generiert Geburtstagsbenachrichtigungen */
@@ -40,62 +39,73 @@ public class BirthdayMessageManager {
 					String[] herrList = {
 							"Lieber Herr " + controller.getMainController().dataManager.getReloadedDegrees().get(i)
 									+ " " + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
-									+ " \n" + "Alles Gute zum Geburtstag!",
-							controller.getMainController().dataManager.getReloadedEmails().get(i), "Das ists!" };
+									+ " \n\n" + "Alles Gute zum Geburtstag!"
+									+ " \n\n" + "Mit freundlichen Grüßen, \nGabriela Zangl-Gottwald",
+							controller.getMainController().dataManager.getReloadedEmails().get(i)};
 					messageList = Arrays.asList(herrList);
 
 					birthdayMessageList.add(messageList);
 					break;
+
 				case "Frau":
 					String[] frauList = {
-							"Liebe Frau" + controller.getMainController().dataManager.getReloadedDegrees().get(i)
-									+ "\n" + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
-									+ " " + "Alles Gute zum Geburtstag!",
-							controller.getMainController().dataManager.getReloadedEmails().get(i), "Das ists!" };
+							"Liebe Frau " + controller.getMainController().dataManager.getReloadedDegrees().get(i)
+									+ " " + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
+									+ " \n\n" + "Alles Gute zum Geburtstag!"
+									+ " \n\n" + "Mit freundlichen Grüßen, \nGabriela Zangl-Gottwald",
+							controller.getMainController().dataManager.getReloadedEmails().get(i)};
 					messageList = Arrays.asList(frauList);
 
 					birthdayMessageList.add(messageList);
 					break;
+				
 				case "Divers":
 					String[] diversList = {
-							"Lieber Herr" + controller.getMainController().dataManager.getReloadedDegrees().get(i)
-									+ "\n" + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
-									+ " " + "Alles Gute zum Geburtstag!",
-							controller.getMainController().dataManager.getReloadedEmails().get(i), "Das ists!" };
+							"Liebe/r Frau/Herr " + controller.getMainController().dataManager.getReloadedDegrees().get(i)
+									+ " " + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
+									+ " \n\n" + "Alles Gute zum Geburtstag!"
+									+ " \n\n" + "Mit freundlichen Grüßen, \nGabriela Zangl-Gottwald",
+							controller.getMainController().dataManager.getReloadedEmails().get(i)};
 					messageList = Arrays.asList(diversList);
 
 					birthdayMessageList.add(messageList);
 					break;
-				case "Unknown":
-					String[] unknownList = {
-							"Lieber Herr" + controller.getMainController().dataManager.getReloadedDegrees().get(i)
-									+ "\n" + controller.getMainController().dataManager.getReloadedFirstNames().get(i)
-									+ " " + "Alles Gute zum Geburtstag!",
-							controller.getMainController().dataManager.getReloadedEmails().get(i), "Das ists!" };
-					messageList = Arrays.asList(unknownList);
-
-					birthdayMessageList.add(messageList);
-					break;
-
-				default:
-					break;
 				}
-
 			}
-
+			else {
+				controller.getMainController().birthdayMessageArea.setText("Heute hat niemand Geburtstag!");
+			}
 		}
+		
 		return birthdayMessageList;
-
 	}
 
-	public void setBithdayMessages() {
-		for (List<String> a : generateBirthdayMessages()) {
-			for (String b : a) {
-				controller.getMainController().birthdayMessageArea.appendText(b);
-
-			}
+	/*Setzt die generierten Geburtstags Emails*/
+	public void setBirthdayMessages(int emailCount) {
+		ArrayList<List<String>> emailList = generateBirthdayMessages();
+		if(!emailList.isEmpty()) {
+			controller.getMainController().birthdayEmailField.setText(emailList.get(emailCount).get(1));
+			controller.getMainController().birthdayMessageArea.setText(emailList.get(emailCount).get(0));			
 		}
-
+	}
+	
+	int birthdayMessagesCount = 0;	
+	public void nextBirthdayMail() {
+		if(birthdayMessagesCount < generateBirthdayMessages().size()-1) {
+			birthdayMessagesCount++;			
+			setBirthdayMessages(birthdayMessagesCount);
+		}
+	}
+	
+	public void lastBirthdayMail() {
+		if(birthdayMessagesCount > 0) {
+			birthdayMessagesCount--;			
+			setBirthdayMessages(birthdayMessagesCount);
+		}
+	}
+	
+	public void resetBirthdayMail() {
+		setBirthdayMessages(birthdayMessagesCount);
 	}
 
 }

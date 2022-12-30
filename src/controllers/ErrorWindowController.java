@@ -1,6 +1,8 @@
 package controllers;
 
 import java.net.URL;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -32,26 +34,45 @@ public class ErrorWindowController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle bundle) {
 		Controller.setErrorWindowController(this);
-//		closeWindow();
+		closeWindow();
 	}
-
+	
+	/*Es werden die Fehlermeldungen ins Feld eigetragen*/
 	public void setErrorWindow(String errorMessage) {
 		errorWindowTextArea.appendText("" + errorMessage);
 	}
 
+	/*Abbruch der Fehlermeldung*/
 	public void cancelErrorInformation(ActionEvent event) {
 		controller.getMainController().errorManager.getErrorStage().close();
 		controller.getMainController().root.setDisable(false);
 	}
 
+	/*Zustimmung der Fehlermeldung*/
 	public void confirmErrorInformation(ActionEvent event) {
 		controller.getMainController().errorManager.getErrorStage().close();
 		controller.getMainController().root.setDisable(false);
-		controller.getMainController().addCustomer.confirmErrorPopUp = true;
-		System.out.println("Best‰tigt");
 		
+		if(!(controller.getMainController().managementErrorArea.getText() == "" || controller.getMainController().managementErrorArea.getText().isEmpty() 
+				|| controller.getMainController().managementErrorArea.getText().isBlank())) {
+			return;
+		}
+		else if(errorWindowTextArea.getText().contains("E-Mail") || errorWindowTextArea.getText().contains("Telefonnummer")) {
+			controller.getMainController().putInDatabase.putInDatabase(
+					controller.getMainController().firstNameField.getText(), 
+					controller.getMainController().lastNameField.getText(), 
+					controller.getMainController().datePickerManager.getBirthdayDatePickerValue(), 
+					controller.getMainController().emailField.getText(), 
+					controller.getMainController().telephoneField.getText(), 
+					controller.getMainController().degreeField.getText(), 
+					controller.getMainController().datePickerManager.getMeetingDayDatePickerValue(), 
+					controller.getMainController().genderBox.getValue());
+			controller.getMainController().errorManager.clearErrorMessagesArea();
+				
+		}		
 	}	
 
+	/*Schlieﬂung der Fehlermeldung*/
 	public void closeWindow() {
 		controller.getMainController().errorManager.getErrorStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent we) {
@@ -59,14 +80,6 @@ public class ErrorWindowController implements Initializable {
 				controller.getMainController().root.setDisable(false);
 			}
 		});
-		System.out.println("Das vorhaben wird abgebrochen!");
 	}
-
-	public boolean getErrorInformation() {
-		return errorInformation;
-	}
-	
-	
-	
 
 }

@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ErrorWindowController">
+<BorderPane fx:id="root" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ErrorWindowController">
    <top>
       <TextField alignment="CENTER" editable="false" style="-fx-text-fill: red;" text="Fehlermeldung" BorderPane.alignment="CENTER">
          <font>
@@ -19,7 +19,7 @@
    <center>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="errorWindowTextArea" HBox.hgrow="ALWAYS" />
+            <TextArea fx:id="errorWindowTextArea" editable="false" style="-fx-text-fill: red;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
    </center>
